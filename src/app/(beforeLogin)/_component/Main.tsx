@@ -14,11 +14,20 @@ export default function Main() {
           <h1>두려운 면접 질문.</h1>
           <h2>걱정은 그만, 여기서 시작.</h2>
         </div>
-        <div>
-          <h3>소셜 계정으로 간편하게 로그인하세요!</h3>
-          <Link href="/login" className={styles.login}>
-            로그인
-          </Link>
+        <div className={styles.rightFooter}>
+          <div>
+            <p>10초 만에 소셜 계정 로그인하기</p>
+            <Link href="/login" className={styles.baseLink}>
+              로그인
+            </Link>
+          </div>
+          <div className={styles.divider}></div> {/* 구분선 */}
+          <div>
+            <p>어떤 질문이 올라왔는 지 확인해보세요.</p>
+            <Link href="/home" className={styles.baseLink}>
+              둘러보기
+            </Link>
+          </div>
         </div>
       </div>
     </>

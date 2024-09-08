@@ -1,52 +1,65 @@
+@import "../../../styles/components";
+@import "../../../styles/colors";
+
 .container {
-  display: flex;
+  @include container;
   flex-direction: row;
-  background-color: rgb(var(--background-end-rgb));
-  width: 100dvw;
-  height: 100dvh;
 }
+
 .left {
-  flex: 1;
+  flex: 2; // 40%
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .right {
-  flex: 2;
+  flex: 3; // 60%
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* gap: 120px; */
-}
-.right h1 {
-  font-weight: bold;
-  font-size: 96px;
-  margin: 48px 0;
-}
-.right h2 {
-  font-weight: bold;
-  font-size: 60px;
-  margin-bottom: 32px;
-}
-.right h3 {
-  font-weight: bold;
-  font-size: 17px;
-  margin-bottom: 20px;
-  margin-top: 40px;
+  gap: 120px;
+
+  & h1 {
+    font-weight: bold;
+    font-size: 96px;
+    margin: 48px 0;
+  }
+  & h2 {
+    font-weight: bold;
+    font-size: 60px;
+    margin-bottom: 32px;
+  }
+  & p {
+    font-weight: bold;
+    font-size: 24px;
+  }
 }
 
-.login {
+.rightFooter {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+
+  & div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+}
+
+.divider {
+  width: 1px;
+  background-color: $layout;
+  height: 100%;
+}
+
+.baseLink {
+  @include baseLink;
   width: 300px;
   height: 40px;
   border-radius: 20px;
   padding: 0 16px;
-  font-size: 15px;
-  color: rgb(29, 155, 240);
-  border: 1px solid rgb(207, 217, 222);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.login:hover {
-  background-color: rgba(29, 155, 240, 0.1);
+  font-size: 16px;
 }

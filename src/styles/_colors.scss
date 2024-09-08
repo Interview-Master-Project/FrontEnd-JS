@@ -1,5 +1,5 @@
 /* color - light mode */
-$line: #eeeeee;
+$bg: #eeeeee;
 $theme-light: #cae5ff;
 $theme-base: #87dbff;
 $theme-dark: #309bff;
@@ -12,7 +12,7 @@ $layout: #636363;
 
 /* color - dark mode */
 @media (prefers-color-scheme: dark) {
-  $line: #eeeeee;
+  $bg: #000000;
   $theme-light: #309bff;
   $theme-base: #87dbff;
   $theme-dark: #cae5ff;
