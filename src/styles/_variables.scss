@@ -1,0 +1,25 @@
+/* color - light mode */
+$line: #eeeeee;
+$theme-light: #cae5ff;
+$theme-base: #87dbff;
+$theme-dark: #309bff;
+$cancel: #ffebeb;
+$warning: #ff9187;
+$danger: #ff0000;
+$ok: #caffe4;
+$success: #03c75b;
+$layout: #636363;
+
+/* color - dark mode */
+@media (prefers-color-scheme: dark) {
+  $line: #eeeeee;
+  $theme-light: #309bff;
+  $theme-base: #87dbff;
+  $theme-dark: #cae5ff;
+  $cancel: #ffebeb;
+  $warning: #ff9187;
+  $danger: #ff0000;
+  $ok: #caffe4;
+  $success: #03c75b;
+  $layout: #636363;
+}
