@@ -6,16 +6,12 @@
   height: 100dvh;
 }
 
-/* 기본 링크 버튼 */
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap");
-
 @mixin baseLink {
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: $theme-light;
   color: black;
-  font-family: "Noto Sans KR", system-ui;
   border: 1px solid #eee;
 
   &:hover {
