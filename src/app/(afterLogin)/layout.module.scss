@@ -1,0 +1,7 @@
+@import "../../styles/components";
+@import "../../styles/colors";
+
+.container {
+  @include container;
+  flex-direction: column;
+}
