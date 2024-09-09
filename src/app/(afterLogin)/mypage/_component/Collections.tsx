@@ -27,6 +27,18 @@ export default function Collections() {
       isPrivate: true,
       title: faker.lorem.words(3),
     },
+    {
+      id: 4,
+      image: faker.image.urlLoremFlickr(),
+      isPrivate: true,
+      title: faker.lorem.words(3),
+    },
+    {
+      id: 5,
+      image: faker.image.urlLoremFlickr(),
+      isPrivate: true,
+      title: faker.lorem.words(3),
+    },
   ];
 
   return (
@@ -43,18 +55,15 @@ export default function Collections() {
             className={styles.collection}
           >
             <div className={styles.collectionInfo}>
-              <Image
-                src={image}
-                alt={`컬렉션id:${id}`}
-                width={80}
-                height={80}
-              />
+              <Image src={image} alt={`컬렉션_${id}`} width={80} height={80} />
               <div>
-                <span>{isPrivate ? "private" : "public"}</span>
+                <div className={styles.collectionAccess}>
+                  <span>{isPrivate ? "Private" : "Public"}</span>
+                </div>
                 <h4>{title}</h4>
               </div>
             </div>
-            <FaChevronRight />
+            <FaChevronRight className={styles.rightIcon} />
           </Link>
         );
       })}

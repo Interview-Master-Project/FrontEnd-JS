@@ -12,7 +12,7 @@ export default function MyAccount() {
   // dummy data
   const user = {
     username: "유준상",
-    image: faker.image.urlLoremFlickr(),
+    image: faker.image.avatarGitHub(),
   };
 
   const handleDropdown = () => {

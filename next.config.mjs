@@ -16,6 +16,7 @@ const nextConfig = {
       "cloudflare-ipfs.com",
       "avatars.githubusercontent.com",
       "loremflickr.com",
+      "via.placeholder.com",
     ], // 허용할 도메인 목록을 지정
     remotePatterns: [
       {

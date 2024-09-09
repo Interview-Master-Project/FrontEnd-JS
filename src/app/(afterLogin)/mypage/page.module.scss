@@ -16,18 +16,3 @@
   height: 350px;
   gap: 30px;
 }
-
-.userLog {
-  flex: 2;
-  background-color: #fff;
-  border: 1px solid #eee;
-  border-radius: 20px;
-
-  position: relative;
-
-  & > h3 {
-    position: absolute;
-    top: -40px;
-    left: 0;
-  }
-}
