@@ -12,7 +12,11 @@ const nextConfig = {
     includePaths: [path.join(__dirname, "src", "styles")], // SCSS 전역 경로 설정
   },
   images: {
-    domains: ["cloudflare-ipfs.com", "avatars.githubusercontent.com"], // 허용할 도메인 목록을 지정
+    domains: [
+      "cloudflare-ipfs.com",
+      "avatars.githubusercontent.com",
+      "loremflickr.com",
+    ], // 허용할 도메인 목록을 지정
     remotePatterns: [
       {
         protocol: "https",
