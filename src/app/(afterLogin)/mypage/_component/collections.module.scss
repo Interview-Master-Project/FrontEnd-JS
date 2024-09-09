@@ -14,14 +14,31 @@
     top: -40px;
     left: 0;
   }
+}
 
-  & > a {
-    position: absolute;
-    top: -40px;
-    right: 0;
-    background-color: $ok;
-    border: 1px solid $layout;
-    border-radius: 5px;
-    padding: 0 20px;
+.createCollectionBtn {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background-color: $ok;
+  border: 1px solid $layout;
+  border-radius: 5px;
+  padding: 0 20px;
+}
+
+.collection {
+  height: 120px;
+  border-bottom: 1px solid $layout;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  & > div:first-child {
+    display: flex;
+    align-items: center;
   }
+}
+
+.collectionInfo {
+  gap: 10px;
 }
