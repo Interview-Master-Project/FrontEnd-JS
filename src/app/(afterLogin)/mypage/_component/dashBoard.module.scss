@@ -28,6 +28,19 @@
   }
 }
 
-.boardColored {
+// 잔디밭 3단계 색
+.boardNone {
+  background-color: transparent;
+}
+
+.boardLight {
+  background-color: $theme-light;
+}
+
+.boardBase {
   background-color: $theme-base;
+}
+
+.boardDark {
+  background-color: $theme-dark;
 }
