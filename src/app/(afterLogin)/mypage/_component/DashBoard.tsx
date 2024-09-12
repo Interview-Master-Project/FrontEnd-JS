@@ -1,6 +1,5 @@
 import styles from "./dashBoard.module.scss";
 import { checkBoard, calculateData } from "../_lib/calculateData";
-// import cx from "classnames";
 import clsx from "clsx";
 
 export default function DashBoard() {

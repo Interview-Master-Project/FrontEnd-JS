@@ -4,15 +4,28 @@ import { MdModeEdit } from "react-icons/md";
 import Image from "next/image";
 import { faker } from "@faker-js/faker";
 import styles from "./myAccount.module.scss";
+import { KakaoLogo, NaverLogo } from "../_lib/oAuthLogo";
 import { useState } from "react";
 
 export default function MyAccount() {
   const [editDropdown, setEditDropdown] = useState(false);
 
+  type User = {
+    id?: string;
+    email?: string;
+    nickname: string;
+    oAuthProvider: "KAKAO" | "NAVER";
+    isDeleted?: boolean;
+    createdAt?: string;
+    updatedAt?: string;
+    image: string;
+  };
+
   // dummy data
-  const user = {
-    username: "유준상",
+  const user: User = {
+    nickname: "유준상",
     image: faker.image.avatarGitHub(),
+    oAuthProvider: "KAKAO",
   };
 
   const handleDropdown = () => {
@@ -29,8 +42,12 @@ export default function MyAccount() {
           <div>회원탈퇴</div>
         </div>
       )}
-      <Image src={user.image} alt={user.username} width={144} height={144} />
-      <span>{user.username}</span>
+      <Image src={user.image} alt={user.nickname} width={144} height={144} />
+      <div className={styles.logo_name}>
+        {user.oAuthProvider === "KAKAO" && <KakaoLogo />}
+        {user.oAuthProvider === "NAVER" && <NaverLogo />}
+        <span>{user.nickname}</span>
+      </div>
     </div>
   );
 }
