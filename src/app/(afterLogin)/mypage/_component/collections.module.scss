@@ -9,21 +9,26 @@
 
   position: relative;
 
-  & > h3 {
+  & > section {
     position: absolute;
     top: -40px;
     left: 0;
   }
 }
 
+.tabFocused {
+  border-bottom: 5px solid $theme-dark;
+}
+
 .createCollectionBtn {
   position: absolute;
-  top: -40px;
+  top: -50px;
   right: 0;
   background-color: $ok;
   border: 1px solid $layout;
-  border-radius: 5px;
-  padding: 0 20px;
+  border-radius: 20px;
+  font-size: 20px;
+  padding: 5px 20px;
 }
 
 .collection {

@@ -5,8 +5,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { faker } from "@faker-js/faker";
 import { FaChevronRight } from "react-icons/fa";
+import TabMenu from "@/app/(afterLogin)/_component/TabMenu";
+import clsx from "clsx";
+import { useState } from "react";
 
 export default function Collections() {
+  const [tabMenu, setTabMenu] = useState("coll");
+
+  const handleTabClick = (selectTab: string) => setTabMenu(selectTab);
+
   // dummy data
   const collections = [
     {
@@ -43,7 +50,30 @@ export default function Collections() {
 
   return (
     <div className={styles.collections}>
-      <h3>내 컬렉션</h3>
+      <section>
+        <TabMenu>
+          <Link
+            href="/mypage?categories=coll"
+            className={clsx(
+              styles.tab,
+              tabMenu === "coll" && styles.tabFocused
+            )}
+            onClick={() => handleTabClick("coll")}
+          >
+            내 컬렉션
+          </Link>
+          <Link
+            href="/mypage?categories=hist"
+            className={clsx(
+              styles.tab,
+              tabMenu === "hist" && styles.tabFocused
+            )}
+            onClick={() => handleTabClick("hist")}
+          >
+            히스토리
+          </Link>
+        </TabMenu>
+      </section>
       <Link href="/mypage/newcoll" className={styles.createCollectionBtn}>
         + 새 컬렉션 추가
       </Link>

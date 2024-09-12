@@ -1,12 +1,13 @@
 "use client";
 
 import styles from "./header.module.scss";
-import { useSelectedLayoutSegment } from "next/navigation";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import logo from "../../../../public/logo.png";
-import cx from "classnames";
 import { faker } from "@faker-js/faker";
+import TabMenu from "./TabMenu";
+import clsx from "clsx";
+import { useSelectedLayoutSegment } from "next/navigation";
 
 export default function Header() {
   const segment = useSelectedLayoutSegment(); // 현재 url 위치
@@ -24,23 +25,26 @@ export default function Header() {
           <Image src={logo} alt="로고" />
           <h3>Logo</h3>
         </div>
-        <div className={styles.tabMenu}>
+        <TabMenu>
           <Link
             href="/home"
-            className={cx(styles.tab, segment === "home" && styles.tabFocused)}
+            className={clsx(
+              styles.tab,
+              segment === "home" && styles.tabFocused
+            )}
           >
             질문 리스트
           </Link>
           <Link
             href="/mypage"
-            className={cx(
+            className={clsx(
               styles.tab,
               segment === "mypage" && styles.tabFocused
             )}
           >
             마이 페이지
           </Link>
-        </div>
+        </TabMenu>
       </div>
       <div className={styles.headerRight}>
         <Image

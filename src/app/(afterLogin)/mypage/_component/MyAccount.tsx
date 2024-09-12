@@ -38,8 +38,8 @@ export default function MyAccount() {
       <MdModeEdit className={styles.profileEditBtn} onClick={handleDropdown} />
       {editDropdown && (
         <div className={styles.profileEditDropdown}>
-          <div>로그아웃</div>
-          <div>회원탈퇴</div>
+          <div className={styles.dropdownItem}>로그아웃</div>
+          <div className={styles.dropdownItem}>회원탈퇴</div>
         </div>
       )}
       <Image src={user.image} alt={user.nickname} width={144} height={144} />
