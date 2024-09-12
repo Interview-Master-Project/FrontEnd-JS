@@ -5,13 +5,12 @@ import Collections from "./_component/Collections";
 
 export default function Page() {
   return (
-    <main className={styles.main}>
-      <div className={styles.title}>마이페이지</div>
+    <>
       <div className={styles.userInfo}>
         <MyAccount />
         <DashBoard />
       </div>
       <Collections />
-    </main>
+    </>
   );
 }
