@@ -1,0 +1,22 @@
+@import "../../../../styles/colors";
+
+.infoWrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.listWrapper {
+  position: relative;
+}
+
+.createNewBtn {
+  position: absolute;
+  top: -50px;
+  right: 0;
+  background-color: $ok;
+  border: 1px solid $layout;
+  border-radius: 20px;
+  font-size: 20px;
+  padding: 5px 20px;
+}
