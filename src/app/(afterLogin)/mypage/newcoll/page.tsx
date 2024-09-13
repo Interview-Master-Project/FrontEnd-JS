@@ -2,17 +2,15 @@
 
 import styles from "./page.module.scss";
 import Container from "../../_component/Container";
-import { useRef, useState, ChangeEvent, FormEvent } from "react";
-import clsx from "clsx";
+import { useRef, useState, ChangeEvent } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import publicIcon from "../../../../../public/globe.png";
+import privateIcon from "../../../../../public/lock.png";
 
 export default function Page() {
-  const [image, setImage] = useState<string | null>(null);
+  const [image, setImage] = useState<string>("/default_image.png");
   const imageRef = useRef<HTMLInputElement>(null);
-
-  // const submit = (event: FormEvent) => {
-  //   // Form 제출 시 로직
-  //   event.preventDefault();
-  // };
 
   const handleInputClick = () => {
     imageRef?.current?.click();
@@ -68,15 +66,59 @@ export default function Page() {
       </Container>
       <Container title="공개 범위 여부">
         <div className={styles.accessZone}>
-          <div>
-            <input type="checkbox" />
-            <span>Public</span>
+          <div className={styles.accessItem}>
+            <input
+              type="radio"
+              id="access"
+              name="access"
+              className={styles.radioButton}
+              defaultChecked
+            />
+            <label htmlFor="public">
+              <div className={styles.labelContent}>
+                <Image
+                  src={publicIcon}
+                  alt="PUBLIC"
+                  width={36}
+                  height={36}
+                  className={styles.icon}
+                />
+                <div>
+                  <strong>Public</strong>
+                  <p>해당 컬렉션이 모든 유저에게 노출됩니다.</p>
+                </div>
+              </div>
+            </label>
           </div>
-          <div>
-            <input type="checkbox" />
-            <span>Private</span>
+
+          <div className={styles.accessItem}>
+            <input
+              type="radio"
+              id="private"
+              name="access"
+              className={styles.radioButton}
+            />
+            <label htmlFor="private">
+              <div className={styles.labelContent}>
+                <Image
+                  src={privateIcon}
+                  alt="PRIVATE"
+                  width={36}
+                  height={36}
+                  className={styles.icon}
+                />
+                <div>
+                  <strong>Private</strong>
+                  <p>해당 컬렉션은 나 자신만 볼 수 있습니다.</p>
+                </div>
+              </div>
+            </label>
           </div>
         </div>
+      </Container>
+      <Container title="컬렉션 추가">
+        <Link href="/mypage/newcoll/cancel">취소</Link>
+        <button>저장 및 추가</button>
       </Container>
     </form>
   );

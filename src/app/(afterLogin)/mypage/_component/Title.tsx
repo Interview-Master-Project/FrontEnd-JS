@@ -11,6 +11,10 @@ export default function Title() {
     title = "새 컬렉션 추가";
   } else if (pathname === "/mypage/newquiz") {
     title = "새 질문 추가";
+  } else if (pathname === "/mypage") {
+    title = "마이페이지";
+  } else {
+    title = "";
   }
 
   return <>{title}</>;
