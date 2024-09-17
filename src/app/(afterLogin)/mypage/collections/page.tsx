@@ -77,8 +77,18 @@ export default function Page() {
           />
           {collDropdown && (
             <div className={styles.collEditDropdown}>
-              <div className={styles.dropdownItem}>수정</div>
-              <div className={styles.dropdownItem}>삭제</div>
+              <Link
+                href="/mypage/collections/edit"
+                className={styles.dropdownItem}
+              >
+                수정
+              </Link>
+              <Link
+                href="/mypage/collections/delete"
+                className={styles.dropdownItem}
+              >
+                삭제
+              </Link>
             </div>
           )}
           <Image
