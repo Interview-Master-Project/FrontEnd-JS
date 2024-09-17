@@ -3,7 +3,62 @@
 .infoWrapper {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 20px;
+
+  position: relative;
+}
+
+.infoEditBtn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 36px;
+  height: 36px;
+  fill: rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+}
+
+.collEditDropdown {
+  position: absolute;
+  top: -100px;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  width: 120px;
+  z-index: 1000;
+}
+
+.dropdownItem {
+  padding: 10px;
+  color: #333;
+  font-size: 14px;
+  cursor: pointer;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: center;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:nth-child(2) {
+    color: $warning;
+  }
+}
+
+.collectionAccess {
+  & > div {
+    width: fit-content;
+    border: 1px solid #636363;
+    padding: 5px 10px;
+    border-radius: 20px;
+  }
 }
 
 .listWrapper {
@@ -19,4 +74,8 @@
   border-radius: 20px;
   font-size: 20px;
   padding: 5px 20px;
+}
+
+.quizWrapper {
+  border-bottom: 1px solid #636363;
 }
