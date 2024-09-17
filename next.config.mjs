@@ -12,25 +12,31 @@ const nextConfig = {
     includePaths: [path.join(__dirname, "src", "styles")], // SCSS 전역 경로 설정
   },
   images: {
-    domains: [
-      "cloudflare-ipfs.com",
-      "avatars.githubusercontent.com",
-      "loremflickr.com",
-      "via.placeholder.com",
-    ], // 허용할 도메인 목록을 지정
     remotePatterns: [
       {
         protocol: "https",
         hostname: "cloudflare-ipfs.com",
         port: "",
-        pathname:
-          "/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/",
       },
       {
         protocol: "https",
         hostname: "avatars.githubusercontent.com",
         port: "",
-        pathname: "/u/",
+      },
+      {
+        protocol: "https",
+        hostname: "loremflickr.com",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "via.placholder.com",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "kr.object.ncloudstorage.com",
+        port: "",
       },
     ],
   },

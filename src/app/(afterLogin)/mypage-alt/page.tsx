@@ -21,7 +21,6 @@ const USER_QUERY = gql`
           id
           name
           access
-          imgUrl
         }
         totalCount
         hasNext
@@ -38,18 +37,21 @@ const USER_QUERY = gql`
 
 export default async function Page() {
   const client = getClient();
-  const ourCookies = cookies();
+  const cookie = cookies();
+  const token = cookie.get("authorization-token")?.value;
 
-  // let token = ourCookies.get("authorization-token")!.value;
+  console.log(token, "페이지");
 
-  // let tokenParsed = JSON.parse(token);
+  if (!token) {
+    return <div>로그인이 필요합니다.</div>;
+  }
 
   const { data } = await client.query({
     query: USER_QUERY,
     context: {
-      // headers: {
-      //   Authorization: `Bearer ${tokenParsed}`,
-      // },
+      headers: {
+        Authorization: `Bearer ${cookie}`,
+      },
     },
   });
 

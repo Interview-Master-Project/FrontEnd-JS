@@ -1,58 +1,80 @@
+@import "../../../../styles/colors";
+@import "../../../../styles/components";
+
 .form {
   display: flex;
   flex-direction: column;
-  gap: 60px;
+  gap: 100px;
 }
 
-.infoColl {
+.imgTitleSection {
   display: flex;
-  // flex-direction: column;
   align-items: center;
   gap: 20px;
 }
 
-.imagePreview {
-  width: 80px;
-  height: 80px;
-  border: 2px solid #dddddd;
+.imgSection {
   display: flex;
-  justify-content: center;
+  flex-direction: column-reverse;
   align-items: center;
+  gap: 10px;
+
+  & > label {
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 1px solid $success;
+    border-radius: 20px;
+    color: $success;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
+
+.resetImageBtn {
+  padding: 5px 10px;
+  border: 1px solid $warning;
+  border-radius: 20px;
+  color: $warning;
+  background-color: #fff;
   cursor: pointer;
+  font-weight: bold;
 
-  & > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  &:hover {
+    opacity: 0.7;
   }
 
-  & > span {
-    font-size: 16px;
-    color: #ccc;
+  &__hidden {
+    visibility: hidden;
   }
-}
-
-.initImg {
-  display: none;
-}
-
-.attachImg {
-  display: block;
 }
 
 .titleInput {
   width: 500px;
+  padding: 0 5px;
   background-color: #d9d9d9;
   line-height: 40px;
+  font-family: "Malgun Gothic";
   font-size: 20px;
   border: none;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .description {
   width: 100%;
   height: 115px;
+  padding: 0 5px;
   background-color: #d9d9d9;
   font-size: 20px;
+  font-family: "Malgun Gothic";
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .accessZone {
@@ -90,4 +112,19 @@
   margin: 0;
   color: gray;
   font-size: 0.875rem;
+}
+
+.cancelSaveSection {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+
+  & > a {
+    &:first-child {
+      @include button($warning, #fff, $warning);
+    }
+    &:last-child {
+      @include button($success, #fff, $success);
+    }
+  }
 }

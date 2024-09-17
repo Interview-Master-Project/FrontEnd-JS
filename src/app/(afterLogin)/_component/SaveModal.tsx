@@ -1,12 +1,12 @@
 "use client";
 
-import styles from "./cancelModal.module.scss";
+import styles from "./saveModal.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "../../../../public/logo.png";
 import { useRouter } from "next/navigation";
 
-export default function CancelModal() {
+export default function SaveModal() {
   const router = useRouter();
 
   const onClickClose = () => {
@@ -30,16 +30,11 @@ export default function CancelModal() {
             </svg>
           </button>
           <Image src={logo} alt="로고" className={styles.logo} />
-          <h1>
-            저장되지 않은 변경사항이 있습니다.
-            <br />
-            변경하지 않은 채로 나가시겠습니까?
-          </h1>
-          <p>작성한 사항은 모두 삭제됩니다.</p>
+          <h1>이 컬렉션을 추가하시겠습니까?</h1>
         </div>
         <div className={styles.modalBody}>
           <button onClick={onClickClose}>취소</button>
-          <Link href="/mypage">나가기</Link>
+          <Link href="/mypage">저장</Link>
         </div>
       </div>
     </div>

@@ -72,6 +72,7 @@ export default function Collections() {
           >
             히스토리
           </Link>
+          <Link href="/mypage-alt">테스트 MyPage</Link>
         </TabMenu>
       </section>
       <Link href="/mypage/newcoll" className={styles.createCollectionBtn}>
