@@ -2,6 +2,7 @@
 
 import { MdModeEdit } from "react-icons/md";
 import Image from "next/image";
+import Link from "next/link";
 import { faker } from "@faker-js/faker";
 import styles from "./myAccount.module.scss";
 import { KakaoLogo, NaverLogo } from "../_lib/oAuthLogo";
@@ -38,8 +39,12 @@ export default function MyAccount() {
       <MdModeEdit className={styles.profileEditBtn} onClick={handleDropdown} />
       {editDropdown && (
         <div className={styles.profileEditDropdown}>
-          <div className={styles.dropdownItem}>로그아웃</div>
-          <div className={styles.dropdownItem}>회원탈퇴</div>
+          <Link href="/mypage/logout" className={styles.dropdownItem}>
+            로그아웃
+          </Link>
+          <Link href="/" className={styles.dropdownItem}>
+            회원탈퇴
+          </Link>
         </div>
       )}
       <Image src={user.image} alt={user.nickname} width={144} height={144} />
