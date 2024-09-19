@@ -9,6 +9,7 @@ import publicIcon from "../../../../../public/globe.png";
 import privateIcon from "../../../../../public/lock.png";
 import TextAreaAutoSize from "react-textarea-autosize";
 import clsx from "clsx";
+import SelectCategories from "../../_component/SelectCategories";
 
 export default function Page() {
   const [previewImage, setPreviewImage] =
@@ -160,6 +161,7 @@ export default function Page() {
           </div>
         </div>
       </Container>
+      <SelectCategories titleOp />
       <Container title="컬렉션 추가">
         <div className={styles.cancelSaveSection}>
           <Link href="/mypage/newcoll/cancel">취소</Link>
