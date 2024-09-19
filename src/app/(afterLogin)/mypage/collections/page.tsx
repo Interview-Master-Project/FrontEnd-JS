@@ -77,10 +77,7 @@ export default function Page() {
           />
           {collDropdown && (
             <div className={styles.collEditDropdown}>
-              <Link
-                href="/mypage/collections/edit"
-                className={styles.dropdownItem}
-              >
+              <Link href="/mypage/collections" className={styles.dropdownItem}>
                 수정
               </Link>
               <Link
