@@ -62,7 +62,7 @@ export default function SelectCategories({ titleOp }: Props) {
             {CATEGORIES_DATA.map((item: Categories, index: number) => {
               return (
                 <li key={index} className={styles.listItem}>
-                  <input type="checkbox" />
+                  <input type="checkbox" name={item.name} />
                   <span>{item.name}</span>
                 </li>
               );
