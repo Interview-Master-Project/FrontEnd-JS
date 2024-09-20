@@ -7,7 +7,7 @@ import { ReactNode } from "react";
 type Props = {
   title: string;
   subtitle?: string;
-  description?: string;
+  description?: string | ReactNode;
   children: ReactNode; // Link, button 요소
 };
 

@@ -42,7 +42,7 @@ export default function MyAccount() {
           <Link href="/mypage/logout" className={styles.dropdownItem}>
             로그아웃
           </Link>
-          <Link href="/" className={styles.dropdownItem}>
+          <Link href="/mypage/delete-account" className={styles.dropdownItem}>
             회원탈퇴
           </Link>
         </div>
