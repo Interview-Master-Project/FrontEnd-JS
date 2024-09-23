@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Sans_KR } from "next/font/google";
 import "@/styles/globals.scss";
 import styles from "@/app/(beforeLogin)/_component/main.module.scss";
-import { ApolloWrapper } from "@/lib/apolloWrapper";
+import { ApolloWrapper } from "@/graphql/apolloWrapper";
 
 const notoSansKr = Noto_Sans_KR({
   weight: ["400"],
