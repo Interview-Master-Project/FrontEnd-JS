@@ -1,0 +1,36 @@
+.accessZone {
+  display: flex;
+  flex-direction: column;
+}
+
+.accessItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.radioButton {
+  margin-right: 10px;
+}
+
+.labelContent {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.labelContent strong {
+  font-size: 1rem;
+}
+
+.labelContent p {
+  margin: 0;
+  color: gray;
+  font-size: 0.875rem;
+}

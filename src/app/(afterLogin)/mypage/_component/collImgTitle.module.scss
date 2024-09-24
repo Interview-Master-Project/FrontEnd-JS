@@ -1,0 +1,58 @@
+@import "../../../../styles/colors";
+
+.imgTitleSection {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.imgSection {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 10px;
+
+  & > label {
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 1px solid $success;
+    border-radius: 20px;
+    color: $success;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
+
+.resetImageBtn {
+  padding: 5px 10px;
+  border: 1px solid $warning;
+  border-radius: 20px;
+  color: $warning;
+  background-color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &__hidden {
+    visibility: hidden;
+  }
+}
+
+.titleInput {
+  width: 500px;
+  padding: 0 5px;
+  background-color: #d9d9d9;
+  line-height: 40px;
+  font-family: "Malgun Gothic";
+  font-size: 20px;
+  border: none;
+
+  &:focus {
+    outline: none;
+  }
+}
