@@ -8,7 +8,7 @@ type Props = { id: number };
 
 export default function CollDescription({ id }: Props) {
   useEffect(() => {
-    if (id === 1) {
+    if (id <= 5) {
       setDescription(
         "백엔드 필수 언어인 Java 언어에 대한 면접 질문을 풀어봅시다."
       );

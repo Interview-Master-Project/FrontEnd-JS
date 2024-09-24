@@ -1,0 +1,23 @@
+@import "../../../../styles/colors";
+@import "../../../../styles/components";
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+}
+
+.cancelSaveSection {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+
+  & > a {
+    &:first-child {
+      @include button($warning, #fff, $warning);
+    }
+    &:last-child {
+      @include button($success, #fff, $success);
+    }
+  }
+}

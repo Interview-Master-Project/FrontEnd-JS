@@ -22,7 +22,7 @@ export default function CollImgTitle({ id }: Props) {
   const [isValidTitle, setIsValidTitle] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (id === 1) {
+    if (id <= 5) {
       setPreviewImage("/logo.png");
       setEnteredTitle("Java 객체지향 면접 질문");
     }

@@ -17,7 +17,7 @@ export default function CollAccess({ id }: Props) {
   };
 
   useEffect(() => {
-    if (id === 1) {
+    if (id <= 5) {
       setIsPublic(false);
     }
   }, [id]);
