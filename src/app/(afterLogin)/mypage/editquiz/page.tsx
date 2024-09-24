@@ -1,10 +1,10 @@
 "use client";
 
-import styles from "./page.module.scss";
-import Container from "@/app/(afterLogin)/_component/Container";
-import TextAreaAutoSize from "react-textarea-autosize";
-import Link from "next/link";
+import Container from "../../_component/Container";
 import QuizTitleSection from "../_component/QuizTitleSection";
+import Link from "next/link";
+import styles from "./page.module.scss";
+import QuizDescription from "../_component/QuizDescription";
 
 export default function Page() {
   return (
@@ -13,12 +13,7 @@ export default function Page() {
         <QuizTitleSection />
       </Container>
       <Container title="답변 보기 설명">
-        <TextAreaAutoSize
-          id="description"
-          name="description"
-          className={styles.description}
-          placeholder="질문에 대한 답변을 적어주세요."
-        ></TextAreaAutoSize>
+        <QuizDescription />
       </Container>
       <Container title="질문 추가">
         <div className={styles.cancelSaveSection}>
