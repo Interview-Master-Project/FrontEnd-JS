@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { faker } from "@faker-js/faker";
 import { FaChevronRight } from "react-icons/fa";
-import TabMenu from "@/app/(afterLogin)/_component/TabMenu";
+import TabMenu from "@/app/(afterLogin)/_component/header/TabMenu";
 import clsx from "clsx";
 import { useState } from "react";
 
