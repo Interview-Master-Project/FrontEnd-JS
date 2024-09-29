@@ -1,4 +1,4 @@
-@import "../../../styles/colors";
+@import "../../../../styles/colors";
 
 .header {
   width: 100%;
@@ -31,21 +31,4 @@
 // tabMenu 스타일링
 .tabFocused {
   border-bottom: 5px solid $theme-dark;
-}
-
-.headerRight {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  line-height: 80px;
-
-  & > span {
-    font-size: 20px;
-  }
-}
-
-.userImg {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
 }

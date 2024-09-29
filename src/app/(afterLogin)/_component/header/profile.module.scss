@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 80px;
+
+  & > span {
+    font-size: 20px;
+  }
+
+  &:hover {
+    opacity: 0.7;
+    cursor: pointer;
+  }
+}
+
+.userImg {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #eee;
+}
