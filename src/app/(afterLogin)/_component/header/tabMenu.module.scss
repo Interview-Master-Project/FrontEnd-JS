@@ -2,7 +2,6 @@
 
 .tabMenu {
   display: flex;
-  display: block;
   justify-content: center;
   align-items: center;
 
@@ -11,7 +10,7 @@
   }
 }
 
-// tabMenu 스타일링
+// 현재 경로에 해당할 때
 .tabFocused {
   border-bottom: 3px solid $theme-dark;
 }

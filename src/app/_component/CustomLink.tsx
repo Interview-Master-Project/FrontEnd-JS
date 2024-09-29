@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { memo } from "react";
 import clsx from "clsx";
 import styles from "./customLink.module.scss";
 
@@ -21,7 +20,7 @@ type Props = {
  * classname: 부가적인 스타일
  * children: 내부 컨텐츠
  */
-export default memo(function CustomLink({
+export default function CustomLink({
   to,
   color = "base",
   variant = "contained",
@@ -38,4 +37,4 @@ export default memo(function CustomLink({
       {label}
     </Link>
   );
-});
+}

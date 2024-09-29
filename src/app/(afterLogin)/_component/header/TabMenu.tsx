@@ -10,7 +10,7 @@ interface Props extends PropsWithChildren {
   to: string;
 }
 
-export default function TabMenu({ to, children }: Props) {
+export default function TabMenu({ to = "/", children }: Props) {
   const segment = useSelectedLayoutSegment();
 
   return (
