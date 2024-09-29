@@ -1,0 +1,40 @@
+@import "../../styles/components";
+@import "../../styles/colors";
+
+.link {
+  @include Link;
+}
+
+.contained {
+  color: white;
+
+  &_base {
+    background-color: $theme-base;
+    border: 1px solid $theme-base;
+  }
+  &_green {
+    background-color: $success;
+    border: 1px solid $success;
+  }
+  &_red {
+    background-color: $danger;
+    border: 1px solid $danger;
+  }
+}
+
+.variant {
+  color: black;
+
+  &_base {
+    background-color: $theme-base;
+    border: 1px solid $theme-base;
+  }
+  &_green {
+    background-color: $success;
+    border: 1px solid $success;
+  }
+  &_red {
+    background-color: $danger;
+    border: 1px solid $danger;
+  }
+}
