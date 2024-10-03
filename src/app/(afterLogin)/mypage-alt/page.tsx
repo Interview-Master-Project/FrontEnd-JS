@@ -22,11 +22,10 @@ export default async function Page() {
   return (
     <>
       <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-        {data?.userAttemptedCollections.collections.map(
-          ({ id, name, access, imgUrl }: any) => (
+        {data?.userCollectionHistory.collections.map(
+          ({ id, name, imgUrl }: any) => (
             <div key={id} style={{ display: "flex", gap: 20 }}>
               <span>{name}</span>
-              <span>{access}</span>
               <span>{imgUrl}</span>
               <img src={imgUrl} alt="" />
             </div>
