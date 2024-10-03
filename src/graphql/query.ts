@@ -27,6 +27,24 @@ export const GET_QUIZ_GARDEN = gql`
   }
 `;
 
+// 유저의 컬렉션 목록
+/**
+ * (Arguments) offset
+ * (Arguments) pageSize
+ */
+export const USER_COLLECTION = gql`
+  query MyQuery($offset: Int, $pageSize: Int) {
+    userCollection(paging: { offset: $offset, pageSize: $pageSize }) {
+      collections {
+        id
+        imgUrl
+        access
+        name
+      }
+    }
+  }
+`;
+
 // not login required
 export const ALL_CATEGORIES = gql`
   query MyQuery {

@@ -27,8 +27,6 @@ export default async function DashBoard() {
     },
   });
 
-  console.log(data);
-
   // const data = calculateData(); // dummy data 생성
   const maxCount = Math.max(
     ...data?.getQuizGarden?.map((log) => log.quizzesSolved, 0)

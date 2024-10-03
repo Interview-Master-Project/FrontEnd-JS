@@ -38,6 +38,16 @@ const nextConfig = {
         hostname: "kr.object.ncloudstorage.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "interview-bucket.kr.object.ncloudstorage.com",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "drive.google.com",
+        port: "",
+      },
     ],
   },
 };
