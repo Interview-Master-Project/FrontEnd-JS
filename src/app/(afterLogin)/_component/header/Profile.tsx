@@ -2,22 +2,12 @@
 
 import Image from "next/image";
 import { faker } from "@faker-js/faker";
+import { useQuery } from "@apollo/client";
+import { ME } from "@/graphql/query";
 import styles from "./profile.module.scss";
-import { useQuery } from "@tanstack/react-query";
-import { IUser } from "./Header";
-// import { fetchUser } from "./Header";
 
 export default function Profile() {
-  // const { data } = useQuery<IUser>({
-  //   queryKey: ["user"],
-  //   queryFn: fetchUser,
-  // });
-
-  const data = {
-    id: "1",
-    nickname: "유준상",
-    OAuthProvider: "KAKAO",
-  };
+  const { data } = useQuery(ME);
 
   const user = {
     ...data,
@@ -32,13 +22,13 @@ export default function Profile() {
   return (
     <div className={styles.container} onClick={handleClick}>
       <Image
-        src={user.image as string}
-        alt={user.nickname as string}
+        src={user.image}
+        alt={data?.me?.nickname}
         width={36}
         height={36}
         className={styles.userImg}
       />
-      <span>{user.nickname}</span>
+      <span>{data?.me?.nickname}</span>
     </div>
   );
 }
