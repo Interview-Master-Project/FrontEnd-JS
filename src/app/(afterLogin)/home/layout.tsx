@@ -1,4 +1,6 @@
 import { CiSearch as SearchIcon } from "react-icons/ci";
+import { HiOutlineSquares2X2 as CardSwitchIcon } from "react-icons/hi2";
+import { HiMenu as ListSwitchIcon } from "react-icons/hi";
 import { TextInput } from "@/app/_component/TextInput";
 import FilterBox from "./_component/FilterBox";
 import styles from "./layout.module.scss";
@@ -23,6 +25,20 @@ export default function Layout({ children }: React.PropsWithChildren) {
             <FilterBox></FilterBox>
           </fieldset>
         </form>
+      </div>
+      <div>
+        <div className={styles.contentsHeader}>
+          <div>
+            <span>필터</span>
+            <div>필터1</div>
+            <div>필터2</div>
+          </div>
+          <div className={styles.rightHeaderSection}>
+            <CardSwitchIcon />
+            <ListSwitchIcon />
+            <div>드롭다운</div>
+          </div>
+        </div>
       </div>
       {children}
     </>
