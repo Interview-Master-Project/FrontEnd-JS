@@ -1,5 +1,3 @@
-"use client";
-
 import styles from "./page.module.scss";
 import Container from "../../_component/Container";
 import Link from "next/link";

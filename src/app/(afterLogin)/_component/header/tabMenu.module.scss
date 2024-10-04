@@ -1,16 +1,49 @@
 @import "../../../../styles/colors";
 
+.tabWrapper {
+  position: relative;
+}
+
 .tabMenu {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 20px;
 
-  &:hover {
-    color: $theme-dark;
-  }
+  cursor: pointer;
 }
 
 // 현재 경로에 해당할 때
 .tabFocused {
   border-bottom: 3px solid $theme-dark;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 5px;
+  display: none;
+  font-size: 14px;
+
+  &Hidden {
+    display: none;
+  }
+
+  &Show {
+    display: block;
+  }
+}
+
+.dropdownItem {
+  padding: 5px;
+  color: black;
+  text-decoration: none;
+
+  &:hover {
+    opacity: 0.7;
+    background-color: #eee;
+  }
 }

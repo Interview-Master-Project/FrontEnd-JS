@@ -7,7 +7,7 @@ export default function Page() {
     <div className={styles.searchWall}>
       <form className={styles.searchWindow}>
         <fieldset className={styles.searchZone}>
-          <legend>컬렉션 탐색</legend>
+          <legend>컬렉션 검색</legend>
           <TextInput
             id="search"
             className={styles.searchInput}
