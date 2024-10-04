@@ -26,7 +26,6 @@ export interface IUserCollections {
 
 export default function Collections() {
   const { data } = useQuery<IUserCollections | undefined>(MY_COLLECTIONS);
-  console.log(data?.myCollections?.collections);
 
   const [tabMenu, setTabMenu] = useState("coll");
 

@@ -1,12 +1,13 @@
 import { CiSearch as SearchIcon } from "react-icons/ci";
 import { TextInput } from "@/app/_component/TextInput";
+import FilterBox from "./_component/FilterBox";
 import styles from "./layout.module.scss";
 
 export default function Layout({ children }: React.PropsWithChildren) {
   return (
     <>
       <div className={styles.searchWall}>
-        <form className={styles.searchWindow}>
+        <form>
           <fieldset className={styles.searchZone}>
             <legend>컬렉션 검색</legend>
             <TextInput className={styles.searchInput}>
@@ -17,29 +18,9 @@ export default function Layout({ children }: React.PropsWithChildren) {
                 name="search"
                 placeholder="검색어를 입력하세요."
               />
-              <TextInput.Button className={styles.searchButton}>
-                검색
-              </TextInput.Button>
+              <TextInput.Button type="submit">검색</TextInput.Button>
             </TextInput>
-            <label htmlFor="categories1">카테고리1</label>
-            <input
-              id="categories1"
-              name="categories1"
-              type="checkbox"
-              value="카테고리1"
-            />
-            <label htmlFor="categories2">카테고리2</label>
-            <input
-              id="categories2"
-              name="categories2"
-              type="checkbox"
-              value="카테고리2"
-            />
-            <label htmlFor="advanced">고급 질의</label>
-            <select name="advanced" id="advanced">
-              <option value="정답률 30% 이하만">정답률 30% 이하만</option>
-              <option value="정답률 30% 이하만">정답률 50% 이하만</option>
-            </select>
+            <FilterBox></FilterBox>
           </fieldset>
         </form>
       </div>
