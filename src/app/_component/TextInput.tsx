@@ -1,45 +1,38 @@
 import {
   ButtonHTMLAttributes,
-  HTMLAttributes,
+  ComponentProps,
   InputHTMLAttributes,
   PropsWithChildren,
 } from "react";
-import styles from "./textInput.module.scss";
 import clsx from "clsx";
+import styles from "./textInput.module.scss";
 
-function TextInputMain({
-  id,
-  className,
-  children,
-  ...rest
-}: InputHTMLAttributes<HTMLInputElement>) {
-  return (
-    <label htmlFor={id}>
-      {children}
-      <input
-        type="text"
-        id={id}
-        name={id}
-        className={clsx(styles.input, className)}
-        {...rest}
-      />
-    </label>
-  );
+function TextInputWrapper({ children, className }: ComponentProps<"div">) {
+  return <div className={clsx(className, styles.wrapper)}>{children}</div>;
+}
+
+function Input({ name, ...rest }: InputHTMLAttributes<HTMLInputElement>) {
+  return <input type="text" className={styles.input} {...rest} />;
+}
+
+function Icon({ children }: PropsWithChildren) {
+  return <div className={styles.icon}>{children}</div>;
 }
 
 function Button({
   className,
   children,
+  ...rest
 }: ButtonHTMLAttributes<HTMLButtonElement>) {
-  return <button className={clsx(styles.button, className)}>{children}</button>;
+  return (
+    <button {...rest} className={clsx(styles.button, className)}>
+      {children}
+    </button>
+  );
 }
 
-function Icon({ className, children }: HTMLAttributes<HTMLDivElement>) {
-  return <div className={clsx(styles.icon, className)}>{children}</div>;
-}
-
-// 버튼과 아이콘 합성
-export const TextInput = Object.assign(TextInputMain, {
-  Button,
+export const TextInput = Object.assign(TextInputWrapper, {
+  Input,
   Icon,
+  Button,
 });

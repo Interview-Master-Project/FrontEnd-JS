@@ -32,14 +32,32 @@ export const GET_QUIZ_GARDEN = gql`
  * (Arguments) offset
  * (Arguments) pageSize
  */
-export const USER_COLLECTION = gql`
-  query MyQuery($offset: Int, $pageSize: Int) {
-    userCollection(paging: { offset: $offset, pageSize: $pageSize }) {
+export const MY_COLLECTIONS = gql`
+  query MyQuery {
+    myCollections(paging: { offset: 0, pageSize: 5 }, sort: LATEST) {
       collections {
         id
+        access
+        imgUrl
+        name
+      }
+    }
+  }
+`;
+
+// 유저의 히스토리 목록
+/**
+ * (Arguments) offset
+ * (Arguments) pageSize
+ */
+export const MY_HISTORY = gql`
+  query MyQuery {
+    myHistory(filter: PUBLIC, paging: { offset: 0, pageSize: 5 }) {
+      collections {
+        id
+        name
         imgUrl
         access
-        name
       }
     }
   }

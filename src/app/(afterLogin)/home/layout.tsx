@@ -9,14 +9,14 @@ export default function Layout({ children }: React.PropsWithChildren) {
         <form className={styles.searchWindow}>
           <fieldset className={styles.searchZone}>
             <legend>컬렉션 검색</legend>
-            <TextInput
-              id="search"
-              className={styles.searchInput}
-              placeholder="검색어 입력 (컬렉션 이름이나 컬렉션 설명으로 검색할 수 있어요)"
-            >
-              <TextInput.Icon className={styles.searchIcon}>
+            <TextInput className={styles.searchInput}>
+              <TextInput.Icon>
                 <SearchIcon />
               </TextInput.Icon>
+              <TextInput.Input
+                name="search"
+                placeholder="검색어를 입력하세요."
+              />
               <TextInput.Button className={styles.searchButton}>
                 검색
               </TextInput.Button>

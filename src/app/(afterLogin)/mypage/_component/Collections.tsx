@@ -2,12 +2,11 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { faker } from "@faker-js/faker";
 import { FaChevronRight } from "react-icons/fa";
 import clsx from "clsx";
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
-import { USER_COLLECTION } from "@/graphql/query";
+import { MY_COLLECTIONS } from "@/graphql/query";
 import styles from "./collections.module.scss";
 
 export interface ICollection {
@@ -22,55 +21,16 @@ export interface ICollections {
 }
 
 export interface IUserCollections {
-  userCollection: ICollections;
+  myCollections: ICollections;
 }
 
 export default function Collections() {
-  const { data } = useQuery<IUserCollections | undefined>(USER_COLLECTION, {
-    variables: {
-      offset: 0,
-      pageSize: 5,
-    },
-  });
-  // console.log(data?.userCollection?.collections[0]);
+  const { data } = useQuery<IUserCollections | undefined>(MY_COLLECTIONS);
+  console.log(data?.myCollections?.collections);
 
   const [tabMenu, setTabMenu] = useState("coll");
 
   const handleTabClick = (selectTab: string) => setTabMenu(selectTab);
-
-  // // dummy data
-  // const collections = [
-  //   {
-  //     id: 1,
-  //     image: faker.image.urlLoremFlickr(),
-  //     isPrivate: true,
-  //     title: faker.lorem.words(3),
-  //   },
-  //   {
-  //     id: 2,
-  //     image: faker.image.urlLoremFlickr(),
-  //     isPrivate: true,
-  //     title: faker.lorem.words(3),
-  //   },
-  //   {
-  //     id: 3,
-  //     image: faker.image.urlLoremFlickr(),
-  //     isPrivate: true,
-  //     title: faker.lorem.words(3),
-  //   },
-  //   {
-  //     id: 4,
-  //     image: faker.image.urlLoremFlickr(),
-  //     isPrivate: true,
-  //     title: faker.lorem.words(3),
-  //   },
-  //   {
-  //     id: 5,
-  //     image: faker.image.urlLoremFlickr(),
-  //     isPrivate: true,
-  //     title: faker.lorem.words(3),
-  //   },
-  // ];
 
   return (
     <div className={styles.collections}>
@@ -93,40 +53,38 @@ export default function Collections() {
       <Link href="/mypage/newcoll" className={styles.createCollectionBtn}>
         + 새 컬렉션 추가
       </Link>
-      {data?.userCollection?.collections?.map(
-        ({ id, imgUrl, access, name }) => {
-          // Google Drive 이미지 링크를 변환
-          const modifiedImgUrl = imgUrl.includes("drive.google.com")
-            ? imgUrl
-                .replace("/view?usp=sharing", "")
-                .replace("file/d/", "uc?export=view&id=")
-            : imgUrl;
+      {data?.myCollections?.collections?.map(({ id, imgUrl, access, name }) => {
+        // Google Drive 이미지 링크를 변환
+        const modifiedImgUrl = imgUrl.includes("drive.google.com")
+          ? imgUrl
+              .replace("/view?usp=sharing", "")
+              .replace("file/d/", "uc?export=view&id=")
+          : imgUrl;
 
-          return (
-            <Link
-              href={`/mypage/collections?id=${id}`}
-              key={id}
-              className={styles.collection}
-            >
-              <div className={styles.collectionInfo}>
-                <Image
-                  src={modifiedImgUrl}
-                  alt={`컬렉션_${id}`}
-                  width={80}
-                  height={80}
-                />
-                <div>
-                  <div className={styles.collectionAccess}>
-                    <span>{access === "PRIVATE" ? "Private" : "Public"}</span>
-                  </div>
-                  <h4>{name}</h4>
+        return (
+          <Link
+            href={`/mypage/collections?id=${id}`}
+            key={id}
+            className={styles.collection}
+          >
+            <div className={styles.collectionInfo}>
+              <Image
+                src={modifiedImgUrl}
+                alt={`컬렉션_${id}`}
+                width={80}
+                height={80}
+              />
+              <div>
+                <div className={styles.collectionAccess}>
+                  <span>{access === "PRIVATE" ? "Private" : "Public"}</span>
                 </div>
+                <h4>{name}</h4>
               </div>
-              <FaChevronRight className={styles.rightIcon} />
-            </Link>
-          );
-        }
-      )}
+            </div>
+            <FaChevronRight className={styles.rightIcon} />
+          </Link>
+        );
+      })}
     </div>
   );
 }
