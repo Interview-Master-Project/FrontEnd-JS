@@ -26,7 +26,10 @@ export default function ResultHeader() {
       <div className={styles.headerSection}>
         <CardSwitchIcon />
         <ListSwitchIcon />
-        <div>최신순</div>
+        <select name="sort" id="sort">
+          <option value="LATEST">최신순</option>
+          <option value="LOWEST_ACCURACY">정답률 낮은 순</option>
+        </select>
       </div>
     </div>
   );

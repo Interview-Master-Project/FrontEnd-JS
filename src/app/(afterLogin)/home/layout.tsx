@@ -25,10 +25,10 @@ export default function Layout({ children }: React.PropsWithChildren) {
           </fieldset>
         </form>
       </div>
-      <div className={styles.resultWall}>
+      <div className={styles.resultHeader}>
         <ResultHeader />
-        {children}
       </div>
+      {children}
     </>
   );
 }

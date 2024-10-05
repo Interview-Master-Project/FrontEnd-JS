@@ -4,7 +4,7 @@
   align-items: center;
   background: linear-gradient(to right, #dcd6ff 0%, #b4e9fd 100%);
   width: 100%;
-  height: 300px;
+  min-height: 300px;
 }
 
 .searchZone {
@@ -33,7 +33,7 @@
   height: 24px;
 }
 
-.resultWall {
+.resultHeader {
   width: 100%;
   padding: 55px;
   display: flex;
