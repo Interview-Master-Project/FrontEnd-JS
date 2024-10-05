@@ -18,29 +18,29 @@ export default function Layout({ children }: React.PropsWithChildren) {
               </TextInput.Icon>
               <TextInput.Input
                 name="search"
-                placeholder="검색어를 입력하세요."
+                placeholder="검색어 입력 (컬렉션 이름이나 컬렉션 설명으로 검색할 수 있어요)"
               />
               <TextInput.Button type="submit">검색</TextInput.Button>
             </TextInput>
-            <FilterBox></FilterBox>
+            <FilterBox />
           </fieldset>
         </form>
       </div>
-      <div>
+      <div className={styles.resultWall}>
         <div className={styles.contentsHeader}>
-          <div>
+          <div className={styles.headerSection}>
             <span>필터</span>
-            <div>필터1</div>
-            <div>필터2</div>
+            <div>필터1 X</div>
+            <div>필터2 X</div>
           </div>
-          <div className={styles.rightHeaderSection}>
+          <div className={styles.headerSection}>
             <CardSwitchIcon />
             <ListSwitchIcon />
-            <div>드롭다운</div>
+            <div>최신순</div>
           </div>
         </div>
+        {children}
       </div>
-      {children}
     </>
   );
 }

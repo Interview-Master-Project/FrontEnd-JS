@@ -85,3 +85,29 @@ export const USER_ATTEMPTED_COLLECTIONS = gql`
     }
   }
 `;
+
+// 컬렉션 검색(최초 렌더링 + 검색 시 모두 사용)
+export const SEARCH_COLLECTIONS = gql`
+  query MyQuery($keywords: [String]) {
+    searchCollections(
+      paging: { offset: 0, pageSize: 6 }
+      sort: LATEST
+      keywords: $keywords
+    ) {
+      collectionWithAttempts {
+        collection {
+          id
+          imgUrl
+          name
+          access
+          description
+        }
+      }
+      pageInfo {
+        currentPage
+        hasNextPage
+        totalPages
+      }
+    }
+  }
+`;

@@ -33,16 +33,26 @@
   height: 24px;
 }
 
-.contentsHeader {
-  width: 1500px;
-  border-bottom: 1px solid #7b7b7b;
+.resultWall {
+  width: 100%;
+  padding: 55px;
   display: flex;
-  justify-content: space-between;
-
-  background-color: aquamarine;
+  flex-direction: column;
+  align-items: center;
 }
 
-.rightHeaderSection {
+.contentsHeader {
+  width: 85%;
+  border-bottom: 1px solid #7b7b7b;
+  padding: 15px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.headerSection {
+  display: flex;
+  gap: 10px;
+
   & > svg {
     width: 24px;
     height: 24px;

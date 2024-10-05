@@ -1,9 +1,23 @@
-export default function Page() {
+import { apollo } from "@/graphql/apolloClient";
+import { SEARCH_COLLECTIONS } from "@/graphql/query";
+import ISearchCollections from "@/model/search-collections";
+import styles from "./page.module.scss";
+
+export default async function Page() {
+  const { data }: { data: ISearchCollections } = await apollo.query({
+    query: SEARCH_COLLECTIONS,
+    variables: {
+      keywords: "",
+    },
+  });
+
   return (
-    <div>
-      <div style={{ width: 800, height: 300, backgroundColor: "teal" }}>
-        page.tsx 컨텐츠 영역
-      </div>
+    <div className={styles.main}>
+      <ul>
+        {data.searchCollections.collectionWithAttempts.map(({ collection }) => (
+          <li key={collection.id}>{collection.name}</li>
+        ))}
+      </ul>
     </div>
   );
 }
