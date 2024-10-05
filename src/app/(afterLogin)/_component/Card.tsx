@@ -14,14 +14,16 @@ interface AccessLabelProps {
 
 function AccessLabel({ access }: AccessLabelProps) {
   return (
-    <div
-      className={clsx(styles.accessLabel, {
-        [styles.accessLabel_public]: access === "PUBLIC",
-        [styles.accessLabel_private]: access === "PRIVATE",
-      })}
-    >
-      {access === "PUBLIC" ? <PublicIcon /> : <PrivateIcon />}
-    </div>
+    <>
+      <div
+        className={clsx(styles.accessLabel, {
+          [styles.accessLabel_public]: access === "PUBLIC",
+          [styles.accessLabel_private]: access === "PRIVATE",
+        })}
+      >
+        {access === "PUBLIC" ? <PublicIcon /> : <PrivateIcon />}
+      </div>
+    </>
   );
 }
 

@@ -22,6 +22,7 @@ export default async function Page() {
             alt={collection.id}
             width={80}
             height={80}
+            style={{ objectFit: "cover" }}
           />
           <Card.Title className={styles.cardTitle}>
             {collection.name}

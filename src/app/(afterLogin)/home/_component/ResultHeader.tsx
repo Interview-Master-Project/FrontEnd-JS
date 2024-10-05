@@ -3,6 +3,7 @@
 import { useSearchFilterStore } from "@/store/useSearchFilterStore";
 import { HiOutlineSquares2X2 as CardSwitchIcon } from "react-icons/hi2";
 import { HiMenu as ListSwitchIcon } from "react-icons/hi";
+import { TiDelete as DeleteIcon } from "react-icons/ti";
 import Button from "@/app/_component/Button";
 import styles from "./resultHeader.module.scss";
 
@@ -20,6 +21,7 @@ export default function ResultHeader() {
             onClick={() => changeFilter(filter)}
           >
             {filter}
+            <DeleteIcon className={styles.deleteIcon} />
           </Button>
         ))}
       </div>
