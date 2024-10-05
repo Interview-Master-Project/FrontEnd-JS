@@ -1,9 +1,4 @@
-import {
-  ButtonHTMLAttributes,
-  ComponentProps,
-  InputHTMLAttributes,
-  PropsWithChildren,
-} from "react";
+import { ComponentProps, InputHTMLAttributes, PropsWithChildren } from "react";
 import clsx from "clsx";
 import styles from "./textInput.module.scss";
 import Button from "./Button";

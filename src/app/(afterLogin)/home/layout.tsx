@@ -1,9 +1,8 @@
 import { CiSearch as SearchIcon } from "react-icons/ci";
-import { HiOutlineSquares2X2 as CardSwitchIcon } from "react-icons/hi2";
-import { HiMenu as ListSwitchIcon } from "react-icons/hi";
 import { TextInput } from "@/app/_component/TextInput";
 import FilterBox from "./_component/FilterBox";
 import styles from "./layout.module.scss";
+import ResultHeader from "./_component/ResultHeader";
 
 export default function Layout({ children }: React.PropsWithChildren) {
   return (
@@ -27,18 +26,7 @@ export default function Layout({ children }: React.PropsWithChildren) {
         </form>
       </div>
       <div className={styles.resultWall}>
-        <div className={styles.contentsHeader}>
-          <div className={styles.headerSection}>
-            <span>필터</span>
-            <div>필터1 X</div>
-            <div>필터2 X</div>
-          </div>
-          <div className={styles.headerSection}>
-            <CardSwitchIcon />
-            <ListSwitchIcon />
-            <div>최신순</div>
-          </div>
-        </div>
+        <ResultHeader />
         {children}
       </div>
     </>

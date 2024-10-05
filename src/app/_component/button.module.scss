@@ -2,8 +2,6 @@
 
 .button {
   border: 1px solid $theme-dark;
-  background-color: $theme-dark;
-  color: #fff;
   border-radius: 5px;
   font-size: 16px;
   display: flex;
@@ -15,7 +13,26 @@
   width: 180px;
   height: 45px;
 
+  &_contained {
+    background-color: $theme-dark;
+    color: #fff;
+  }
+  &_outlined {
+    background-color: #fff;
+    color: $theme-dark;
+  }
+
   &:hover {
     opacity: 0.7;
   }
+}
+
+.red {
+  background-color: #fff !important;
+  color: $cancel !important;
+}
+
+.green {
+  background-color: #fff !important;
+  color: $success !important;
 }

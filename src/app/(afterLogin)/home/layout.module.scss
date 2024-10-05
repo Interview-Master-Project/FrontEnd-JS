@@ -40,22 +40,3 @@
   flex-direction: column;
   align-items: center;
 }
-
-.contentsHeader {
-  width: 85%;
-  border-bottom: 1px solid #7b7b7b;
-  padding: 15px 0;
-  display: flex;
-  justify-content: space-between;
-}
-
-.headerSection {
-  display: flex;
-  gap: 10px;
-
-  & > svg {
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-  }
-}

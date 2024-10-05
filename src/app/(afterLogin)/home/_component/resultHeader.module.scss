@@ -1,0 +1,27 @@
+.contentsHeader {
+  width: 85%;
+  border-bottom: 1px solid #7b7b7b;
+  padding: 15px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.filterBtn {
+  width: fit-content;
+  height: fit-content;
+  text-wrap: nowrap;
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+.headerSection {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  & > svg {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+}
