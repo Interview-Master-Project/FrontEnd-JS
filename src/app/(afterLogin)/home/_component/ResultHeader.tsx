@@ -5,10 +5,12 @@ import { HiOutlineSquares2X2 as CardSwitchIcon } from "react-icons/hi2";
 import { HiMenu as ListSwitchIcon } from "react-icons/hi";
 import { TiDelete as DeleteIcon } from "react-icons/ti";
 import Button from "@/app/_component/Button";
+import { useSearchGridStore } from "@/store/useSearchGridStore";
 import styles from "./resultHeader.module.scss";
 
 export default function ResultHeader() {
   const { selectedFilterList, changeFilter } = useSearchFilterStore();
+  const { changeGrid } = useSearchGridStore();
 
   return (
     <div className={styles.contentsHeader}>
@@ -26,10 +28,10 @@ export default function ResultHeader() {
         ))}
       </div>
       <div className={styles.headerSection}>
-        <div>
+        <div onClick={() => changeGrid("card")}>
           <CardSwitchIcon />
         </div>
-        <div>
+        <div onClick={() => changeGrid("list")}>
           <ListSwitchIcon />
         </div>
         <select name="sort" id="sort" className={styles.select}>

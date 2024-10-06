@@ -1,0 +1,51 @@
+@import "../../../styles/colors";
+
+.list {
+  width: 1000px;
+  height: 120px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 효과 */
+  transition: box-shadow 0.3s ease; /* hover 시 자연스러운 전환 */
+  padding: 20px;
+
+  display: flex;
+  gap: 20px;
+
+  position: relative;
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 12px 40px rgba(0, 0, 0, 0.2); /* hover 시 더 강조된 그림자 */
+  }
+}
+
+.accessLabel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > svg {
+    width: 48px;
+    height: 48px;
+  }
+
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 80px;
+  height: 80px;
+  border-top-right-radius: 20px;
+
+  &_public {
+    background-color: $theme-base;
+  }
+  &_private {
+    background-color: $warning;
+  }
+}
+
+.description {
+  color: #b4b4b4;
+}
