@@ -2,6 +2,7 @@ import { apollo } from "@/graphql/apolloClient";
 import { SEARCH_COLLECTIONS } from "@/graphql/query";
 import ISearchCollections from "@/model/search-collections";
 import { Card } from "../_component/Card";
+import Button from "@/app/_component/Button";
 import styles from "./page.module.scss";
 
 export default async function Page() {
@@ -28,6 +29,7 @@ export default async function Page() {
             {collection.name}
           </Card.Title>
           <Card.Description>{collection.description}</Card.Description>
+          <Button className={styles.cardBtn}>시작</Button>
         </Card>
       ))}
     </div>
