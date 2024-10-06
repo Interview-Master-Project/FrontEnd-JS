@@ -1,8 +1,8 @@
 import { CiSearch as SearchIcon } from "react-icons/ci";
 import { TextInput } from "@/app/_component/TextInput";
 import FilterBox from "./_component/FilterBox";
-import styles from "./layout.module.scss";
 import ResultHeader from "./_component/ResultHeader";
+import styles from "./layout.module.scss";
 
 export default function Layout({ children }: React.PropsWithChildren) {
   return (

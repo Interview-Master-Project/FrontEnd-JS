@@ -13,7 +13,7 @@
 }
 
 .cardTitle {
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .cardBtn {
@@ -21,13 +21,13 @@
   max-width: 200px;
   font-size: 24px;
 
+  position: absolute;
   &_card {
-    margin: 0 auto;
+    bottom: 20px;
+    left: 20%;
   }
   &_list {
-    position: absolute;
-
     top: 33%;
-    right: 16%;
+    right: 90px;
   }
 }

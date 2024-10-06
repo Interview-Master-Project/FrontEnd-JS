@@ -3,11 +3,16 @@ export default interface IData {
 }
 
 interface ISearchCollections {
-  collectionWithAttempts: ICollectionInfo[];
+  collectionsWithAttempt: ICollectionInfo[];
   pageInfo: IPageInfo;
 }
 
 interface ICollectionInfo {
+  quizCount: number;
+  recentAttempts: number;
+  recentCorrectAttempts: number;
+  totalAttempts: number;
+  totalCorrectAttempts: number;
   collection: ICollection;
 }
 

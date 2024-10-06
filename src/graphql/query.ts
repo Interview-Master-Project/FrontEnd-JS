@@ -88,13 +88,23 @@ export const USER_ATTEMPTED_COLLECTIONS = gql`
 
 // 컬렉션 검색(최초 렌더링 + 검색 시 모두 사용)
 export const SEARCH_COLLECTIONS = gql`
-  query MyQuery($keywords: [String]) {
+  query MyQuery($keywords: [String], $offset: Int, $pageSize: Int) {
     searchCollections(
-      paging: { offset: 0, pageSize: 6 }
-      sort: LATEST
       keywords: $keywords
+      paging: { offset: $offset, pageSize: $pageSize }
+      sort: LATEST
     ) {
-      collectionWithAttempts {
+      pageInfo {
+        currentPage
+        hasNextPage
+        totalPages
+      }
+      collectionsWithAttempt {
+        quizCount
+        recentAttempts
+        recentCorrectAttempts
+        totalAttempts
+        totalCorrectAttempts
         collection {
           id
           imgUrl
@@ -102,11 +112,6 @@ export const SEARCH_COLLECTIONS = gql`
           access
           description
         }
-      }
-      pageInfo {
-        currentPage
-        hasNextPage
-        totalPages
       }
     }
   }

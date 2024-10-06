@@ -35,12 +35,17 @@ function Title({ children, className }: TitleProps) {
   return <h5 className={className}>{children}</h5>;
 }
 
+function Info({ children }: PropsWithChildren) {
+  return <div className={styles.info}>{children}</div>;
+}
+
 function Description({ children }: PropsWithChildren) {
   return <p className={styles.description}>{children}</p>;
 }
 
 export const Card = Object.assign(Container, {
   Title,
+  Info,
   Description,
   Access: AccessLabel,
 });
