@@ -1,21 +1,31 @@
-import { apollo } from "@/graphql/apolloClient";
-import { SEARCH_COLLECTIONS } from "@/graphql/query";
-import IData from "@/model/search-collections";
-import Grid from "./_component/Grid";
+"use client";
 
-export default async function Page() {
-  const { data }: { data: IData } = await apollo.query({
-    query: SEARCH_COLLECTIONS,
+import Grid from "./_component/Grid";
+import Paging from "./_component/Paging";
+import { useState } from "react";
+import { useQuery } from "@apollo/client";
+import IData from "@/model/search-collections";
+import { SEARCH_COLLECTIONS } from "@/graphql/query";
+
+export default function Page() {
+  const [skip, setSkip] = useState(0); // 컬렉션 슬라이싱
+  const { data } = useQuery<IData>(SEARCH_COLLECTIONS, {
     variables: {
-      keywords: "",
-      offset: 0,
-      pageSize: 6,
+      keywords: [""],
+      offset: skip,
+      sort: "LATEST",
     },
   });
+
+  const handleChangeSkip = () => {};
 
   return (
     <>
       <Grid data={data} />
+      <Paging
+        pageInfo={data?.searchCollections.pageInfo}
+        onChangeSkip={handleChangeSkip}
+      />
     </>
   );
 }

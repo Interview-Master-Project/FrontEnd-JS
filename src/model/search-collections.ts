@@ -24,7 +24,7 @@ interface ICollection {
   description: string;
 }
 
-interface IPageInfo {
+export interface IPageInfo {
   currentPage: number;
   hasNextPage: boolean;
   totalPages: number;

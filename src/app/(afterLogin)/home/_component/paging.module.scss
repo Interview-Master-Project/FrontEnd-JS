@@ -1,0 +1,17 @@
+.pagingWrapper {
+  width: 100%;
+  min-height: 80px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > button {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.currentPage {
+  background-color: green;
+}

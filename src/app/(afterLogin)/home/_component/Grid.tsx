@@ -3,14 +3,18 @@
 import { Card } from "../../_component/Card";
 import { List } from "../../_component/List";
 import Button from "@/app/_component/Button";
-import ISearchCollections from "@/model/search-collections";
 import { useSearchGridStore } from "@/store/useSearchGridStore";
 import clsx from "clsx";
 import { calculateCorrectRate } from "../_lib/calculateCorrectRate";
+import { useQuery } from "@apollo/client";
+import { SEARCH_COLLECTIONS } from "@/graphql/query";
+import IData from "@/model/search-collections";
 import styles from "../page.module.scss";
 
-export default function Grid({ data }: { data: ISearchCollections }) {
-  const { selectedSearchGrid } = useSearchGridStore();
+// 이 컴포넌트의 역할: 가져온 컬렉션 데이터 뿌리기
+
+export default function Grid({ data }: { data: IData | undefined }) {
+  const { selectedSearchGrid } = useSearchGridStore(); // 보기형식 === Card | List
 
   return (
     <div
@@ -19,7 +23,7 @@ export default function Grid({ data }: { data: ISearchCollections }) {
         [styles.main_list]: selectedSearchGrid === "list",
       })}
     >
-      {data.searchCollections.collectionsWithAttempt?.map(
+      {data?.searchCollections.collectionsWithAttempt?.map(
         ({
           collection,
           quizCount, // 문제 수
