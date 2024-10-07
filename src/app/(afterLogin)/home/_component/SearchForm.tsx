@@ -20,6 +20,7 @@ export default function SearchForm() {
     const categoriesId = formData.getAll("categoriesId") as string[];
     const categoriesIdConverted = categoriesId.map((value) => +value);
 
+    // debugging
     console.log("categoriesIdConverted: ", categoriesIdConverted);
     console.log("data?.getAllCategories: ", data?.getAllCategories);
 
@@ -30,6 +31,7 @@ export default function SearchForm() {
       )
       .filter((category) => category !== undefined); // undefined 제거
 
+    // debugging
     console.log("categories: ", categories);
 
     changeKeywords(search);

@@ -30,25 +30,21 @@ export default function FilterBox() {
         <div className={styles.iconWrapper}>
           <DownIcon onClick={handleDropdown} />
         </div>
-        {isOpen && (
-          <div className={styles.dropdown}>
-            {data?.getAllCategories?.map((category) => (
-              <div key={category.id} className={styles.item}>
-                <input
-                  type="checkbox"
-                  id={`category-${category.id}`}
-                  name="categoriesId"
-                  value={category.id}
-                  checked={selectedFilterList.includes(category.name)}
-                  onChange={() => changeFilter(category.name)}
-                />
-                <label htmlFor={`category-${category.id}`}>
-                  {category.name}
-                </label>
-              </div>
-            ))}
-          </div>
-        )}
+        <div className={`${styles.dropdown} ${!isOpen ? styles.hidden : ""}`}>
+          {data?.getAllCategories?.map((category) => (
+            <div key={category.id} className={styles.item}>
+              <input
+                type="checkbox"
+                id={`category-${category.id}`}
+                name="categoriesId"
+                value={category.id}
+                checked={selectedFilterList.includes(category.name)}
+                onChange={() => changeFilter(category.name)}
+              />
+              <label htmlFor={`category-${category.id}`}>{category.name}</label>
+            </div>
+          ))}
+        </div>
       </div>
       <div className={styles.container}>
         <span>고급 질의</span>

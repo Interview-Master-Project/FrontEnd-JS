@@ -6,11 +6,22 @@ import { HiMenu as ListSwitchIcon } from "react-icons/hi";
 import { TiDelete as DeleteIcon } from "react-icons/ti";
 import Button from "@/app/_component/Button";
 import { useSearchGridStore } from "@/store/useSearchGridStore";
+import { useSearchStore } from "@/store/useSearchStore";
+import { ChangeEventHandler } from "react";
 import styles from "./resultHeader.module.scss";
 
 export default function ResultHeader() {
   const { changeGrid } = useSearchGridStore();
   const { selectedFilterList, changeFilter } = useSearchFilterStore();
+  const { changeSort } = useSearchStore();
+
+  const handleChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
+    const sort = e.target.value as "LATEST" | "LOWEST_ACCURACY";
+
+    // debugging
+    console.log("sort 변경: ", sort);
+    changeSort(sort);
+  };
 
   return (
     <div className={styles.contentsHeader}>
@@ -34,10 +45,17 @@ export default function ResultHeader() {
         <div onClick={() => changeGrid("list")}>
           <ListSwitchIcon />
         </div>
-        <select name="sort" id="sort" className={styles.select}>
-          <option value="LATEST">최신순</option>
-          <option value="LOWEST_ACCURACY">정답률 낮은 순</option>
-        </select>
+        <form>
+          <select
+            name="sort"
+            id="sort"
+            className={styles.select}
+            onChange={handleChange}
+          >
+            <option value="LATEST">최신순</option>
+            <option value="LOWEST_ACCURACY">정답률 낮은 순</option>
+          </select>
+        </form>
       </div>
     </div>
   );
