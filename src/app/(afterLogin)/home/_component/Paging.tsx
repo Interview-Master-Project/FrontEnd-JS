@@ -4,9 +4,6 @@ import { IPageInfo } from "@/model/search-collections";
 import clsx from "clsx";
 import styles from "./paging.module.scss";
 
-// 총 페이지, 현재 페이지 정보를 가져오고
-// click 시마다 다른 variables로 재요청
-
 interface Props {
   pageInfo: IPageInfo | undefined;
   onChangeSkip: (page: number) => void;

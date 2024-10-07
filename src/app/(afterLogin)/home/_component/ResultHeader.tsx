@@ -9,8 +9,8 @@ import { useSearchGridStore } from "@/store/useSearchGridStore";
 import styles from "./resultHeader.module.scss";
 
 export default function ResultHeader() {
-  const { selectedFilterList, changeFilter } = useSearchFilterStore();
   const { changeGrid } = useSearchGridStore();
+  const { selectedFilterList, changeFilter } = useSearchFilterStore();
 
   return (
     <div className={styles.contentsHeader}>

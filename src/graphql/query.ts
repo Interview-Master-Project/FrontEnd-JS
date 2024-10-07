@@ -63,7 +63,7 @@ export const MY_HISTORY = gql`
   }
 `;
 
-// not login required
+// 카테고리 id와 카테고리명
 export const ALL_CATEGORIES = gql`
   query MyQuery {
     getAllCategories {
@@ -88,11 +88,17 @@ export const USER_ATTEMPTED_COLLECTIONS = gql`
 
 // 컬렉션 검색(최초 렌더링 + 검색 시 모두 사용)
 export const SEARCH_COLLECTIONS = gql`
-  query MyQuery($keywords: [String], $offset: Int, $sort: SortOrder) {
+  query MyQuery(
+    $keywords: [String]
+    $offset: Int
+    $sort: SortOrder
+    $categoryIds: [Int]
+  ) {
     searchCollections(
       keywords: $keywords
       paging: { offset: $offset, pageSize: 6 }
       sort: $sort
+      categoryIds: $categoryIds
     ) {
       pageInfo {
         currentPage
@@ -111,6 +117,9 @@ export const SEARCH_COLLECTIONS = gql`
           name
           access
           description
+          category {
+            name
+          }
         }
       }
     }

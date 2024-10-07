@@ -12,7 +12,7 @@ interface ICategory {
   name: string;
 }
 
-interface ICategories {
+export interface ICategories {
   getAllCategories: ICategory[];
 }
 
@@ -37,6 +37,8 @@ export default function FilterBox() {
                 <input
                   type="checkbox"
                   id={`category-${category.id}`}
+                  name="categoriesId"
+                  value={category.id}
                   checked={selectedFilterList.includes(category.name)}
                   onChange={() => changeFilter(category.name)}
                 />

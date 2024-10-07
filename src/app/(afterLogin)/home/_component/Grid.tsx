@@ -6,12 +6,8 @@ import Button from "@/app/_component/Button";
 import { useSearchGridStore } from "@/store/useSearchGridStore";
 import clsx from "clsx";
 import { calculateCorrectRate } from "../_lib/calculateCorrectRate";
-import { useQuery } from "@apollo/client";
-import { SEARCH_COLLECTIONS } from "@/graphql/query";
 import IData from "@/model/search-collections";
 import styles from "../page.module.scss";
-
-// 이 컴포넌트의 역할: 가져온 컬렉션 데이터 뿌리기
 
 export default function Grid({ data }: { data: IData | undefined }) {
   const { selectedSearchGrid } = useSearchGridStore(); // 보기형식 === Card | List
@@ -58,6 +54,7 @@ export default function Grid({ data }: { data: IData | undefined }) {
                   <span>
                     총합정답률(%) <strong>{totalRate ?? "-"}</strong>
                   </span>
+                  <span>{collection.category.name}</span>
                 </Card.Info>
                 <Button className={clsx(styles.cardBtn, styles.cardBtn_card)}>
                   시작
@@ -91,6 +88,7 @@ export default function Grid({ data }: { data: IData | undefined }) {
                   <span>
                     총합정답률(%) <strong>{totalRate ?? "-"}</strong>
                   </span>
+                  <span>{collection.category.name}</span>
                 </Card.Info>
                 <Button className={clsx(styles.cardBtn, styles.cardBtn_list)}>
                   시작

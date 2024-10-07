@@ -10,20 +10,18 @@ import { useSearchStore } from "@/store/useSearchStore";
 
 export default function Page() {
   const [skip, setSkip] = useState(0); // 컬렉션 슬라이싱
-  // zustand로 formData를 가져오고 data를 그에 맞게 요청
-  const { keywords, sort } = useSearchStore();
-
-  console.log(keywords);
+  const { keywords, sort, categories } = useSearchStore();
 
   const { data } = useQuery<IData>(SEARCH_COLLECTIONS, {
     variables: {
-      keywords: keywords,
+      keywords,
       offset: skip,
-      sort: sort,
+      sort,
+      categoryIds: categories.map(({ id }) => +id),
     },
   });
 
-  if (!data) return null;
+  if (!data) return null; // data가 없다면 보여줄 화면
 
   const handleChangeSkip = (offset: number) => {
     setSkip(6 * (offset - 1));

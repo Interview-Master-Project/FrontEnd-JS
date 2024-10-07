@@ -22,6 +22,7 @@ interface ICollection {
   name: string;
   access: "PUBLIC" | "PRIVATE";
   description: string;
+  category: { name: string };
 }
 
 export interface IPageInfo {
