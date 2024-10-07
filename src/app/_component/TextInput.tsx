@@ -8,7 +8,7 @@ function TextInputWrapper({ children, className }: ComponentProps<"div">) {
 }
 
 function Input({ name, ...rest }: InputHTMLAttributes<HTMLInputElement>) {
-  return <input type="text" className={styles.input} {...rest} />;
+  return <input name={name} type="text" className={styles.input} {...rest} />;
 }
 
 function Icon({ children }: PropsWithChildren) {
