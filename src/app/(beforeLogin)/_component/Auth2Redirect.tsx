@@ -36,6 +36,15 @@ export default function Auth2Redirect({ provider }: Props) {
             withCredentials: true,
           }
         );
+
+        const token = response.headers.authorization;
+        if (token) {
+          document.cookie = `authToken=${token}; path=/; max-age=3600`; // 쿠키 만료 시간 설정 (1시간)
+          console.log("token accepted");
+        } else {
+          console.log("token denied");
+        }
+
         const success = response.data;
         console.log(success);
         if (success) {

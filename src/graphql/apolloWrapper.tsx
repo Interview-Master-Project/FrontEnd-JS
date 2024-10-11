@@ -1,5 +1,6 @@
 "use client";
 
+import { getTokenFromCookies } from "@/utils/getToken";
 import { HttpLink } from "@apollo/client";
 import {
   ApolloNextAppProvider,
@@ -8,10 +9,12 @@ import {
 } from "@apollo/experimental-nextjs-app-support";
 
 function makeClient() {
+  const token = getTokenFromCookies();
+
   const httpLink = new HttpLink({
     uri: `${process.env.NEXT_PUBLIC_SERVER_URL_PORT}/graphql`,
     headers: {
-      Authorization: `Bearer ${process.env.NEXT_PUBLIC_STATIC_TOKEN}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 
