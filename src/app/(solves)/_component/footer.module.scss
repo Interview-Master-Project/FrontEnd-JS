@@ -1,0 +1,21 @@
+.footerWrapper {
+  width: 100%;
+  height: 80px;
+  position: absolute;
+  bottom: 0;
+  background-color: aquamarine;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.footerLeft {
+  flex: 1;
+}
+.footerRight {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  z-index: 1000;
+}

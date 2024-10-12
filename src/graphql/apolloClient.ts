@@ -10,7 +10,9 @@ export const { getClient } = registerApolloClient(() => {
     link: new HttpLink({
       uri: `${process.env.NEXT_PUBLIC_SERVER_URL_PORT}/graphql`,
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${
+          token || process.env.NEXT_PUBLIC_STATIC_TOKEN
+        }`,
       },
     }),
   });

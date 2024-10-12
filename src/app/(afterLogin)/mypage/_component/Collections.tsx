@@ -9,23 +9,35 @@ import { useQuery } from "@apollo/client";
 import { MY_COLLECTIONS } from "@/graphql/query";
 import styles from "./collections.module.scss";
 
-export interface ICollection {
-  imgUrl: string;
-  access: "PUBLIC" | "PRIVATE";
-  name: string;
+interface ICollection {
   id: string;
+  name: string;
+  access: "PUBLIC" | "PRIVATE";
+  imgUrl: string;
 }
 
 export interface ICollections {
-  collections: ICollection[];
+  collection: ICollection;
+  totalAttempts: number;
+  totalCorrectAttempts: number;
+  recentAttempts: number;
+  recentCorrectAttempts: number;
+}
+
+export interface ICollectionsWithAttempt {
+  collectionsWithAttempt: ICollections[];
 }
 
 export interface IUserCollections {
-  myCollections: ICollections;
+  myCollections: ICollectionsWithAttempt;
 }
 
 export default function Collections() {
-  const { data } = useQuery<IUserCollections | undefined>(MY_COLLECTIONS);
+  const { data } = useQuery<IUserCollections>(MY_COLLECTIONS, {
+    variables: {
+      sort: "LATEST",
+    },
+  });
 
   const [tabMenu, setTabMenu] = useState("coll");
 
@@ -52,32 +64,35 @@ export default function Collections() {
       <Link href="/mypage/newcoll" className={styles.createCollectionBtn}>
         + 새 컬렉션 추가
       </Link>
-      {data?.myCollections?.collections?.map(({ id, imgUrl, access, name }) => {
+      {data?.myCollections.collectionsWithAttempt.map(({ collection }) => {
         // Google Drive 이미지 링크를 변환
-        const modifiedImgUrl = imgUrl.includes("drive.google.com")
-          ? imgUrl
+        const modifiedImgUrl = collection.imgUrl.includes("drive.google.com")
+          ? collection.imgUrl
               .replace("/view?usp=sharing", "")
               .replace("file/d/", "uc?export=view&id=")
-          : imgUrl;
+          : collection.imgUrl;
 
         return (
           <Link
-            href={`/mypage/collections?id=${id}`}
-            key={id}
+            href={`/mypage/collections?id=${collection.id}`}
+            key={collection.id}
             className={styles.collection}
           >
             <div className={styles.collectionInfo}>
               <Image
                 src={modifiedImgUrl}
-                alt={`컬렉션_${id}`}
+                alt={`컬렉션_${collection.id}`}
                 width={80}
                 height={80}
+                style={{ objectFit: "cover" }}
               />
               <div>
                 <div className={styles.collectionAccess}>
-                  <span>{access === "PRIVATE" ? "Private" : "Public"}</span>
+                  <span>
+                    {collection.access === "PRIVATE" ? "Private" : "Public"}
+                  </span>
                 </div>
-                <h4>{name}</h4>
+                <h4>{collection.name}</h4>
               </div>
             </div>
             <FaChevronRight className={styles.rightIcon} />

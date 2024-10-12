@@ -7,6 +7,8 @@ import { useSearchGridStore } from "@/store/useSearchGridStore";
 import clsx from "clsx";
 import { calculateCorrectRate } from "../_lib/calculateCorrectRate";
 import IData from "@/model/search-collections";
+import Link from "next/link";
+import Image from "next/image";
 import styles from "../page.module.scss";
 
 export default function Grid({ data }: { data: IData | undefined }) {
@@ -31,7 +33,7 @@ export default function Grid({ data }: { data: IData | undefined }) {
             return (
               <Card key={collection.id}>
                 <Card.Access access={collection.access} />
-                <img
+                <Image
                   src={collection.imgUrl}
                   alt={collection.id}
                   width={80}
@@ -56,16 +58,18 @@ export default function Grid({ data }: { data: IData | undefined }) {
                   </span>
                   <span>{collection.category.name}</span>
                 </Card.Info>
-                <Button className={clsx(styles.cardBtn, styles.cardBtn_card)}>
-                  시작
-                </Button>
+                <Link href={`/solves?id=${collection.id}`}>
+                  <Button className={clsx(styles.cardBtn, styles.cardBtn_card)}>
+                    시작
+                  </Button>
+                </Link>
               </Card>
             );
           } else if (selectedSearchGrid === "list") {
             return (
               <List key={collection.id}>
                 <List.Access access={collection.access} />
-                <img
+                <Image
                   src={collection.imgUrl}
                   alt={collection.id}
                   width={80}
@@ -90,9 +94,11 @@ export default function Grid({ data }: { data: IData | undefined }) {
                   </span>
                   <span>{collection.category.name}</span>
                 </Card.Info>
-                <Button className={clsx(styles.cardBtn, styles.cardBtn_list)}>
-                  시작
-                </Button>
+                <Link href={`/solves?id=${collection.id}`}>
+                  <Button className={clsx(styles.cardBtn, styles.cardBtn_list)}>
+                    시작
+                  </Button>
+                </Link>
               </List>
             );
           }

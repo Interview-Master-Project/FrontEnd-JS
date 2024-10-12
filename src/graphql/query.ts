@@ -33,13 +33,24 @@ export const GET_QUIZ_GARDEN = gql`
  * (Arguments) pageSize
  */
 export const MY_COLLECTIONS = gql`
-  query MyQuery {
-    myCollections(paging: { offset: 0, pageSize: 5 }, sort: LATEST) {
-      collections {
-        id
-        access
-        imgUrl
-        name
+  query MyQuery($sort: SortOrder) {
+    myCollections(paging: { offset: 0, pageSize: 5 }, sort: $sort) {
+      collectionsWithAttempt {
+        collection {
+          id
+          name
+          access
+          imgUrl
+        }
+        totalAttempts
+        totalCorrectAttempts
+        recentAttempts
+        recentCorrectAttempts
+      }
+      pageInfo {
+        hasNextPage
+        currentPage
+        totalPages
       }
     }
   }
