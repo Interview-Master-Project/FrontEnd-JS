@@ -22,7 +22,7 @@ export default function Header() {
           >
             질문 리스트
           </TabMenu>
-          <TabMenu to="/mypage">마이페이지</TabMenu>
+          <TabMenu to="/my">마이페이지</TabMenu>
         </div>
       </div>
       <Profile />
