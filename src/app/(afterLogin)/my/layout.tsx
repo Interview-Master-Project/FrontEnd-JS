@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import Title from "@/app/(afterLogin)/mypage/_component/Title";
+import Title from "@/app/(afterLogin)/my/_component/Title";
 import styles from "./layout.module.scss";
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
   modal: ReactNode;
 };
 
-export default function Layout({ children, modal }: Props) {
+export default function MyLayout({ children, modal }: Props) {
   return (
     <main className={styles.main}>
       <div className={styles.title}>

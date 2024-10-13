@@ -47,21 +47,21 @@ export default function Collections() {
     <div className={styles.collections}>
       <section>
         <Link
-          href="/mypage?categories=coll"
+          href="/my?categories=coll"
           className={clsx(styles.tab, tabMenu === "coll" && styles.tabFocused)}
           onClick={() => handleTabClick("coll")}
         >
           내 컬렉션
         </Link>
         <Link
-          href="/mypage?categories=hist"
+          href="/my?categories=hist"
           className={clsx(styles.tab, tabMenu === "hist" && styles.tabFocused)}
           onClick={() => handleTabClick("hist")}
         >
           히스토리
         </Link>
       </section>
-      <Link href="/mypage/newcoll" className={styles.createCollectionBtn}>
+      <Link href="/my/newcoll" className={styles.createCollectionBtn}>
         + 새 컬렉션 추가
       </Link>
       {data?.myCollections.collectionsWithAttempt.map(({ collection }) => {
@@ -74,7 +74,7 @@ export default function Collections() {
 
         return (
           <Link
-            href={`/mypage/collections?id=${collection.id}`}
+            href={`/my/collections?id=${collection.id}`}
             key={collection.id}
             className={styles.collection}
           >

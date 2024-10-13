@@ -30,7 +30,10 @@ export default function MyAccount() {
   return (
     <div className={styles.userProfile}>
       <h3>내 계정</h3>
-      <Dropdown onActive={handleActiveDropdown} className={styles.profileEditBtn}>
+      <Dropdown
+        onActive={handleActiveDropdown}
+        className={styles.profileEditBtn}
+      >
         <Dropdown.Active onClick={handleClickDropdown}>
           <MdModeEdit />
         </Dropdown.Active>

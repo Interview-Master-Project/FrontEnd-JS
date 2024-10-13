@@ -21,8 +21,8 @@ export default function Page() {
       <SelectCategories titleOp />
       <Container title="컬렉션 추가">
         <div className={styles.cancelSaveSection}>
-          <Link href="/mypage/newcoll/cancel">취소</Link>
-          <Link href="/mypage/newcoll/save">저장 및 추가</Link>
+          <Link href="/my/newcoll/cancel">취소</Link>
+          <Link href="/my/newcoll/save">저장 및 추가</Link>
         </div>
       </Container>
     </form>
