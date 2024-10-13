@@ -58,7 +58,7 @@ export default function Grid({ data }: { data: IData | undefined }) {
                   </span>
                   <span>{collection.category.name}</span>
                 </Card.Info>
-                <Link href={`/solves?id=${collection.id}`}>
+                <Link href={`/collections/${collection.id}/quizzes/123`}>
                   <Button className={clsx(styles.cardBtn, styles.cardBtn_card)}>
                     시작
                   </Button>
@@ -94,7 +94,7 @@ export default function Grid({ data }: { data: IData | undefined }) {
                   </span>
                   <span>{collection.category.name}</span>
                 </Card.Info>
-                <Link href={`/solves?id=${collection.id}`}>
+                <Link href={`/collections/${collection.id}/quizzes/123`}>
                   <Button className={clsx(styles.cardBtn, styles.cardBtn_list)}>
                     시작
                   </Button>

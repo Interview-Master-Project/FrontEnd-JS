@@ -16,5 +16,5 @@ export function middleware(req: NextRequest) {
 
 // 미들웨어 적용 경로 추가
 export const config = {
-  matcher: ["/mypage/:path*"],
+  matcher: ["/my/:path*", "/collections/:path*"],
 };

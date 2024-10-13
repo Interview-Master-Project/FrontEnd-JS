@@ -3,7 +3,6 @@
 
 .container {
   @include container;
-  flex-direction: column;
   background-color: #eee;
 }
 
