@@ -1,0 +1,45 @@
+@import "../../../styles/colors";
+
+.dropdown {
+  position: absolute;
+  top: -100px;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  width: 120px;
+  z-index: 1000;
+}
+
+.dropdownItem {
+  display: block;
+  padding: 10px;
+  color: #333;
+  font-size: 14px;
+  cursor: pointer;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: center;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:nth-child(2) {
+    color: $warning;
+  }
+}
+
+.dropdownMenu {
+  display: absolute;
+  top: -40px;
+  right: 0;
+
+  & > ul {
+    text-align: center;
+  }
+}

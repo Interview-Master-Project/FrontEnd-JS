@@ -4,10 +4,11 @@ import Image from "next/image";
 import { faker } from "@faker-js/faker";
 import { useQuery } from "@apollo/client";
 import { ME } from "@/graphql/query";
+import { IMe } from "@/model/me";
 import styles from "./profile.module.scss";
 
 export default function Profile() {
-  const { data } = useQuery(ME);
+  const { data } = useQuery<IMe>(ME);
 
   const user = {
     ...data,
@@ -23,12 +24,12 @@ export default function Profile() {
     <div className={styles.container} onClick={handleClick}>
       <Image
         src={user.image}
-        alt={data?.me?.nickname}
+        alt={data?.me.id as string}
         width={36}
         height={36}
         className={styles.userImg}
       />
-      <span>{data?.me?.nickname}</span>
+      <span>{data?.me.nickname}</span>
     </div>
   );
 }
