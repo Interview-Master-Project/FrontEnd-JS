@@ -136,3 +136,22 @@ export const SEARCH_COLLECTIONS = gql`
     }
   }
 `;
+
+export const GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID = gql`
+  query MyQuery($collectionId: ID!) {
+    getQuizzesWithAttemptByCollectionId(collectionId: $collectionId) {
+      quiz {
+        id
+        question
+        answer
+        collection {
+          imgUrl
+          name
+        }
+      }
+      recentAnswerAt
+      totalAttempts
+      totalCorrectAttempts
+    }
+  }
+`;
