@@ -1,11 +1,9 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { cookies } from "next/headers";
 
 export function middleware(req: NextRequest) {
-  // 쿠키에서 authorization.token 가져오기
-  const token = req.cookies.get("authorization-token");
-
-  console.log(token, "미들웨어");
+  const token = cookies().get("authToken")?.value;
 
   // 토큰이 없다면 로그인 페이지로 리다이렉션
   if (!token) {
