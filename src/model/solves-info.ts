@@ -2,7 +2,8 @@ interface IQuiz {
   id: string;
   question: string;
   answer: string;
-  collection: { imgUrl: string; name: string };
+  access: "PRIVATE" | "PUBLIC";
+  collection: { imgUrl: string; name: string; category: { name: string } };
 }
 
 interface ISolveInfo {

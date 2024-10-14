@@ -144,9 +144,13 @@ export const GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID = gql`
         id
         question
         answer
+        access
         collection {
           imgUrl
           name
+          category {
+            name
+          }
         }
       }
       recentAnswerAt

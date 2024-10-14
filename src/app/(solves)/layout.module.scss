@@ -5,29 +5,3 @@
   @include container;
   background-color: #eee;
 }
-
-.sideBar {
-  width: 80px;
-  height: calc(100dvh - 80px);
-  z-index: 999;
-  background-color: #fff;
-
-  & > div {
-    width: 80px;
-    height: 80px;
-    display: flex;
-    justify-content: center;
-    margin: 10px 0;
-
-    align-items: center;
-    border: 1px solid $layout;
-
-    &:hover {
-      cursor: pointer;
-      opacity: 0.7;
-    }
-  }
-}
-.activeBar {
-  background-color: $theme-base;
-}

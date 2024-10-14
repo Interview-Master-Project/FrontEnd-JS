@@ -9,7 +9,7 @@
   justify-content: center;
   cursor: pointer;
 
-  flex: 1;
+  // flex: 1;
   width: 180px;
   height: 45px;
 
@@ -29,10 +29,12 @@
 
 .red {
   background-color: #fff !important;
-  color: $cancel !important;
+  border: 1px solid $warning;
+  color: $warning !important;
 }
 
 .green {
   background-color: #fff !important;
+  border: 1px solid $success;
   color: $success !important;
 }

@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import Footer from "./_component/Footer";
 import styles from "./layout.module.scss";
+import Sidebar from "./_component/Sidebar";
 
 type Props = {
   children: ReactNode;
@@ -9,10 +10,7 @@ type Props = {
 export default function Layout({ children }: Props) {
   return (
     <div className={styles.container}>
-      <div className={styles.sideBar}>
-        <div className={styles.activeBar}>목록</div>
-        <div>기록</div>
-      </div>
+      <Sidebar />
       {children}
       <Footer />
     </div>

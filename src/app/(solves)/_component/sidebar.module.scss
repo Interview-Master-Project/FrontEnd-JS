@@ -1,0 +1,35 @@
+@import "../../../styles/colors";
+
+.sideBar {
+  width: 80px;
+  height: calc(100dvh - 80px);
+  z-index: 999;
+  background-color: #fff;
+
+  & > div {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+
+    display: flex;
+    flex-direction: column;
+
+    & > svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
+    }
+  }
+}
+.activeBar {
+  background-color: $theme-base;
+}
