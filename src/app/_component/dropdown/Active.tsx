@@ -1,3 +1,5 @@
+import styles from "./dropdown.module.scss";
+
 type Props = {
   children: React.ReactNode;
   onClick: () => void;
@@ -5,16 +7,18 @@ type Props = {
 
 export default function Active({ children, onClick }: Props) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      onKeyDown={(e) => {
-        if (e.key === "Escape") {
-          onClick();
-        }
-      }}
-    >
+    <div className={styles.activeBox}>
       {children}
-    </button>
+      <button
+        type="button"
+        className={styles.active}
+        onClick={onClick}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") {
+            onClick();
+          }
+        }}
+      ></button>
+    </div>
   );
 }

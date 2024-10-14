@@ -5,15 +5,15 @@ import styles from "./dropdown.module.scss";
 
 type Props = {
   children: React.ReactNode;
-  onActive: () => void;
-  className?: string;
+  onClose: () => void; // 드롭다운을 닫는 함수
+  className?: string; // 사용 쪽에서 스타일 지정(ex. position: absolute)
 };
 
-function Wrapper({ children, onActive, className }: Props) {
-  const dropdownRef = useClickOutside(onActive);
+function Wrapper({ children, onClose, className }: Props) {
+  const ref = useClickOutside(onClose);
 
   return (
-    <div ref={dropdownRef} className={clsx(styles.dropdown, className)}>
+    <div ref={ref} className={clsx(styles.dropdown, className)}>
       {children}
     </div>
   );

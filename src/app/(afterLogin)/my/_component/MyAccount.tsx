@@ -21,27 +21,26 @@ export default function MyAccount() {
     image: faker.image.avatarGitHub(),
   };
 
-  const handleActiveDropdown = () => {};
-
-  const handleClickDropdown = () => {
+  const handleCloseDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleOffDropdown = () => {
+    setIsDropdownOpen(false);
   };
 
   return (
     <div className={styles.userProfile}>
       <h3>내 계정</h3>
-      <Dropdown
-        onActive={handleActiveDropdown}
-        className={styles.profileEditBtn}
-      >
-        <Dropdown.Active onClick={handleClickDropdown}>
+      <Dropdown onClose={handleOffDropdown} className={styles.profileEditBtn}>
+        <Dropdown.Active onClick={handleCloseDropdown}>
           <MdModeEdit />
         </Dropdown.Active>
         <Dropdown.Menu isOpen={isDropdownOpen}>
           <Dropdown.Item>
             <Link href="/mypage/logout">로그아웃</Link>
           </Dropdown.Item>
-          <Dropdown.Item>
+          <Dropdown.Item variant="alert">
             <Link href="/mypage/delete-account">회원탈퇴</Link>
           </Dropdown.Item>
         </Dropdown.Menu>
