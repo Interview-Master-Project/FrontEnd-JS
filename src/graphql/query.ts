@@ -159,3 +159,14 @@ export const GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID = gql`
     }
   }
 `;
+
+export const PROBLEM_INFO = gql`
+  query MyQuery($collectionId: ID!) {
+    getQuizzesWithAttemptByCollectionId(collectionId: $collectionId) {
+      quiz {
+        id
+        question
+      }
+    }
+  }
+`;

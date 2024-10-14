@@ -1,0 +1,14 @@
+.container {
+  width: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.solveZone {
+  width: 650px;
+  height: 650px;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+}

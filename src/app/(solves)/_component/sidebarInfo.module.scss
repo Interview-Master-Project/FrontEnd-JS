@@ -1,0 +1,22 @@
+.container {
+  width: 360px;
+  height: calc(100dvh - 80px);
+  z-index: 999;
+  background-color: #fff;
+
+  padding: 40px 10px;
+
+  & > ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+    font-size: 16px;
+
+    & > li {
+      white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+      overflow: hidden; /* 넘친 부분을 숨김 */
+      text-overflow: ellipsis; /* ...으로 말줄임 표시 */
+    }
+  }
+}
