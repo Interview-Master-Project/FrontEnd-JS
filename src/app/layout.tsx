@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Noto_Sans_KR } from "next/font/google";
-import "@/styles/globals.scss";
 import { ApolloWrapper } from "@/graphql/apolloWrapper";
+import { CookiesProvider } from "next-client-cookies/server";
+import "@/styles/globals.scss";
 
 const notoSansKr = Noto_Sans_KR({
   weight: ["400"],
@@ -21,7 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={notoSansKr.className}>
-        <ApolloWrapper>{children}</ApolloWrapper>
+        <CookiesProvider>
+          <ApolloWrapper>{children}</ApolloWrapper>
+        </CookiesProvider>
       </body>
     </html>
   );

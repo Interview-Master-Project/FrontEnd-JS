@@ -1,50 +1,5 @@
 import { gql } from "@apollo/client";
 
-// 퀴즈 잔디밭 정보
-/**
- * (Arguments) startDate
- * (Arguments) endDate
- */
-export const GET_QUIZ_GARDEN = gql`
-  query MyQuery($startDate: String!, $endDate: String!) {
-    getQuizGarden(startDate: $startDate, endDate: $endDate) {
-      date
-      dayIndex
-      quizzesSolved
-      weekIndex
-    }
-  }
-`;
-
-// 유저의 컬렉션 목록
-/**
- * (Arguments) offset
- * (Arguments) pageSize
- */
-export const MY_COLLECTIONS = gql`
-  query MyQuery($sort: SortOrder) {
-    myCollections(paging: { offset: 0, pageSize: 5 }, sort: $sort) {
-      collectionsWithAttempt {
-        collection {
-          id
-          name
-          access
-          imgUrl
-        }
-        totalAttempts
-        totalCorrectAttempts
-        recentAttempts
-        recentCorrectAttempts
-      }
-      pageInfo {
-        hasNextPage
-        currentPage
-        totalPages
-      }
-    }
-  }
-`;
-
 // 유저의 히스토리 목록
 /**
  * (Arguments) offset

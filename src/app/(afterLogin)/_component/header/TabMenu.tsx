@@ -42,7 +42,7 @@ export function TabMenu({ to, children, dropdownItems }: Props) {
           {dropdownItems.map((item) => (
             <Link
               key={item.mode}
-              href={`/home?mode=${item.mode}`}
+              href={`/explore?mode=${item.mode}`}
               className={styles.dropdownItem}
             >
               {item.label}

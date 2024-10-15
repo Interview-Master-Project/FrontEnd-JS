@@ -14,7 +14,7 @@ export default function Header() {
         </div>
         <div className={styles.tab}>
           <TabMenu
-            to="/home"
+            to="/explore"
             dropdownItems={[
               { label: "컬렉션 검색", mode: "coll" },
               { label: "퀴즈 검색", mode: "quiz" },

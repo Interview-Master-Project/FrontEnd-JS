@@ -1,46 +1,26 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { FaChevronRight } from "react-icons/fa";
 import clsx from "clsx";
-import { useState } from "react";
-import { useQuery } from "@apollo/client";
-import { MY_COLLECTIONS } from "@/graphql/query";
+import { MY_COLLECTIONS, IData } from "@/graphql/query/my-collections";
+import { FaChevronRight as RightIcon } from "react-icons/fa";
 import styles from "./collections.module.scss";
-
-interface ICollection {
-  id: string;
-  name: string;
-  access: "PUBLIC" | "PRIVATE";
-  imgUrl: string;
-}
-
-export interface ICollections {
-  collection: ICollection;
-  totalAttempts: number;
-  totalCorrectAttempts: number;
-  recentAttempts: number;
-  recentCorrectAttempts: number;
-}
-
-export interface ICollectionsWithAttempt {
-  collectionsWithAttempt: ICollections[];
-}
-
-export interface IUserCollections {
-  myCollections: ICollectionsWithAttempt;
-}
+import { useClientFetch } from "@/hooks/useClientFetch";
 
 export default function Collections() {
-  const { data } = useQuery<IUserCollections>(MY_COLLECTIONS, {
-    variables: {
-      sort: "LATEST",
+  const { data, loading, error } = useClientFetch<IData>(
+    MY_COLLECTIONS,
+    {
+      variables: {
+        sort: "LATEST",
+      },
     },
-  });
+    true
+  );
 
   const [tabMenu, setTabMenu] = useState("coll");
-
   const handleTabClick = (selectTab: string) => setTabMenu(selectTab);
 
   return (
@@ -95,7 +75,7 @@ export default function Collections() {
                 <h4>{collection.name}</h4>
               </div>
             </div>
-            <FaChevronRight className={styles.rightIcon} />
+            <RightIcon className={styles.rightIcon} />
           </Link>
         );
       })}

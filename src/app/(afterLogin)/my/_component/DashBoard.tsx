@@ -1,30 +1,20 @@
-import { checkBoard, calculateData } from "../_lib/calculateData";
+import { checkBoard } from "../_lib/calculateData";
 import clsx from "clsx";
 import dayjs from "dayjs";
-import { apollo } from "@/graphql/apolloClient";
-import { GET_QUIZ_GARDEN } from "@/graphql/query";
+import { fetchQueryData } from "@/utils/fetchQueryData";
+import { GET_QUIZ_GARDEN, IData } from "@/graphql/query/get-quiz-garden";
 import styles from "./dashBoard.module.scss";
 
 const days = ["", "M", "", "W", "", "F", ""]; // 요일 정보를 배열로 정의
 
-interface ILog {
-  date: string;
-  dayIndex: number;
-  quizzesSolved: number;
-  weekIndex: number;
-}
-
-interface IGarden {
-  getQuizGarden: ILog[];
-}
-
 export default async function DashBoard() {
-  const { data }: { data: IGarden } = await apollo.query({
+  const { data, loading, error } = await fetchQueryData<IData>({
     query: GET_QUIZ_GARDEN,
     variables: {
       endDate: dayjs().add(7, "day").format("YYYY-MM-DD"),
       startDate: dayjs().subtract(133, "day").format("YYYY-MM-DD"),
     },
+    requiresAuth: true,
   });
 
   // const data = calculateData(); // dummy data 생성
