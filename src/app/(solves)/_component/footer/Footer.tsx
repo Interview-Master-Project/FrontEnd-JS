@@ -11,15 +11,12 @@ import styles from "./footer.module.scss";
 export default function Footer({ data }: { data: IData }) {
   const { collId, quizId } = useParams<{ collId: string; quizId: string }>();
   const [pageIdx, setPageIdx] = useState(0);
-  const currQuiz = data.getQuizzesWithAttemptByCollectionId.find(
-    (item) => item.quiz.id === quizId
-  )?.quiz;
 
   return (
     <div className={styles.footerWrapper}>
       <div className={styles.footerLeft}>
         <Image
-          src={currQuiz?.collection.imgUrl as string}
+          src={data.getQuizzesWithAttemptByCollectionId[pageIdx].quiz?.collection.imgUrl as string}
           alt="임시 이미지"
           width={45}
           height={45}
@@ -27,9 +24,9 @@ export default function Footer({ data }: { data: IData }) {
             objectFit: "cover",
           }}
         />
-        <span>{currQuiz?.collection.name}</span>
+        <span>{data.getQuizzesWithAttemptByCollectionId[pageIdx].quiz?.collection.name}</span>
         <span>{">"}</span>
-        <span>{currQuiz?.question}</span>
+        <span>{data.getQuizzesWithAttemptByCollectionId[pageIdx].quiz?.question}</span>
       </div>
       <div className={styles.footerCenter}>
         <Link
@@ -48,8 +45,8 @@ export default function Footer({ data }: { data: IData }) {
         </Link>
       </div>
       <div className={styles.footerRight}>
-        <span>{currQuiz?.collection.access}</span>
-        <span>{currQuiz?.collection.category.name}</span>
+        <span>{data.getQuizzesWithAttemptByCollectionId[pageIdx].quiz?.collection.access}</span>
+        <span>{data.getQuizzesWithAttemptByCollectionId[pageIdx].quiz?.collection.category.name}</span>
         <Button contained={false} variant="red" className={styles.endBtn}>
           <Link href="/home">종료</Link>
         </Button>
