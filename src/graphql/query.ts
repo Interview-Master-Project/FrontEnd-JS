@@ -86,46 +86,6 @@ export const USER_ATTEMPTED_COLLECTIONS = gql`
   }
 `;
 
-// 컬렉션 검색(최초 렌더링 + 검색 시 모두 사용)
-export const SEARCH_COLLECTIONS = gql`
-  query MyQuery(
-    $keywords: [String]
-    $offset: Int
-    $sort: SortOrder
-    $categoryIds: [Int]
-  ) {
-    searchCollections(
-      keywords: $keywords
-      paging: { offset: $offset, pageSize: 6 }
-      sort: $sort
-      categoryIds: $categoryIds
-    ) {
-      pageInfo {
-        currentPage
-        hasNextPage
-        totalPages
-      }
-      collectionsWithAttempt {
-        quizCount
-        recentAttempts
-        recentCorrectAttempts
-        totalAttempts
-        totalCorrectAttempts
-        collection {
-          id
-          imgUrl
-          name
-          access
-          description
-          category {
-            name
-          }
-        }
-      }
-    }
-  }
-`;
-
 export const GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID = gql`
   query MyQuery($collectionId: ID!) {
     getQuizzesWithAttemptByCollectionId(collectionId: $collectionId) {

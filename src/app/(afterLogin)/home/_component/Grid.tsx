@@ -6,12 +6,12 @@ import Button from "@/app/_component/Button";
 import { useSearchGridStore } from "@/store/useSearchGridStore";
 import clsx from "clsx";
 import { calculateCorrectRate } from "../_lib/calculateCorrectRate";
-import IData from "@/model/search-collections";
+import { IData } from "@/graphql/query/search-collections";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "../page.module.scss";
 
-export default function Grid({ data }: { data: IData | undefined }) {
+export default function Grid({ data }: { data: IData }) {
   const { selectedSearchGrid } = useSearchGridStore(); // 보기형식 === Card | List
 
   return (
