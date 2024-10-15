@@ -1,34 +1,16 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useQuery } from "@apollo/client";
-import { GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID } from "@/graphql/query";
-import { ISolvesInfo } from "@/model/solves-info";
-import { useState } from "react";
-import styles from "./footer.module.scss";
 import Button from "@/app/_component/Button";
+import { IData } from "@/graphql/query/get-quizzes-by-collection-id";
+import styles from "./footer.module.scss";
 
-export default function Footer() {
-  const params = useParams<{ collId: string; quizId: string }>();
-  const [problemIdx, setProblemIdx] = useState(0);
-
-  const { data } = useQuery<ISolvesInfo>(
-    GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID,
-    {
-      variables: {
-        collectionId: params.collId,
-      },
-    }
-  );
-
+export default function Footer({ data }: { data: IData }) {
   return (
     <div className={styles.footerWrapper}>
       <div className={styles.footerLeft}>
         <Image
           src={
-            data?.getQuizzesWithAttemptByCollectionId[problemIdx].quiz
+            data?.getQuizzesWithAttemptByCollectionId[0].quiz
               .collection.imgUrl as string
           }
           alt="임시 이미지"
@@ -40,32 +22,32 @@ export default function Footer() {
         />
         <span>
           {
-            data?.getQuizzesWithAttemptByCollectionId[problemIdx].quiz
+            data?.getQuizzesWithAttemptByCollectionId[0].quiz
               .collection.name
           }
         </span>
         <span>{">"}</span>
         <span>
-          {data?.getQuizzesWithAttemptByCollectionId[problemIdx].quiz.question}
+          {data?.getQuizzesWithAttemptByCollectionId[0].quiz.question}
         </span>
       </div>
       <div className={styles.footerCenter}>
-        <button
+        {/* <button
           onClick={() => setProblemIdx(problemIdx + 1)}
           disabled={
             data?.getQuizzesWithAttemptByCollectionId.length! - 1 === problemIdx
           }
         >
           다음
-        </button>
+        </button> */}
       </div>
       <div className={styles.footerRight}>
         <span>
-          {data?.getQuizzesWithAttemptByCollectionId[problemIdx].quiz.access}
+          {data?.getQuizzesWithAttemptByCollectionId[0].quiz.collection.access}
         </span>
         <span>
           {
-            data?.getQuizzesWithAttemptByCollectionId[problemIdx].quiz
+            data?.getQuizzesWithAttemptByCollectionId[0].quiz
               .collection.category.name
           }
         </span>
