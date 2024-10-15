@@ -1,23 +1,21 @@
 "use client";
 
 import Image from "next/image";
-import { faker } from "@faker-js/faker";
-import { useQuery } from "@apollo/client";
-import { ME } from "@/graphql/query";
-import { IMe } from "@/model/me";
-import { Dropdown } from "@/app/_component/dropdown/Dropdown";
-import { useState } from "react";
 import Link from "next/link";
+import { useState } from "react";
+import { faker } from "@faker-js/faker";
+import { useClientFetch } from "@/hooks/useClientFetch";
+import { ME, IData } from "@/graphql/query/me";
+import { Dropdown } from "@/app/_component/dropdown/Dropdown";
 import styles from "./profile.module.scss";
 
 export default function Profile() {
-  const [isOpen, setIsOpen] = useState(false);
-  const { data } = useQuery<IMe>(ME);
-
+  const { data, error, loading } = useClientFetch<IData>(ME, {}, true);
   const user = {
     ...data,
     image: faker.image.avatarGitHub(),
   };
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className={styles.container}>

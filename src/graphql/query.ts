@@ -1,16 +1,5 @@
 import { gql } from "@apollo/client";
 
-// 로그인 유저 정보
-export const ME = gql`
-  query MyQuery {
-    me {
-      id
-      nickname
-      oAuthProvider
-    }
-  }
-`;
-
 // 퀴즈 잔디밭 정보
 /**
  * (Arguments) startDate
