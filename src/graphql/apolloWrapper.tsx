@@ -9,7 +9,10 @@ import {
 
 function makeClient() {
   const httpLink = new HttpLink({
-    uri: "/graphql",
+    uri:
+      process.env.NODE_ENV === "production"
+        ? "/graphql"
+        : process.env.NEXT_PUBLIC_SERVER_URL_PORT + "/graphql",
   });
 
   return new ApolloClient({

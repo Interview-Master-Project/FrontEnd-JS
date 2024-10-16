@@ -1,25 +1,29 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { IData } from "@/graphql/query/get-quizzes-by-collection-id";
-import { useState } from "react";
-import { useParams } from "next/navigation";
+import Navigator from "./Navigator";
 import Button from "@/app/_component/Button";
 import styles from "./footer.module.scss";
 
-export default function Footer({ data }: { data: IData }) {
-  const { collId, quizId } = useParams<{ collId: string; quizId: string }>();
-  const [pageIdx, setPageIdx] = useState(0);
+type Props = {
+  data: IData;
+  quizId: string;
+};
+
+// params로 quizId 값을 얻음
+// quizId에 해당하는 data를 render
+// navigator를 클릭하면 params가 동적으로 바뀌면서 data를 다시 계산
+export default function Footer({ data, quizId }: Props) {
+  // 해당하는 퀴즈 정보 찾기
+  const targetQuiz = data?.getQuizzesWithAttemptByCollectionId.find(
+    ({ quiz }) => quiz.id === quizId
+  );
 
   return (
     <div className={styles.footerWrapper}>
       <div className={styles.footerLeft}>
         <Image
-          src={
-            data.getQuizzesWithAttemptByCollectionId[pageIdx].quiz?.collection
-              .imgUrl as string
-          }
+          src={targetQuiz?.quiz.collection.imgUrl as string}
           alt="임시 이미지"
           width={45}
           height={45}
@@ -27,46 +31,16 @@ export default function Footer({ data }: { data: IData }) {
             objectFit: "cover",
           }}
         />
-        <span>
-          {
-            data.getQuizzesWithAttemptByCollectionId[pageIdx].quiz?.collection
-              .name
-          }
-        </span>
+        <span>{targetQuiz?.quiz.collection.name}</span>
         <span>{">"}</span>
-        <span>
-          {data.getQuizzesWithAttemptByCollectionId[pageIdx].quiz?.question}
-        </span>
+        <span>{targetQuiz?.quiz.question}</span>
       </div>
       <div className={styles.footerCenter}>
-        <Link
-          href={`/collections/${collId}/quizzes/${
-            data?.getQuizzesWithAttemptByCollectionId[pageIdx + 1].quiz.id
-          }`}
-          onClick={() => setPageIdx(pageIdx + 1)}
-        >
-          <button
-            disabled={
-              data?.getQuizzesWithAttemptByCollectionId.length! - 1 === pageIdx
-            }
-          >
-            다음
-          </button>
-        </Link>
+        <Navigator data={data} quizId={quizId} />
       </div>
       <div className={styles.footerRight}>
-        <span>
-          {
-            data.getQuizzesWithAttemptByCollectionId[pageIdx].quiz?.collection
-              .access
-          }
-        </span>
-        <span>
-          {
-            data.getQuizzesWithAttemptByCollectionId[pageIdx].quiz?.collection
-              .category.name
-          }
-        </span>
+        <span>{targetQuiz?.quiz.collection.access}</span>
+        <span>{targetQuiz?.quiz.collection.category.name}</span>
         <Button contained={false} variant="red" className={styles.endBtn}>
           <Link href="/explore">종료</Link>
         </Button>

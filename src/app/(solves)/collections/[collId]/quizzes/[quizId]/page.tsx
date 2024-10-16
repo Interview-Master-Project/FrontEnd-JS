@@ -37,7 +37,7 @@ export default async function Page({ params }: Props) {
           <p>{targetQuiz?.quiz.answer}</p>
         </div>
       </div>
-      <Footer data={data} />
+      <Footer data={data} quizId={quizId} />
     </div>
   );
 }

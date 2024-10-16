@@ -25,7 +25,7 @@ export default function Auth2Redirect({ provider }: Props) {
   const Login = useCallback(
     async (authorizationCode: string) => {
       try {
-        const url = `${process.env.NEXT_PUBLIC_SERVER_URL_PORT}/api/auth/${provider}`;
+        const url = `/api/auth/${provider}`;
         const response = await axios.post(
           url,
           {

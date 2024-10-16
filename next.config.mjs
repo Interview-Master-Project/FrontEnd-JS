@@ -13,6 +13,14 @@ const nextConfig = {
         source: "/graphql",
         destination: `${process.env.NEXT_PUBLIC_SERVER_URL_PORT}/graphql`,
       },
+      {
+        source: "/api/auth/kakao",
+        destination: `${process.env.NEXT_PUBLIC_SERVER_URL_PORT}/api/auth/kakao`,
+      },
+      {
+        source: "/api/auth/naver",
+        destination: `${process.env.NEXT_PUBLIC_SERVER_URL_PORT}/api/auth/naver`,
+      },
     ];
   },
   reactStrictMode: false,
