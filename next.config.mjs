@@ -7,6 +7,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const nextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: "/graphql",
+        destination: `${process.env.NEXT_PUBLIC_SERVER_URL_PORT}/graphql`,
+      },
+    ];
+  },
   reactStrictMode: false,
   sassOptions: {
     includePaths: [path.join(__dirname, "src", "styles")], // SCSS 전역 경로 설정

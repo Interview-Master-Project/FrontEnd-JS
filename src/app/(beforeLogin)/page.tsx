@@ -21,7 +21,7 @@ export default function Home() {
           </div>
           <div>
             <p>어떤 질문이 올라왔는 지 확인해보세요.</p>
-            <CustomLink to="/home">둘러보기</CustomLink>
+            <CustomLink to="/explore">둘러보기</CustomLink>
           </div>
         </div>
       </div>
