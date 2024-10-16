@@ -31,10 +31,20 @@ export default function LoginModal() {
         </div>
         <div className={styles.modalBody}>
           <Link href={NAVER_URL}>
-            <Image src={naverLoginLogo} alt="네이버 로그인" />
+            <Image
+              src={naverLoginLogo}
+              alt="네이버 로그인"
+              width={360}
+              height={60}
+            />
           </Link>
           <Link href={KAKAO_URL}>
-            <Image src={kakaoLoginLogo} alt="카카오 로그인" />
+            <Image
+              src={kakaoLoginLogo}
+              alt="카카오 로그인"
+              width={360}
+              height={60}
+            />
           </Link>
         </div>
       </div>
