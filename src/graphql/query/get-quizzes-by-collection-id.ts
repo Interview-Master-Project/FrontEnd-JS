@@ -26,6 +26,17 @@ export interface IData {
   getQuizzesWithAttemptByCollectionId: IQuizzes[];
 }
 
+// 리다이렉트 목적 퀴즈 아이디만 추출
+export const GET_QUIZZES_ONLY_ID = gql`
+  query MyQuery($collectionId: ID!) {
+    getQuizzesWithAttemptByCollectionId(collectionId: $collectionId) {
+      quiz {
+        id
+      }
+    }
+  }
+`;
+
 // 컬렉션에 속한 퀴즈들과 유저의 퀴즈 시도 정보
 export const GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID = gql`
   query MyQuery($collectionId: ID!) {

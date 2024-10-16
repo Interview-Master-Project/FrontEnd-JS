@@ -33,5 +33,5 @@ export function middleware(req: NextRequest) {
 
 // 미들웨어 적용 경로 설정
 export const config = {
-  matcher: [...PUBLIC_ROUTE, ...PRIVATE_ROUTE],
+  matcher: ["/", "/my/:path*", "/collections/:path*"],
 };

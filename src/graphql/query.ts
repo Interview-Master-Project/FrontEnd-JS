@@ -41,29 +41,6 @@ export const USER_ATTEMPTED_COLLECTIONS = gql`
   }
 `;
 
-export const GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID = gql`
-  query MyQuery($collectionId: ID!) {
-    getQuizzesWithAttemptByCollectionId(collectionId: $collectionId) {
-      quiz {
-        id
-        question
-        answer
-        access
-        collection {
-          imgUrl
-          name
-          category {
-            name
-          }
-        }
-      }
-      recentAnswerAt
-      totalAttempts
-      totalCorrectAttempts
-    }
-  }
-`;
-
 export const PROBLEM_INFO = gql`
   query MyQuery($collectionId: ID!) {
     getQuizzesWithAttemptByCollectionId(collectionId: $collectionId) {

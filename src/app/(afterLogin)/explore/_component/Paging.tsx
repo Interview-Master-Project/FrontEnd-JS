@@ -1,6 +1,6 @@
 "use client";
 
-import { IPageInfo } from "@/model/search-collections";
+import { IPageInfo } from "@/graphql/query/search-collections";
 import clsx from "clsx";
 import styles from "./paging.module.scss";
 

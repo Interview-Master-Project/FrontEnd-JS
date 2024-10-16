@@ -1,4 +1,12 @@
+@import "../../../../../../styles/components";
+@import "../../../../../../styles/colors";
+
 .container {
+  @include container;
+  background-color: #ccc;
+}
+
+.solveWrapper {
   width: inherit;
   display: flex;
   justify-content: center;

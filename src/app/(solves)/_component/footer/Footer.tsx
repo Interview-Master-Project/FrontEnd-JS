@@ -16,7 +16,10 @@ export default function Footer({ data }: { data: IData }) {
     <div className={styles.footerWrapper}>
       <div className={styles.footerLeft}>
         <Image
-          src={data.getQuizzesWithAttemptByCollectionId[pageIdx].quiz?.collection.imgUrl as string}
+          src={
+            data.getQuizzesWithAttemptByCollectionId[pageIdx].quiz?.collection
+              .imgUrl as string
+          }
           alt="임시 이미지"
           width={45}
           height={45}
@@ -24,9 +27,16 @@ export default function Footer({ data }: { data: IData }) {
             objectFit: "cover",
           }}
         />
-        <span>{data.getQuizzesWithAttemptByCollectionId[pageIdx].quiz?.collection.name}</span>
+        <span>
+          {
+            data.getQuizzesWithAttemptByCollectionId[pageIdx].quiz?.collection
+              .name
+          }
+        </span>
         <span>{">"}</span>
-        <span>{data.getQuizzesWithAttemptByCollectionId[pageIdx].quiz?.question}</span>
+        <span>
+          {data.getQuizzesWithAttemptByCollectionId[pageIdx].quiz?.question}
+        </span>
       </div>
       <div className={styles.footerCenter}>
         <Link
@@ -45,10 +55,20 @@ export default function Footer({ data }: { data: IData }) {
         </Link>
       </div>
       <div className={styles.footerRight}>
-        <span>{data.getQuizzesWithAttemptByCollectionId[pageIdx].quiz?.collection.access}</span>
-        <span>{data.getQuizzesWithAttemptByCollectionId[pageIdx].quiz?.collection.category.name}</span>
+        <span>
+          {
+            data.getQuizzesWithAttemptByCollectionId[pageIdx].quiz?.collection
+              .access
+          }
+        </span>
+        <span>
+          {
+            data.getQuizzesWithAttemptByCollectionId[pageIdx].quiz?.collection
+              .category.name
+          }
+        </span>
         <Button contained={false} variant="red" className={styles.endBtn}>
-          <Link href="/home">종료</Link>
+          <Link href="/explore">종료</Link>
         </Button>
       </div>
     </div>

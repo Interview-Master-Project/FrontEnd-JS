@@ -48,7 +48,7 @@ export default function Auth2Redirect({ provider }: Props) {
         const success = response.data;
         console.log(success);
         if (success) {
-          router.push("/home");
+          router.replace("/explore");
         } else {
           console.error(
             "예상치 못한 에러로 인해 로그인이 실패했습니다.",
