@@ -4,6 +4,7 @@ import {
 } from "@/graphql/query/get-quizzes-by-collection-id";
 import { fetchQueryData } from "@/utils/fetchQueryData";
 import Footer from "@/app/(solves)/_component/footer/Footer";
+import SolveZone from "@/app/(solves)/_component/SolveZone";
 import Sidebar from "@/app/(solves)/_component/sidebar/Sidebar";
 import styles from "./page.module.scss";
 
@@ -30,10 +31,7 @@ export default async function Page({ params }: Props) {
     <div className={styles.container}>
       <Sidebar data={data} />
       <div className={styles.solveWrapper}>
-        <div className={styles.solveZone}>
-          <h3>{targetQuiz?.quiz.question}</h3>
-          <p>{targetQuiz?.quiz.answer}</p>
-        </div>
+        <SolveZone data={data} />
       </div>
       <Footer data={data} quizId={quizId} />
     </div>
