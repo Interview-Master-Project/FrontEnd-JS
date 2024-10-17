@@ -8,11 +8,12 @@ import {
 } from "@apollo/experimental-nextjs-app-support";
 
 function makeClient() {
+  const isProduction = process.env.NODE_ENV === "production";
+
   const httpLink = new HttpLink({
-    uri:
-      process.env.NODE_ENV === "production"
-        ? "/graphql"
-        : process.env.NEXT_PUBLIC_SERVER_URL_PORT + "/graphql",
+    uri: isProduction
+        ? "https://interview-master-project.vercel.app/graphql"
+        : "http://localhost:3000/graphql",
   });
 
   return new ApolloClient({
