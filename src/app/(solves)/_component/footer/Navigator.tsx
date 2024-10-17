@@ -17,23 +17,28 @@ export default function Navigator({ data, quizId }: Props) {
     ({ quiz }) => quiz.id === quizId
   );
 
-  const handleClick = () => {
+  const handleClick = (navigate: number) => {
     // 다음 퀴즈 인덱스에 해당하는 퀴즈의 id 추출
-    const nextQuizId =
-      data.getQuizzesWithAttemptByCollectionId[currQuizIdx + 1].quiz.id;
+    const navigateQuizId =
+      data.getQuizzesWithAttemptByCollectionId[currQuizIdx + navigate].quiz.id;
     // 추출한 id를 새 path로 지정
-    const newPath = pathname.replace(/\/(\d+)$/, `/${nextQuizId}`);
+    const newPath = pathname.replace(/\/(\d+)$/, `/${navigateQuizId}`);
     router.push(newPath);
   };
 
   return (
-    <button
-      onClick={handleClick}
-      disabled={
-        data.getQuizzesWithAttemptByCollectionId.length - 1 === currQuizIdx
-      }
-    >
-      다음
-    </button>
+    <>
+      <button onClick={() => handleClick(-1)} disabled={currQuizIdx === 0}>
+        이전
+      </button>
+      <button
+        onClick={() => handleClick(1)}
+        disabled={
+          data.getQuizzesWithAttemptByCollectionId.length - 1 === currQuizIdx
+        }
+      >
+        다음
+      </button>
+    </>
   );
 }

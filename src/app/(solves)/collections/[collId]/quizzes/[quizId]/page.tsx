@@ -23,9 +23,7 @@ export default async function Page({ params }: Props) {
 
   // 해당하는 퀴즈 정보 찾기
   const targetQuiz = data?.getQuizzesWithAttemptByCollectionId.find(
-    ({ quiz }) => {
-      quiz.id === quizId;
-    }
+    (item) => item.quiz.id === quizId
   );
 
   return (
