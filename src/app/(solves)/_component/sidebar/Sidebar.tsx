@@ -13,17 +13,19 @@ export default function Sidebar({ data }: { data: IData }) {
   const [view, setView] = useState<"list" | "history">("list");
 
   return (
-    <div className={styles.sideBar}>
-      <Tab isActive={view === "list"} onClick={() => setView("list")}>
-        <ListIcon />
-        <span>목록</span>
-      </Tab>
-      <Tab isActive={view === "history"} onClick={() => setView("history")}>
-        <HistoryIcon />
-        <span>기록</span>
-      </Tab>
-      {view === "list" && <List />}
+    <>
+      <div className={styles.sideBar}>
+        <Tab isActive={view === "list"} onClick={() => setView("list")}>
+          <ListIcon />
+          <span>목록</span>
+        </Tab>
+        <Tab isActive={view === "history"} onClick={() => setView("history")}>
+          <HistoryIcon />
+          <span>기록</span>
+        </Tab>
+      </div>
+      {view === "list" && <List data={data} />}
       {view === "history" && <History />}
-    </div>
+    </>
   );
 }

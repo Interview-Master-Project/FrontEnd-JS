@@ -10,9 +10,6 @@ type Props = {
   quizId: string;
 };
 
-// params로 quizId 값을 얻음
-// quizId에 해당하는 data를 render
-// navigator를 클릭하면 params가 동적으로 바뀌면서 data를 다시 계산
 export default function Footer({ data, quizId }: Props) {
   // 해당하는 퀴즈 정보 찾기
   const targetQuiz = data?.getQuizzesWithAttemptByCollectionId.find(
