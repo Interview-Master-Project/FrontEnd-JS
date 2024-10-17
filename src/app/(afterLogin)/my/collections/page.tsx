@@ -84,13 +84,13 @@ export default function Page() {
           {collDropdown && (
             <div className={styles.collEditDropdown}>
               <Link
-                href={`/mypage/editcoll?id=${id}`}
+                href={`/my/editcoll?id=${id}`}
                 className={styles.dropdownItem}
               >
                 수정
               </Link>
               <Link
-                href="/mypage/collections/delete"
+                href="/my/collections/delete"
                 className={styles.dropdownItem}
               >
                 삭제
@@ -113,7 +113,7 @@ export default function Page() {
       </Container>
       <div className={styles.listWrapper}>
         <Container title="질문 리스트">
-          <Link href="/mypage/newquiz" className={styles.createNewBtn}>
+          <Link href="/my/newquiz" className={styles.createNewBtn}>
             + 새 질문 추가
           </Link>
           {COLL_DATA.quiz.map((item: QUIZ) => {
@@ -126,7 +126,7 @@ export default function Page() {
                 {quizDropdown === item.id && (
                   <div className={styles.quizEditDropdown}>
                     <Link
-                      href={`/mypage/editquiz?id=${item.id}`}
+                      href={`/my/editquiz?id=${item.id}`}
                       className={styles.dropdownItem}
                     >
                       수정

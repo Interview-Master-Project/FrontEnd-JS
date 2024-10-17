@@ -21,7 +21,7 @@ export default function Page() {
       <button className={styles.actionBtn__warning} onClick={onClickClose}>
         취소
       </button>
-      <Link href="/mypage" className={styles.actionBtn__ok}>
+      <Link href="/my" className={styles.actionBtn__ok}>
         나가기
       </Link>
     </InfoModal>

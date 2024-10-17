@@ -13,7 +13,7 @@ import styles from "./myAccount.module.scss";
 
 export default function MyAccount() {
   const { data, loading, error } = useClientFetch<IData>(ME, {}, true);
-  
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const user = {
     ...data,
@@ -37,10 +37,10 @@ export default function MyAccount() {
         </Dropdown.Active>
         <Dropdown.Menu isOpen={isDropdownOpen}>
           <Dropdown.Item>
-            <Link href="/mypage/logout">로그아웃</Link>
+            <Link href="/my/logout">로그아웃</Link>
           </Dropdown.Item>
           <Dropdown.Item variant="alert">
-            <Link href="/mypage/delete-account">회원탈퇴</Link>
+            <Link href="/my/delete-account">회원탈퇴</Link>
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
