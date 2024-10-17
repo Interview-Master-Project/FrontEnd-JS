@@ -5,47 +5,47 @@ interface ICollection {
   name: string;
   access: "PUBLIC" | "PRIVATE";
   imgUrl: string;
+  description: string;
 }
 
-export interface ICollections {
+interface ICollectionsWithAttempt {
   collection: ICollection;
-  totalAttempts: number;
-  totalCorrectAttempts: number;
-  recentAttempts: number;
-  recentCorrectAttempts: number;
 }
 
-export interface ICollectionsWithAttempt {
-  collectionsWithAttempt: ICollections[];
+interface IPageInfo {
+  currentPage: number;
+  hasNextPage: boolean;
+  totalPages: number;
+}
+
+interface IMyCollections {
+  collectionsWithAttempt: ICollectionsWithAttempt[];
+  pageInfo: IPageInfo;
 }
 
 export interface IData {
-  myCollections: ICollectionsWithAttempt;
+  myCollections: IMyCollections;
 }
 
-// 유저의 컬렉션 목록
-/**
- * (Arguments) offset
- * (Arguments) pageSize
+/** 유저의 컬렉션 목록
+ * (Arguments) paging: { offset, pageSize }
+ * (Arguments) sort 정렬 조건
  */
 export const MY_COLLECTIONS = gql`
-  query MyQuery($sort: SortOrder) {
-    myCollections(paging: { offset: 0, pageSize: 5 }, sort: $sort) {
+  query MyQuery($sort: SortOrder, $offset: Int) {
+    myCollections(sort: $sort, paging: { offset: $offset, pageSize: 5 }) {
       collectionsWithAttempt {
         collection {
           id
           name
           access
           imgUrl
+          description
         }
-        totalAttempts
-        totalCorrectAttempts
-        recentAttempts
-        recentCorrectAttempts
       }
       pageInfo {
-        hasNextPage
         currentPage
+        hasNextPage
         totalPages
       }
     }

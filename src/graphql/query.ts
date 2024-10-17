@@ -1,23 +1,5 @@
 import { gql } from "@apollo/client";
 
-// 유저의 히스토리 목록
-/**
- * (Arguments) offset
- * (Arguments) pageSize
- */
-export const MY_HISTORY = gql`
-  query MyQuery {
-    myHistory(filter: PUBLIC, paging: { offset: 0, pageSize: 5 }) {
-      collections {
-        id
-        name
-        imgUrl
-        access
-      }
-    }
-  }
-`;
-
 // 카테고리 id와 카테고리명
 export const ALL_CATEGORIES = gql`
   query MyQuery {
