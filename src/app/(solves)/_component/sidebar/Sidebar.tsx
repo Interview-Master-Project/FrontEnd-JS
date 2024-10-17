@@ -25,7 +25,7 @@ export default function Sidebar({ data }: { data: IData }) {
         </Tab>
       </div>
       {view === "list" && <List data={data} />}
-      {view === "history" && <History />}
+      {view === "history" && <History data={data} />}
     </>
   );
 }
