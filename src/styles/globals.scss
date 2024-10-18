@@ -1,6 +1,6 @@
 /* 기본 모드(Light Mode) 색상 */
 :root {
-  --bg: #eeeeee;
+  --bg: #eee;
   --theme-light: #cae5ff;
   --theme-base: #87dbff;
   --theme-dark: #309bff;
@@ -9,50 +9,19 @@
   --danger: #ff0000;
   --ok: #caffe4;
   --success: #03c75b;
-  --layout: #636363;
+  --fg: #fff;
+  --reverse-fg: #000;
+  --dynamic-fg: linear-gradient(to right, #dcd6ff 0%, #b4e9fd 100%);
 }
 
-/* 다크 모드 색상 */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #000000;
-    --theme-light: #309bff;
-    --theme-base: #87dbff;
-    --theme-dark: #cae5ff;
-    --cancel: #ffebeb;
-    --warning: #ff9187;
-    --danger: #ff0000;
-    --ok: #caffe4;
-    --success: #03c75b;
-    --layout: #636363;
-  }
+:root[data-theme="dark"] {
+  --bg: #1f1f1f;
+  --fg: #000;
+  --reverse-fg: #fff;
+  --dynamic-fg: linear-gradient(to right, #2c2a48 0%, #1a3a4a 100%);
 
-  // .light {
-  //   --bg: #eeeeee;
-  //   --theme-light: #cae5ff;
-  //   --theme-base: #87dbff;
-  //   --theme-dark: #309bff;
-  //   --cancel: #ffebeb;
-  //   --warning: #ff9187;
-  //   --danger: #ff0000;
-  //   --ok: #caffe4;
-  //   --success: #03c75b;
-  //   --layout: #636363;
-  // }
+  color: white;
 }
-
-// .dark {
-//   --bg: #000000;
-//   --theme-light: #309bff;
-//   --theme-base: #87dbff;
-//   --theme-dark: #cae5ff;
-//   --cancel: #ffebeb;
-//   --warning: #ff9187;
-//   --danger: #ff0000;
-//   --ok: #caffe4;
-//   --success: #03c75b;
-//   --layout: #636363;
-// }
 
 * {
   box-sizing: border-box;
@@ -70,10 +39,4 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
 }

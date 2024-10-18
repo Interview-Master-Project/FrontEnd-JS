@@ -1,28 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function DarkModeToggle() {
-  const [isDarkMode, setIsDarkMode] = useState(
-    typeof window !== "undefined" &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-  );
+const DarkModeToggle = () => {
+  const [theme, setTheme] = useState(global.window?.__theme || "light");
+
+  const isDark = theme === "dark";
+
+  const toggleTheme = () => {
+    global.window?.__setPreferredTheme(isDark ? "light" : "dark");
+  };
 
   useEffect(() => {
-    const handleChange = (e: MediaQueryListEvent) => setIsDarkMode(e.matches);
-
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    mediaQuery.addEventListener("change", handleChange);
-    return () => mediaQuery.removeEventListener("change", handleChange);
+    global.window.__onThemeChange = setTheme;
   }, []);
 
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", isDarkMode);
-  }, [isDarkMode]);
-
   return (
-    <button onClick={() => setIsDarkMode(!isDarkMode)}>
-      {isDarkMode ? "Light" : "Dark"}
+    <button style={{ width: "10ch", height: "auto" }} onClick={toggleTheme}>
+      {isDark ? "light" : "dark"}
     </button>
   );
-}
+};
+
+export default DarkModeToggle;

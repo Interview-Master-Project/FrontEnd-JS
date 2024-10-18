@@ -34,7 +34,7 @@ export default function Profile() {
       </Dropdown>
       <Image
         src={user.image}
-        alt={data?.me.id as string}
+        alt={`${user.me?.nickname}의 이미지`}
         width={36}
         height={36}
         className={styles.userImg}

@@ -1,7 +1,7 @@
 .wrapper {
   width: 1000px;
   height: 80px;
-  background-color: #fff;
+  background-color: var(--fg);
   border: 3px solid rgba(0, 0, 0, 0.25);
   padding: 0 20px;
 
@@ -19,6 +19,9 @@
 
   border-style: none;
   outline-style: none;
+
+  background: var(--fg);
+  color: var(--reverse-fg);
 }
 
 .icon {

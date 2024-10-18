@@ -17,17 +17,17 @@
 .base {
   background-color: var(--theme-dark);
   border: 1px solid var(--theme-dark);
-  color: #fff;
+  color: var(--fg);
 }
 
 .red {
   background-color: var(--warning);
   border: 1px solid var(--warning);
-  color: #fff;
+  color: var(--fg);
 }
 
 .green {
   background-color: var(--success);
   border: 1px solid var(--success);
-  color: #fff;
+  color: var(--fg);
 }

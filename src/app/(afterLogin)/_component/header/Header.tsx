@@ -1,9 +1,21 @@
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import logo from "../../../../../public/logo.png";
 import Profile from "./Profile";
 import { TabMenu } from "./TabMenu";
-import DarkModeToggle from "./DarkModeToggle";
 import styles from "./header.module.scss";
+
+const DarkModeToggle = dynamic(
+  () => import("@/app/(afterLogin)/_component/header/DarkModeToggle"),
+  {
+    ssr: false,
+    loading: () => (
+      <button disabled style={{ width: "10ch", height: "auto" }}>
+        dark
+      </button>
+    ),
+  }
+);
 
 export default function Header() {
   return (
