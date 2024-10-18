@@ -22,11 +22,6 @@ export default async function Page({ params }: Props) {
     requiresAuth: true,
   });
 
-  // 해당하는 퀴즈 정보 찾기
-  const targetQuiz = data?.getQuizzesWithAttemptByCollectionId.find(
-    (item) => item.quiz.id === quizId
-  );
-
   return (
     <div className={styles.container}>
       <Sidebar data={data} />

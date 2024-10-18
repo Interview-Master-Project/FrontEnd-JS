@@ -4,7 +4,7 @@ import { useSearchFilterStore } from "@/store/useSearchFilterStore";
 import { HiOutlineSquares2X2 as CardSwitchIcon } from "react-icons/hi2";
 import { HiMenu as ListSwitchIcon } from "react-icons/hi";
 import { TiDelete as DeleteIcon } from "react-icons/ti";
-import Button from "@/app/_component/Button";
+import ContainedButton from "@/app/_component/button/ContainedButton";
 import { useSearchGridStore } from "@/store/useSearchGridStore";
 import { useSearchStore } from "@/store/useSearchStore";
 import { ChangeEventHandler } from "react";
@@ -17,9 +17,6 @@ export default function ResultHeader() {
 
   const handleChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
     const sort = e.target.value as "LATEST" | "LOWEST_ACCURACY";
-
-    // debugging
-    console.log("sort 변경: ", sort);
     changeSort(sort);
   };
 
@@ -28,14 +25,14 @@ export default function ResultHeader() {
       <div className={styles.headerSection}>
         <span>필터</span>
         {selectedFilterList?.map((filter) => (
-          <Button
-            className={styles.filterBtn}
+          <ContainedButton
+            variant="base"
             key={filter}
             onClick={() => changeFilter(filter)}
           >
             {filter}
             <DeleteIcon className={styles.deleteIcon} />
-          </Button>
+          </ContainedButton>
         ))}
       </div>
       <div className={styles.headerSection}>

@@ -1,0 +1,35 @@
+@import "../../../styles/colors";
+
+.button {
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 10px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: "Noto Sans Korean";
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.base {
+  background-color: $theme-dark;
+  border: 1px solid $theme-dark;
+  color: #fff;
+}
+
+.red {
+  background-color: $warning;
+  border: 1px solid $warning;
+  color: #fff;
+}
+
+.green {
+  background-color: $success;
+  border: 1px solid $success;
+  color: #fff;
+}

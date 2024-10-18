@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { IData } from "@/graphql/query/get-quizzes-by-collection-id";
 import Navigator from "./Navigator";
-import Button from "@/app/_component/Button";
+import OutlinedButton from "@/app/_component/button/OutlinedButton";
 import styles from "./footer.module.scss";
 
 type Props = {
@@ -38,9 +38,9 @@ export default function Footer({ data, quizId }: Props) {
       <div className={styles.footerRight}>
         <span>{targetQuiz?.quiz.collection.access}</span>
         <span>{targetQuiz?.quiz.collection.category.name}</span>
-        <Button contained={false} variant="red" className={styles.endBtn}>
+        <OutlinedButton variant="red">
           <Link href="/explore">종료</Link>
-        </Button>
+        </OutlinedButton>
       </div>
     </div>
   );

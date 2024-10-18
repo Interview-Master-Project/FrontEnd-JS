@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 
 // 공용 및 보호된 경로 정의
 const PUBLIC_ROUTE = ["/"];
-const PRIVATE_ROUTE = ["/my/:path*", "/collections/:path*"];
+const PRIVATE_ROUTE = ["/my", "/my/:path*", "/collections/:path*"];
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -26,12 +26,11 @@ export function middleware(req: NextRequest) {
     if (!token) {
       return NextResponse.redirect(new URL("/login", req.url));
     }
+    return NextResponse.next(); // 토큰이 있거나 보호되지 않은 경로면 통과
   }
-
-  return NextResponse.next(); // 토큰이 있거나 보호되지 않은 경로면 통과
 }
 
 // 미들웨어 적용 경로 설정
 export const config = {
-  matcher: ["/", "/my/:path*", "/collections/:path*"],
+  matcher: ["/", "/my", "/my/:path*", "/collections/:path*"],
 };

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useParams } from "next/navigation";
 import { IData } from "@/graphql/query/get-quizzes-by-collection-id";
 import TextareaAutosize from "react-textarea-autosize";
-import Button from "@/app/_component/Button";
+import ContainedButton from "@/app/_component/button/ContainedButton";
 import styles from "./solveZone.module.scss";
 
 export default function SolveZone({ data }: { data: IData }) {
@@ -55,14 +55,18 @@ export default function SolveZone({ data }: { data: IData }) {
         )}
       </div>
       <div className={styles.correctCheckZone}>
-        <Button
+        <ContainedButton
           variant="green"
           disabled={clicked}
           onClick={handleCorrectClick}
-        >{`맞았어요 ${correctCnt ?? 0}`}</Button>
-        <Button disabled={clicked} variant="red" onClick={handleWrongClick}>
+        >{`맞았어요 ${correctCnt ?? 0}`}</ContainedButton>
+        <ContainedButton
+          disabled={clicked}
+          variant="red"
+          onClick={handleWrongClick}
+        >
           {`틀렸어요 ${wrongCnt ?? 0}`}
-        </Button>
+        </ContainedButton>
       </div>
     </div>
   );

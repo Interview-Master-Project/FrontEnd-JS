@@ -5,7 +5,7 @@ import { CookiesProvider } from "next-client-cookies/server";
 import "@/styles/globals.scss";
 
 const notoSansKr = Noto_Sans_KR({
-  weight: ["400"],
+  weight: ["400", "600"],
   subsets: ["latin"],
 });
 

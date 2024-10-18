@@ -2,7 +2,7 @@
 
 import { Card } from "../../_component/Card";
 import { List } from "../../_component/List";
-import Button from "@/app/_component/Button";
+import Button from "@/app/_component/button/ContainedButton";
 import { useSearchGridStore } from "@/store/useSearchGridStore";
 import clsx from "clsx";
 import { calculateCorrectRate } from "../_lib/calculateCorrectRate";
