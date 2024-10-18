@@ -20,7 +20,7 @@
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #fff;
+  background-color: var(--bg);
   border: 1px solid #ccc;
   padding: 5px;
   display: none;
@@ -37,11 +37,9 @@
 
 .dropdownItem {
   padding: 5px;
-  color: black;
   text-decoration: none;
 
   &:hover {
     opacity: 0.7;
-    background-color: #eee;
   }
 }

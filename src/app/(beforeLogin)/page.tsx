@@ -1,7 +1,8 @@
-import styles from "./page.module.scss";
 import Image from "next/image";
+import Link from "next/link";
 import logo from "../../../public/logo.png";
-import CustomLink from "@/app/_component/CustomLink";
+import ContainedButton from "../_component/button/ContainedButton";
+import styles from "./page.module.scss";
 
 export default function Home() {
   return (
@@ -17,11 +18,15 @@ export default function Home() {
         <div className={styles.rightFooter}>
           <div>
             <p>10초 만에 소셜 계정 로그인하기</p>
-            <CustomLink to="/login">로그인</CustomLink>
+            <Link href="/login">
+              <ContainedButton>로그인</ContainedButton>
+            </Link>
           </div>
           <div>
             <p>어떤 질문이 올라왔는 지 확인해보세요.</p>
-            <CustomLink to="/explore">둘러보기</CustomLink>
+            <Link href="/login">
+              <ContainedButton>둘러보기</ContainedButton>
+            </Link>
           </div>
         </div>
       </div>

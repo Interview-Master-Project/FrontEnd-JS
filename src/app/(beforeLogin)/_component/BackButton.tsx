@@ -1,7 +1,7 @@
 "use client";
 
-import styles from "./loginModal.module.scss";
 import { useRouter } from "next/navigation";
+import styles from "./loginModal.module.scss";
 
 export default function BackButton() {
   const router = useRouter();

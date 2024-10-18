@@ -1,21 +1,9 @@
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import logo from "../../../../../public/logo.png";
 import Profile from "./Profile";
 import { TabMenu } from "./TabMenu";
+import DarkModeToggle from "@/app/(afterLogin)/_component/header/DarkModeToggle";
 import styles from "./header.module.scss";
-
-const DarkModeToggle = dynamic(
-  () => import("@/app/(afterLogin)/_component/header/DarkModeToggle"),
-  {
-    ssr: false,
-    loading: () => (
-      <button disabled style={{ width: "10ch", height: "auto" }}>
-        dark
-      </button>
-    ),
-  }
-);
 
 export default function Header() {
   return (
@@ -38,8 +26,10 @@ export default function Header() {
           <TabMenu to="/my">마이페이지</TabMenu>
         </div>
       </div>
-      <DarkModeToggle />
-      <Profile />
+      <div className={styles.headerRight}>
+        <DarkModeToggle />
+        <Profile />
+      </div>
     </header>
   );
 }

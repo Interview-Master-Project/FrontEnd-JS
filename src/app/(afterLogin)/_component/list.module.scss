@@ -3,7 +3,7 @@
   height: 120px;
   border-radius: 20px;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  background-color: var(--fg);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 효과 */
   transition: box-shadow 0.3s ease; /* hover 시 자연스러운 전환 */
   padding: 20px;
@@ -37,7 +37,7 @@
   border-top-right-radius: 20px;
 
   &_public {
-    background-color: var(--theme-base);
+    background-color: var(--theme-dark);
   }
   &_private {
     background-color: var(--warning);

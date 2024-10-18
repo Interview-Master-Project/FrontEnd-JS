@@ -1,10 +1,10 @@
-import styles from "./loginModal.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../../../../public/logo.png";
 import kakaoLoginLogo from "../../../../public/kakao_login_large_wide.png";
 import naverLoginLogo from "../../../../public/btnG_naver.png";
 import BackButton from "./BackButton";
+import styles from "./loginModal.module.scss";
 
 export default function LoginModal() {
   // naver required parameters

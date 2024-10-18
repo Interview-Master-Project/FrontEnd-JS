@@ -14,7 +14,7 @@
 
 /* 모달 */
 @mixin modal {
-  background-color: #fff;
+  background-color: var(--fg);
   position: relative;
   top: 5%;
   max-width: 80vw;
