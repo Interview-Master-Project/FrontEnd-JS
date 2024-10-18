@@ -17,8 +17,8 @@ export default function Page() {
       </Container>
       <Container title="질문 추가">
         <div className={styles.cancelSaveSection}>
-          <Link href="/mypage/newquiz/cancel">취소</Link>
-          <Link href="/mypage/newquiz/save">저장 및 추가</Link>
+          <Link href="/my/newquiz/cancel">취소</Link>
+          <Link href="/my/newquiz/save">저장 및 추가</Link>
         </div>
       </Container>
     </form>

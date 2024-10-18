@@ -1,5 +1,4 @@
 @import "../../styles/modal";
-@import "../../styles/colors";
 @import "../../styles/components";
 
 .modalBackground {
@@ -14,13 +13,6 @@
 
 .modal {
   @include modal;
-}
-
-@media (prefers-color-scheme: dark) {
-  .modal {
-    background-color: #000;
-    color: #fff;
-  }
 }
 
 .modalHeader {
@@ -59,13 +51,13 @@
     outline: none;
 
     &__warning {
-      @include button($warning, #fff, $warning);
+      @include button(var(--warning), #fff, var(--warning));
     }
     &__ok {
-      @include button(#000, $ok, #fff);
+      @include button(#000, var(--ok), #fff);
     }
     &__base {
-      @include button(#000, $theme-light, #fff);
+      @include button(#000, var(--theme-light), #fff);
     }
   }
 }
