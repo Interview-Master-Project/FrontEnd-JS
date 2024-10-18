@@ -1,5 +1,3 @@
-@import "../../../../styles/colors";
-
 .tabWrapper {
   position: relative;
 }
@@ -15,7 +13,7 @@
 
 // 현재 경로에 해당할 때
 .tabFocused {
-  border-bottom: 3px solid $theme-dark;
+  border-bottom: 3px solid var(--theme-dark);
 }
 
 .dropdown {

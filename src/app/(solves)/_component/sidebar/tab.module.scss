@@ -1,5 +1,3 @@
-@import "../../../../styles/colors";
-
 .wrapper {
   width: 80px;
   height: 80px;
@@ -25,5 +23,5 @@
 }
 
 .active {
-  background-color: $theme-base;
+  background-color: var(--theme-base);
 }

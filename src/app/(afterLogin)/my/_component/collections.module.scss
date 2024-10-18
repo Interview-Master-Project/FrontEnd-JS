@@ -1,5 +1,3 @@
-@import "../../../../styles/colors";
-
 .collections {
   background-color: #fff;
   border-radius: 20px;
@@ -17,15 +15,15 @@
 }
 
 .tabFocused {
-  border-bottom: 5px solid $theme-dark;
+  border-bottom: 5px solid var(--theme-dark);
 }
 
 .createCollectionBtn {
   position: absolute;
   top: -50px;
   right: 0;
-  background-color: $ok;
-  border: 1px solid $layout;
+  background-color: var(--ok);
+  border: 1px solid var(--layout);
   border-radius: 20px;
   font-size: 20px;
   padding: 5px 20px;
@@ -33,7 +31,7 @@
 
 .collection {
   height: 120px;
-  border-bottom: 1px solid $layout;
+  border-bottom: 1px solid var(--layout);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -51,7 +49,7 @@
 .collectionAccess {
   display: inline-block;
   padding: 0 12px;
-  border: 1px solid $layout;
+  border: 1px solid var(--layout);
   border-radius: 15px;
 }
 

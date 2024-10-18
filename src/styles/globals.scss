@@ -1,3 +1,59 @@
+/* 기본 모드(Light Mode) 색상 */
+:root {
+  --bg: #eeeeee;
+  --theme-light: #cae5ff;
+  --theme-base: #87dbff;
+  --theme-dark: #309bff;
+  --cancel: #ffebeb;
+  --warning: #ff9187;
+  --danger: #ff0000;
+  --ok: #caffe4;
+  --success: #03c75b;
+  --layout: #636363;
+}
+
+/* 다크 모드 색상 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #000000;
+    --theme-light: #309bff;
+    --theme-base: #87dbff;
+    --theme-dark: #cae5ff;
+    --cancel: #ffebeb;
+    --warning: #ff9187;
+    --danger: #ff0000;
+    --ok: #caffe4;
+    --success: #03c75b;
+    --layout: #636363;
+  }
+
+  // .light {
+  //   --bg: #eeeeee;
+  //   --theme-light: #cae5ff;
+  //   --theme-base: #87dbff;
+  //   --theme-dark: #309bff;
+  //   --cancel: #ffebeb;
+  //   --warning: #ff9187;
+  //   --danger: #ff0000;
+  //   --ok: #caffe4;
+  //   --success: #03c75b;
+  //   --layout: #636363;
+  // }
+}
+
+// .dark {
+//   --bg: #000000;
+//   --theme-light: #309bff;
+//   --theme-base: #87dbff;
+//   --theme-dark: #cae5ff;
+//   --cancel: #ffebeb;
+//   --warning: #ff9187;
+//   --danger: #ff0000;
+//   --ok: #caffe4;
+//   --success: #03c75b;
+//   --layout: #636363;
+// }
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -8,7 +64,7 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  background-color: #eee;
+  background-color: var(--bg);
 }
 
 a {

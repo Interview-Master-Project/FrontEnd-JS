@@ -1,7 +1,7 @@
 /* 최외각 wrapper */
 @mixin container {
   display: flex;
-  background-color: $bg;
+  background-color: var(--bg);
   width: 100dvw;
   height: 100dvh;
 }

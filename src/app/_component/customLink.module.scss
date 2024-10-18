@@ -1,5 +1,4 @@
 @import "../../styles/components";
-@import "../../styles/colors";
 
 .link {
   @include Link;
@@ -9,16 +8,16 @@
   color: white;
 
   &_base {
-    background-color: $theme-base;
-    border: 1px solid $theme-base;
+    background-color: var(--theme-base);
+    border: 1px solid var(--theme-base);
   }
   &_green {
-    background-color: $success;
-    border: 1px solid $success;
+    background-color: var(--success);
+    border: 1px solid var(--success);
   }
   &_red {
-    background-color: $danger;
-    border: 1px solid $danger;
+    background-color: var(--danger);
+    border: 1px solid var(--danger);
   }
 }
 
@@ -26,15 +25,15 @@
   color: black;
 
   &_base {
-    background-color: $theme-base;
-    border: 1px solid $theme-base;
+    background-color: var(--theme-base);
+    border: 1px solid var(--theme-base);
   }
   &_green {
-    background-color: $success;
-    border: 1px solid $success;
+    background-color: var(--success);
+    border: 1px solid var(--success);
   }
   &_red {
-    background-color: $danger;
-    border: 1px solid $danger;
+    background-color: var(--danger);
+    border: 1px solid var(--danger);
   }
 }

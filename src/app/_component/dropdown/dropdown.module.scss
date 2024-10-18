@@ -1,5 +1,3 @@
-@import "../../../styles/colors";
-
 .dropdown {
   position: relative;
   width: 36px;
@@ -49,6 +47,6 @@
   list-style: none;
 
   &__alert {
-    color: $warning;
+    color: var(--warning);
   }
 }

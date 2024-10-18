@@ -2,6 +2,7 @@ import Image from "next/image";
 import logo from "../../../../../public/logo.png";
 import Profile from "./Profile";
 import { TabMenu } from "./TabMenu";
+import DarkModeToggle from "./DarkModeToggle";
 import styles from "./header.module.scss";
 
 export default function Header() {
@@ -25,6 +26,7 @@ export default function Header() {
           <TabMenu to="/my">마이페이지</TabMenu>
         </div>
       </div>
+      <DarkModeToggle />
       <Profile />
     </header>
   );

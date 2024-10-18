@@ -1,5 +1,3 @@
-@import "../../../styles/colors";
-
 .button {
   border-radius: 5px;
   font-size: 16px;
@@ -17,19 +15,19 @@
 }
 
 .base {
-  background-color: $theme-dark;
-  border: 1px solid $theme-dark;
+  background-color: var(--theme-dark);
+  border: 1px solid var(--theme-dark);
   color: #fff;
 }
 
 .red {
-  background-color: $warning;
-  border: 1px solid $warning;
+  background-color: var(--warning);
+  border: 1px solid var(--warning);
   color: #fff;
 }
 
 .green {
-  background-color: $success;
-  border: 1px solid $success;
+  background-color: var(--success);
+  border: 1px solid var(--success);
   color: #fff;
 }

@@ -29,7 +29,7 @@ export default async function Page({ params }: TParams) {
     return <span>컬렉션 정보를 불러오는 데 실패했습니다.</span>;
   }
 
-  const initQuizId = data.getQuizzesWithAttemptByCollectionId[0].quiz.id;
+  const initQuizId = data.getQuizzesWithAttemptByCollectionId[0]?.quiz.id;
 
   if (initQuizId) {
     redirect(`/collections/${collId}/quizzes/${initQuizId}`);

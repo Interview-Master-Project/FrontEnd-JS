@@ -1,4 +1,3 @@
-@import "../../../../styles/colors";
 @import "../../../../styles/components";
 
 .form {
@@ -14,10 +13,10 @@
 
   & > a {
     &:first-child {
-      @include button($warning, #fff, $warning);
+      @include button(var(--warning), #fff, var(--warning));
     }
     &:last-child {
-      @include button($success, #fff, $success);
+      @include button(var(--success), #fff, var(--success));
     }
   }
 }
