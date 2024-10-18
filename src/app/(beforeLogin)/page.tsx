@@ -24,7 +24,7 @@ export default function Home() {
           </div>
           <div>
             <p>어떤 질문이 올라왔는 지 확인해보세요.</p>
-            <Link href="/login">
+            <Link href="/explore">
               <ContainedButton>둘러보기</ContainedButton>
             </Link>
           </div>
