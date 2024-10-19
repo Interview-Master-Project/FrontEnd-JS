@@ -17,7 +17,7 @@
 
 /* Dark Mode 색상 */
 :root[data-theme="dark"] {
-  --bg: #1f1f1f;
+  --bg: #333;
   --fg: #000;
   --reverse-fg: #fff;
   --dynamic-fg: linear-gradient(to right, #2c2a48 0%, #1a3a4a 100%);
@@ -42,4 +42,9 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+button {
+  all: unset;
+  cursor: pointer;
 }

@@ -1,18 +1,8 @@
+@import "../../../../../styles/card";
+
 .chartContainer {
+  @include card;
   flex: 2;
-  background-color: var(--fg);
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  position: relative;
-
-  & > h3 {
-    position: absolute;
-    top: -40px;
-    left: 0;
-  }
 }
 
 .chart {
