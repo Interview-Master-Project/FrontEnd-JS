@@ -87,7 +87,19 @@ export default function ApexChart() {
         return `<div style="padding: 5px;">Solved: ${quizzesSolved ?? 0}</div>`;
       },
     },
-    colors: ["#008FFB"],
+    plotOptions: {
+      heatmap: {
+        shadeIntensity: 0.5, // 음영 강도 (0 ~ 1)
+        colorScale: {
+          ranges: [
+            { from: 0, to: 0, color: "#f1f1f1", name: "None" }, // 데이터 없음
+            { from: 1, to: 10, color: "#cae5ff", name: "Low" }, // 낮은 값의 색상
+            { from: 11, to: 30, color: "#87dbff", name: "Medium" }, // 중간 값의 색상
+            { from: 31, to: 100, color: "#309bff", name: "High" }, // 높은 값의 색상
+          ],
+        },
+      },
+    },
   };
 
   useEffect(() => {
