@@ -32,10 +32,14 @@ export default function MyAccount() {
     <div className={styles.userProfile}>
       <h3>내 계정</h3>
       <Dropdown onClose={handleOffDropdown} className={styles.profileEditBtn}>
-        <Dropdown.Active onClick={handleCloseDropdown}>
+        <Dropdown.Active
+          onClick={handleCloseDropdown}
+          boxWidth={36}
+          boxHeight={36}
+        >
           <EditIcon />
         </Dropdown.Active>
-        <Dropdown.Menu isOpen={isDropdownOpen}>
+        <Dropdown.Menu isOpen={isDropdownOpen} containerWidth={160}>
           <Dropdown.Item>
             <Link href="/my/logout">로그아웃</Link>
           </Dropdown.Item>
