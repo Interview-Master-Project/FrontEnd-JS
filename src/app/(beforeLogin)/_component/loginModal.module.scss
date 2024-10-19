@@ -4,14 +4,9 @@
   @include modalBackground;
 }
 
-@media (prefers-color-scheme: dark) {
-  .modalBackground {
-    background-color: rgba(91, 112, 131, 0.4);
-  }
-}
-
 .modal {
   @include modal;
+  height: 500px;
 }
 
 .modalHeader {
@@ -34,11 +29,6 @@
   }
 }
 
-.logo {
-  width: 36px;
-  height: 36px;
-}
-
 .modalBody {
   display: flex;
   flex-direction: column;
@@ -49,8 +39,8 @@
 
   & > a {
     & > img {
-      object-fit: cover;
-      border-radius: 10px;
+      object-fit: contain;
+      width: 100%;
     }
   }
 }

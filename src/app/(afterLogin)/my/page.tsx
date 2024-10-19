@@ -12,7 +12,6 @@ export default function Page() {
     <>
       <div className={styles.userInfo}>
         <MyAccount />
-        {/* <DashBoard /> */}
         <Chart />
       </div>
       <Collections />

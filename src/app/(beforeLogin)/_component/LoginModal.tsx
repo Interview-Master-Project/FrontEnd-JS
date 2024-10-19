@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../../../../public/logo.png";
-import kakaoLoginLogo from "../../../../public/kakao_login_large_wide.png";
-import naverLoginLogo from "../../../../public/btnG_naver.png";
+import kakaoLoginLogo from "../../../../public/kakaoLoginBtn.png";
+import naverLoginLogo from "../../../../public/naverLoginBtn.png";
 import BackButton from "./BackButton";
 import styles from "./loginModal.module.scss";
 
@@ -25,7 +25,7 @@ export default function LoginModal() {
       <div className={styles.modal}>
         <div className={styles.modalHeader}>
           <BackButton />
-          <Image src={logo} alt="로고" className={styles.logo} />
+          <Image src={logo} alt="로고" width={36} height={36} />
           <h1>로그인</h1>
           <p>소셜 계정으로 간편 로그인하세요!</p>
         </div>
@@ -34,16 +34,16 @@ export default function LoginModal() {
             <Image
               src={naverLoginLogo}
               alt="네이버 로그인"
-              width={360}
-              height={60}
+              width={300}
+              priority
             />
           </Link>
           <Link href={KAKAO_URL}>
             <Image
               src={kakaoLoginLogo}
               alt="카카오 로그인"
-              width={360}
-              height={60}
+              width={300}
+              priority
             />
           </Link>
         </div>
