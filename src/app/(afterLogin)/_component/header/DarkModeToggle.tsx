@@ -2,22 +2,32 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MdDarkMode as DarkModeIcon } from "react-icons/md";
-import { MdLightMode as LightModeIcon } from "react-icons/md";
+import {
+  MdDarkMode as DarkModeIcon,
+  MdLightMode as LightModeIcon,
+} from "react-icons/md";
 import styles from "./darkModeToggle.module.scss";
 
 export default function DarkModeToggle() {
-  const [theme, setTheme] = useState(global.window?.__theme || "light");
+  const [theme, setTheme] = useState<"light" | "dark" | null>(null);
+
+  // CSR 시점에 테마 초기화
+  useEffect(() => {
+    setTheme(window.__theme);
+    window.__onThemeChange = setTheme;
+  }, []);
 
   const isDark = theme === "dark";
 
   const toggleTheme = () => {
-    global.window?.__setPreferredTheme(isDark ? "light" : "dark");
+    if (theme) {
+      const newTheme = isDark ? "light" : "dark";
+      window?.__setPreferredTheme(newTheme);
+    }
   };
 
-  useEffect(() => {
-    global.window.__onThemeChange = setTheme;
-  }, []);
+  // theme 초기화 전일 경우
+  if (!theme) return null;
 
   return (
     <div

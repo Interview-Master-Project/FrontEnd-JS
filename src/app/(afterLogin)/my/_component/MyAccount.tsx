@@ -46,13 +46,17 @@ export default function MyAccount() {
       </Dropdown>
       <Image
         src={user.image}
-        alt={user.me?.id as string}
+        alt={`${user.me?.nickname}의 프로필`}
         width={144}
         height={144}
       />
-      <div className={styles.logo_name}>
-        {user?.me?.oAuthProvider === "KAKAO" && <KakaoLogo />}
-        {user?.me?.oAuthProvider === "NAVER" && <NaverLogo />}
+      <div className={styles.logoName}>
+        {user?.me?.oAuthProvider === "KAKAO" && (
+          <KakaoLogo className={styles.logo} />
+        )}
+        {user?.me?.oAuthProvider === "NAVER" && (
+          <NaverLogo className={styles.logo} />
+        )}
         <span>{user?.me?.nickname}</span>
       </div>
     </div>
