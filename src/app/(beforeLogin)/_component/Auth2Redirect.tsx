@@ -4,7 +4,9 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
-type Props = { provider: string };
+type Props = {
+  provider: string;
+};
 
 export default function Auth2Redirect({ provider }: Props) {
   const router = useRouter();
@@ -39,21 +41,15 @@ export default function Auth2Redirect({ provider }: Props) {
 
         const token = response.headers.authorization;
         if (token) {
-          document.cookie = `authToken=${token}; path=/; max-age=3600`; // 쿠키 만료 시간 설정 (1시간)
-          console.log("token accepted");
-        } else {
-          console.log("token denied");
+          document.cookie = `authToken=${token}; path=/; max-age=360000`; // 쿠키 만료 시간 설정 (100시간)
         }
 
         const success = response.data;
-        console.log(success);
         if (success) {
           router.replace("/explore");
         } else {
-          console.error(
-            "예상치 못한 에러로 인해 로그인이 실패했습니다.",
-            success
-          );
+          // 로그인 실패
+          console.error("예상치 못한 에러로 인해 로그인이 실패했습니다.");
         }
       } catch (err) {
         console.error("로그인에 실패했습니다.", err);

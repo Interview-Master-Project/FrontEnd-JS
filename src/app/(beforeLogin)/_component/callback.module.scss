@@ -1,0 +1,25 @@
+.callback {
+  width: 100dvw;
+  height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinnerContainer {
+  width: 440px;
+  height: 180px;
+  background-color: rgb(255, 255, 255, 0.8);
+  box-shadow: var(--shadow);
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  & > p {
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.8);
+  }
+}
