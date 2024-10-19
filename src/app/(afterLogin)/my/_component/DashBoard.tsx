@@ -42,7 +42,7 @@ export default async function DashBoard() {
         <tbody>
           {checkBoard.map((innerArr, rowIndex) => (
             <tr key={`${rowIndex}_${Math.random()}`}>
-              <div className={styles.day}>{days[rowIndex] || ""}</div>
+              <span className={styles.day}>{days[rowIndex] || ""}</span>
               {innerArr.map((_, colIndex) => {
                 // data 배열에서 해당하는 rowIndex와 colIndex를 가진 데이터가 있는 지 확인
                 const targetData = data?.getQuizGarden?.find(

@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
+// import Link from "next/link";
+import { useState, useEffect } from "react";
 import { faker } from "@faker-js/faker";
 import { useClientFetch } from "@/hooks/useClientFetch";
 import { ME, IData } from "@/graphql/query/me";
@@ -11,15 +11,21 @@ import styles from "./profile.module.scss";
 
 export default function Profile() {
   const { data, error, loading } = useClientFetch<IData>(ME, {}, true);
+  const [image, setImage] = useState<string | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setImage(faker.image.avatarGitHub());
+  }, []);
+
   const user = {
     ...data,
-    image: faker.image.avatarGitHub(),
+    image,
   };
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className={styles.container}>
-      <Dropdown onClose={() => setIsOpen(false)} className={styles.dropdown}>
+      {/* <Dropdown onClose={() => setIsOpen(false)} className={styles.dropdown}>
         <Dropdown.Active onClick={() => setIsOpen(true)}>
           <></>
         </Dropdown.Active>
@@ -31,14 +37,16 @@ export default function Profile() {
             <Link href="/home">로그아웃</Link>
           </Dropdown.Item>
         </Dropdown.Menu>
-      </Dropdown>
-      <Image
-        src={user.image}
-        alt={`${user.me?.nickname}의 이미지`}
-        width={36}
-        height={36}
-        className={styles.userImg}
-      />
+      </Dropdown> */}
+      {image && (
+        <Image
+          src={user.image as string}
+          alt={`${user.me?.nickname}의 이미지`}
+          width={36}
+          height={36}
+          className={styles.userImg}
+        />
+      )}
       <span>{data?.me.nickname ?? "로그인"}</span>
     </div>
   );

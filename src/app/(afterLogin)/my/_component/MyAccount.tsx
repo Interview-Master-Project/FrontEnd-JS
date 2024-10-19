@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ME, IData } from "@/graphql/query/me";
@@ -15,9 +15,15 @@ export default function MyAccount() {
   const { data, loading, error } = useClientFetch<IData>(ME, {}, true);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [image, setImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    setImage(faker.image.avatarGitHub());
+  }, []);
+
   const user = {
     ...data,
-    image: faker.image.avatarGitHub(),
+    image,
   };
 
   const handleCloseDropdown = () => {
@@ -48,12 +54,15 @@ export default function MyAccount() {
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
-      <Image
-        src={user.image}
-        alt={`${user.me?.nickname}의 프로필`}
-        width={144}
-        height={144}
-      />
+      {image && (
+        <Image
+          src={user.image as string}
+          alt={`${user.me?.nickname}의 프로필`}
+          width={144}
+          height={144}
+          priority
+        />
+      )}
       <div className={styles.logoName}>
         {user?.me?.oAuthProvider === "KAKAO" && (
           <KakaoLogo className={styles.logo} />

@@ -81,6 +81,7 @@ export default function Collections() {
                 width={80}
                 height={80}
                 style={{ objectFit: "cover" }}
+                priority
               />
               <div>
                 <div className={styles.collectionAccess}>
