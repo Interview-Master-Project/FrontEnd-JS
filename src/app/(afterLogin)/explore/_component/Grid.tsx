@@ -1,7 +1,7 @@
 "use client";
 
-import { Card } from "../../_component/Card";
-import { List } from "../../_component/List";
+import { Card } from "../../_component/collections/Card";
+import { List } from "../../_component/collections/List";
 import Button from "@/app/_component/button/ContainedButton";
 import { useSearchGridStore } from "@/store/useSearchGridStore";
 import clsx from "clsx";

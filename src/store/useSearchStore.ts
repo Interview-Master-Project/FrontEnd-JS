@@ -2,21 +2,22 @@ import { create } from "zustand";
 
 export type TCategories = Array<{ id: string; name: string }>;
 
-interface ISearchStore {
+export interface ISearchStore {
   keywords: string[];
   sort: "LATEST" | "LOWEST_ACCURACY";
   categories: TCategories;
+  maxCorrectRate: number | undefined;
   changeKeywords: (search: string) => void;
   changeCategories: (categories: TCategories) => void;
   changeSort: (sortBy: "LATEST" | "LOWEST_ACCURACY") => void;
+  changeMaxCorrectRate: (rate: number) => void;
 }
 
-// keywords, sort, cateoryIds 상태에 변화가 생기면
-// page.tsx를 재렌더링(즉, 재요청)
 export const useSearchStore = create<ISearchStore>((set) => ({
   keywords: [],
   sort: "LATEST",
   categories: [],
+  maxCorrectRate: undefined, // undefined라면 variables로 전달하지 않게 해야 함
   changeKeywords: (search: string) => {
     set(() => {
       return { keywords: [search] };
@@ -30,6 +31,11 @@ export const useSearchStore = create<ISearchStore>((set) => ({
   changeSort: (sortBy: "LATEST" | "LOWEST_ACCURACY") => {
     set(() => {
       return { sort: sortBy };
+    });
+  },
+  changeMaxCorrectRate: (rate: number) => {
+    set(() => {
+      return { maxCorrectRate: rate };
     });
   },
 }));
