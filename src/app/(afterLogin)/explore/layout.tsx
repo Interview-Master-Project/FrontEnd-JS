@@ -6,7 +6,6 @@ export default function Layout({ children }: React.PropsWithChildren) {
     <>
       <div className={styles.searchWall}>
         <Search />
-        {/* <Filters /> */}
       </div>
       {children}
     </>

@@ -1,0 +1,26 @@
+.wrapper {
+  width: 1000px;
+  height: 80px;
+  display: flex;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  border: 1px solid #ccc;
+  background-color: var(--fg);
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hidden {
+  display: none;
+}
+
+.item {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}

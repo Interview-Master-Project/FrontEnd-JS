@@ -1,0 +1,30 @@
+.container {
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid var(--bg);
+  padding: 10px;
+  font-size: 20px;
+  background-color: var(--fg);
+  cursor: pointer;
+
+  position: relative;
+}
+
+.iconWrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.label {
+  position: absolute;
+  left: 60px;
+  line-height: 50px;
+  text-align: center;
+}

@@ -2,7 +2,7 @@
 
 import { CiSearch as SearchIcon } from "react-icons/ci";
 import { TextInput } from "@/app/_component/textInput/TextInput";
-import FilterBox, { ICategories } from "./FilterBox";
+import FilterBox, { ICategories } from "./search/FilterBox";
 import { TCategories, useSearchStore } from "@/store/useSearchStore";
 import { FormEventHandler } from "react";
 import { useQuery } from "@apollo/client";

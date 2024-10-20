@@ -2,6 +2,9 @@ import { create } from "zustand";
 
 export type TCategories = Array<{ id: string; name: string }>;
 
+// zustand 분리 필요
+// 1. query parameter로 들어가는 상태 (keywords, categories, maxCorrectRate)
+// 2. 기타 유저 인터렉션에 의한 상태 (sort, offset)
 export interface ISearchStore {
   keywords: string[];
   sort: "LATEST" | "LOWEST_ACCURACY";

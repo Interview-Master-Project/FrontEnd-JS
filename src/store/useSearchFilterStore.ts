@@ -5,6 +5,10 @@ interface ISearchFilterStore {
   changeFilter: (filter: string) => void;
 }
 
+// zustand 상태 분리
+// 검색어 상태
+// 카테고리 상태
+// 고급 질의 상태
 export const useSearchFilterStore = create<ISearchFilterStore>((set) => ({
   selectedFilterList: [],
   changeFilter: (filter: string) =>
