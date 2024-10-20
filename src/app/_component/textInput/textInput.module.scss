@@ -1,0 +1,19 @@
+.wrapper {
+  height: 80px;
+  background-color: var(--fg);
+  border: 2px solid var(--bg);
+  padding: 0 20px;
+
+  font-size: 24px;
+  position: relative;
+
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  flex: 0.5;
+
+  width: 24px;
+  height: 24px;
+}

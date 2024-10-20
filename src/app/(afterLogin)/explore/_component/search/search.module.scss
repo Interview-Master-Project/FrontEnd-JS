@@ -1,5 +1,5 @@
 .searchZone {
-  width: 50%;
+  width: 1000px;
   position: relative;
 
   & > h3 {
@@ -7,10 +7,4 @@
     top: -30px;
     left: 0;
   }
-}
-
-.searchInput {
-  font-size: 24px;
-
-  position: relative;
 }
