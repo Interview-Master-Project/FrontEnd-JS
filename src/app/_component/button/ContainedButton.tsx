@@ -13,12 +13,13 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 export default function ContainedButton({
   children,
   variant = "base",
+  className,
   ...rest
 }: Props) {
   return (
     <button
       {...rest}
-      className={clsx(styles.button, {
+      className={clsx(className, styles.button, {
         [styles.base]: variant === "base",
         [styles.red]: variant === "red",
         [styles.green]: variant === "green",

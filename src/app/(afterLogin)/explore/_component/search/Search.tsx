@@ -3,6 +3,7 @@
 import { CiSearch as SearchIcon } from "react-icons/ci";
 import { TextInput } from "@/app/_component/textInput/TextInput";
 import FilterBox from "./FilterBox";
+import FilterResult from "./FilterResult";
 import styles from "./search.module.scss";
 
 export default function Search() {
@@ -16,6 +17,7 @@ export default function Search() {
         <TextInput.Input placeholder="검색어 입력 (컬렉션 이름이나 컬렉션 설명으로 검색할 수 있어요)" />
       </TextInput>
       <FilterBox />
+      <FilterResult />
     </div>
   );
 }
