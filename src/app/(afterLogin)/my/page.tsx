@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import MyAccount from "./_component/MyAccount";
 import Collections from "./_component/collections/Collections";
-import Histories from "./_component/Histories";
+import Histories from "./_component/histories/Histories";
 import styles from "./page.module.scss";
 
 const Chart = dynamic(() => import("./_component/dashboard/HeatMapChart"), {

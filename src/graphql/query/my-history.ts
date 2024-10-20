@@ -6,6 +6,7 @@ interface ICollection {
   imgUrl: string;
   description: string;
   updatedAt: string;
+  access: "PUBLIC" | "PRIVATE";
 }
 
 interface ICollectionsWithAttempt {
@@ -34,6 +35,7 @@ export const MY_HISTORY = gql`
           imgUrl
           description
           updatedAt
+          access
         }
       }
     }

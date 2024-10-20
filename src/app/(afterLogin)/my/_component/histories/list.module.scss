@@ -1,0 +1,41 @@
+.list {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px;
+
+  position: relative;
+
+  & > div {
+    & > span {
+      font-size: 14px;
+      opacity: 0.5;
+    }
+  }
+}
+
+.accessLabel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 60px;
+  height: 60px;
+  // border-bottom-left-radius: 20px;
+
+  &_public {
+    background-color: var(--theme-dark);
+  }
+  &_private {
+    background-color: var(--warning);
+  }
+}

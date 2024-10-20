@@ -35,7 +35,7 @@ export default function List() {
             className={styles.list}
           >
             <Image
-              src={collection.imgUrl}
+              src={collection.imgUrl as string}
               alt={`${collection.name} 이미지`}
               width={80}
               height={80}
