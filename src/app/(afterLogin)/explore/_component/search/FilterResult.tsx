@@ -20,6 +20,9 @@ export default function FilterResult() {
 
   const handleSearch = () => {
     setFilters({ filters: { keywords, categories, maxCorrectRate } });
+
+    const updatedFilters = useSearchFilterStore.getState().filters;
+    console.log("Updated Filters: ", updatedFilters);
   };
 
   return (

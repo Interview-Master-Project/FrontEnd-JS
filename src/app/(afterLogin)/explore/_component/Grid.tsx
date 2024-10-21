@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -40,7 +40,8 @@ export default function Grid({ initialData }: { initialData: IData }) {
   );
 
   useEffect(() => {
-    refetch({ filters });
+    console.log(filters);
+    refetch({ filters: filters.filters });
   }, [filters, refetch]);
 
   useEffect(() => {
@@ -55,9 +56,6 @@ export default function Grid({ initialData }: { initialData: IData }) {
     router.push(`/explore?sort=${sort}&offset=${newOffset}`);
   };
 
-  // if (loading) return <p>Loading...</p>;
-  // if (error) return <p>Error: {error.message}</p>;
-
   const collections = data?.searchCollections || initialData.searchCollections;
 
   return (
@@ -67,6 +65,12 @@ export default function Grid({ initialData }: { initialData: IData }) {
         [styles.main_list]: selectedSearchGrid === "list",
       })}
     >
+      <div onClick={() => handleOffsetChange(8)}>다음</div>
+      <div onClick={() => handleSortChange("LATEST")}>최신순</div>
+      <div onClick={() => handleSortChange("LOWEST_ACCURACY")}>
+        정답률 낮은 순
+      </div>
+      <div></div>
       {collections.collectionsWithAttempt?.map(
         ({
           collection,
