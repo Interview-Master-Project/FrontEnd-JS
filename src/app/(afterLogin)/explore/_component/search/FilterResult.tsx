@@ -15,14 +15,11 @@ export default function FilterResult() {
     removeCategory,
     removeMaxCorrectRate,
   } = useSearchStore();
-
   const { setFilters } = useSearchFilterStore();
 
+  const categoryIds = categories.map(({ id }) => id);
   const handleSearch = () => {
-    setFilters({ filters: { keywords, categories, maxCorrectRate } });
-
-    const updatedFilters = useSearchFilterStore.getState().filters;
-    console.log("Updated Filters: ", updatedFilters);
+    setFilters({ keywords, categories: categoryIds, maxCorrectRate });
   };
 
   return (
@@ -42,10 +39,10 @@ export default function FilterResult() {
         {categories.map((category) => (
           <ContainedButton
             variant="base"
-            key={category}
+            key={category.id}
             onClick={() => removeCategory(category)}
           >
-            {category}
+            {category.name}
             <DeleteIcon className={styles.deleteIcon} />
           </ContainedButton>
         ))}

@@ -8,7 +8,5 @@ interface ISearchGridStore {
 export const useSearchGridStore = create<ISearchGridStore>((set) => ({
   selectedSearchGrid: "card",
   changeGrid: (indicator: "card" | "list") =>
-    set(() => {
-      return { selectedSearchGrid: indicator };
-    }),
+    set(() => ({ selectedSearchGrid: indicator })),
 }));

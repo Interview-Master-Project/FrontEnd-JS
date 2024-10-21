@@ -44,17 +44,17 @@ export default function FilterBox() {
             !isOpen.category ? styles.hidden : ""
           }`}
         >
-          {data?.getAllCategories?.map(({ id, name }) => (
-            <div key={id} className={styles.item}>
+          {data?.getAllCategories?.map((category) => (
+            <div key={category.id} className={styles.item}>
               <input
                 type="checkbox"
-                id={`category-${id}`}
+                id={`category-${category.id}`}
                 name="categoriesId"
-                value={id}
-                checked={categories.includes(name)}
-                onChange={() => changeCategories(name)}
+                value={category.id}
+                checked={categories.includes(category)}
+                onChange={() => changeCategories(category)}
               />
-              <label htmlFor={`category-${id}`}>{name}</label>
+              <label htmlFor={`category-${category.id}`}>{category.name}</label>
             </div>
           ))}
         </Filter.Dropdown>
@@ -72,8 +72,8 @@ export default function FilterBox() {
             !isOpen.advancedQ ? styles.hidden : ""
           }`}
         >
-          {maxCorrectSelector.map((rate, idx) => (
-            <div key={idx} className={styles.item}>
+          {maxCorrectSelector.map((rate) => (
+            <div key={rate} className={styles.item}>
               <input
                 type="checkbox"
                 id={`under${rate}`}

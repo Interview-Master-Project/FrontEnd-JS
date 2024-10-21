@@ -1,11 +1,9 @@
 import { create } from "zustand";
 
 interface IFilters {
-  filters: {
-    keywords: string[];
-    categories: string[];
-    maxCorrectRate: number | undefined;
-  };
+  keywords: string[];
+  categories: string[];
+  maxCorrectRate: number | undefined;
 }
 
 interface ISearchFilterStore extends IFilters {
@@ -13,13 +11,13 @@ interface ISearchFilterStore extends IFilters {
 }
 
 export const useSearchFilterStore = create<ISearchFilterStore>((set) => ({
-  filters: {
-    keywords: [],
-    categories: [],
-    maxCorrectRate: undefined,
-  },
-  setFilters: (newFilters) =>
-    set((state) => ({
-      filters: { ...state.filters, ...newFilters },
+  keywords: [],
+  categories: [],
+  maxCorrectRate: undefined,
+  setFilters: ({ keywords, categories, maxCorrectRate }) =>
+    set(() => ({
+      keywords,
+      categories,
+      maxCorrectRate,
     })),
 }));

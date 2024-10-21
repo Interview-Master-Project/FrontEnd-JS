@@ -17,8 +17,7 @@ import styles from "../page.module.scss";
 
 export default function Grid({ initialData }: { initialData: IData }) {
   const { selectedSearchGrid } = useSearchGridStore(); // 보기형식 === Card | List
-
-  const { filters } = useSearchFilterStore();
+  const { keywords, categories, maxCorrectRate } = useSearchFilterStore();
 
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -30,7 +29,9 @@ export default function Grid({ initialData }: { initialData: IData }) {
     SEARCH_COLLECTIONS,
     {
       variables: {
-        ...filters,
+        keywords,
+        categories,
+        maxCorrectRate,
         sort,
         offset,
       },
@@ -40,9 +41,8 @@ export default function Grid({ initialData }: { initialData: IData }) {
   );
 
   useEffect(() => {
-    console.log(filters);
-    refetch({ filters: filters.filters });
-  }, [filters, refetch]);
+    refetch({ keywords, categories, maxCorrectRate });
+  }, [keywords, categories, maxCorrectRate, refetch]);
 
   useEffect(() => {
     refetch({ sort, offset });
@@ -65,12 +65,6 @@ export default function Grid({ initialData }: { initialData: IData }) {
         [styles.main_list]: selectedSearchGrid === "list",
       })}
     >
-      <div onClick={() => handleOffsetChange(8)}>다음</div>
-      <div onClick={() => handleSortChange("LATEST")}>최신순</div>
-      <div onClick={() => handleSortChange("LOWEST_ACCURACY")}>
-        정답률 낮은 순
-      </div>
-      <div></div>
       {collections.collectionsWithAttempt?.map(
         ({
           collection,

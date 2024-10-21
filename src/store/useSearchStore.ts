@@ -1,15 +1,15 @@
 import { create } from "zustand";
 
-export type TCategories = Array<{ id: string; name: string }>;
+export type TCategories = { id: string; name: string };
 
 export interface ISearchStore {
   keywords: string[];
-  categories: string[];
+  categories: TCategories[];
   maxCorrectRate: number | undefined;
-  addKeyword: (search: string) => void;
+  addKeyword: (keyword: string) => void;
   removeKeyword: (keyword: string) => void;
-  changeCategories: (categoryName: string) => void;
-  removeCategory: (categoryName: string) => void;
+  changeCategories: (selectedCategory: TCategories) => void;
+  removeCategory: (targetCategory: TCategories) => void;
   changeMaxCorrectRate: (rate: number) => void;
   removeMaxCorrectRate: () => void;
 }
@@ -18,10 +18,10 @@ export const useSearchStore = create<ISearchStore>((set) => ({
   keywords: [],
   categories: [],
   maxCorrectRate: undefined, // undefined라면 variables로 전달하지 않게 해야 함
-  addKeyword: (search) => {
+  addKeyword: (keyword) => {
     set((state) => {
-      if (!state.keywords.includes(search)) {
-        return { keywords: [...state.keywords, search] };
+      if (!state.keywords.includes(keyword)) {
+        return { keywords: [...state.keywords, keyword] };
       }
       return state; // 중복되는 검색어는 추가하지 않음
     });
@@ -30,19 +30,21 @@ export const useSearchStore = create<ISearchStore>((set) => ({
     set((state) => ({
       keywords: state.keywords.filter((kw) => kw !== keyword),
     })),
-  changeCategories: (categoryName) => {
+  changeCategories: (selectedCategory) => {
     set((state) => {
-      if (!state.categories.some((name) => name.includes(categoryName))) {
-        return { categories: [...state.categories, categoryName] };
+      if (!state.categories.some((category) => category === selectedCategory)) {
+        return { categories: [...state.categories, selectedCategory] };
       }
       return {
-        categories: state.categories.filter((ct) => ct !== categoryName),
+        categories: state.categories.filter(
+          (category) => category !== selectedCategory
+        ),
       };
     });
   },
-  removeCategory: (categoryName) => {
+  removeCategory: (targetCategory) => {
     set((state) => ({
-      categories: state.categories.filter((ct) => ct !== categoryName),
+      categories: state.categories.filter(({ id }) => id !== targetCategory.id),
     }));
   },
   changeMaxCorrectRate: (rate) => {

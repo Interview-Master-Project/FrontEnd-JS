@@ -1,18 +1,14 @@
 import { fetchQueryData } from "@/utils/fetchQueryData";
 import { SEARCH_COLLECTIONS, IData } from "@/graphql/query/search-collections";
+import ShowSelect from "./_component/ShowSelect";
 import Grid from "./_component/Grid";
-// import Navigator from "./_component/Navigator";
 
 type Props = {
   searchParams: { [key: string]: string };
 };
 
 export default async function Page({ searchParams }: Props) {
-  const {
-    data: initialData,
-    loading,
-    error,
-  } = await fetchQueryData<IData>({
+  const { data: initialData } = await fetchQueryData<IData>({
     query: SEARCH_COLLECTIONS,
     variables: {
       keywords: [],
@@ -23,15 +19,12 @@ export default async function Page({ searchParams }: Props) {
     requiresAuth: true,
   });
 
-  if (!initialData) return null; // data가 없다면 보여줄 화면
+  if (!initialData) return <p>정보를 불러오는 데 실패했습니다.</p>; // data가 없다면 보여줄 화면
 
   return (
     <>
-      {/* <ResultHeader /> */}
+      <ShowSelect />
       <Grid initialData={initialData} />
-      {/* <Navigator initialOffset={0} /> */}
-      {/* <Grid data={data} /> */}
-      {/* <Navigator initialOffset={0} /> */}
     </>
   );
 }
