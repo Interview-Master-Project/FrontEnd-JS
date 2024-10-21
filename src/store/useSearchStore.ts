@@ -2,27 +2,23 @@ import { create } from "zustand";
 
 export type TCategories = Array<{ id: string; name: string }>;
 
-// zustand 분리 필요
-// 1. query parameter로 들어가는 상태 (keywords, categories, maxCorrectRate)
-// 2. 기타 유저 인터렉션에 의한 상태 (sort, offset)
 export interface ISearchStore {
   keywords: string[];
-  sort: "LATEST" | "LOWEST_ACCURACY";
-  categories: TCategories;
+  categories: string[];
   maxCorrectRate: number | undefined;
-  changeKeywords: (search: string) => void;
+  addKeyword: (search: string) => void;
   removeKeyword: (keyword: string) => void;
-  changeCategories: (categories: TCategories) => void;
-  changeSort: (sortBy: "LATEST" | "LOWEST_ACCURACY") => void;
+  changeCategories: (categoryName: string) => void;
+  removeCategory: (categoryName: string) => void;
   changeMaxCorrectRate: (rate: number) => void;
+  removeMaxCorrectRate: () => void;
 }
 
 export const useSearchStore = create<ISearchStore>((set) => ({
   keywords: [],
-  sort: "LATEST",
   categories: [],
   maxCorrectRate: undefined, // undefined라면 variables로 전달하지 않게 해야 함
-  changeKeywords: (search: string) => {
+  addKeyword: (search) => {
     set((state) => {
       if (!state.keywords.includes(search)) {
         return { keywords: [...state.keywords, search] };
@@ -30,23 +26,36 @@ export const useSearchStore = create<ISearchStore>((set) => ({
       return state; // 중복되는 검색어는 추가하지 않음
     });
   },
-  removeKeyword: (keyword: string) =>
+  removeKeyword: (keyword) =>
     set((state) => ({
       keywords: state.keywords.filter((kw) => kw !== keyword),
     })),
-  changeCategories: (categories: TCategories) => {
-    set(() => {
-      return { categories: [...categories] };
+  changeCategories: (categoryName) => {
+    set((state) => {
+      if (!state.categories.some((name) => name.includes(categoryName))) {
+        return { categories: [...state.categories, categoryName] };
+      }
+      return {
+        categories: state.categories.filter((ct) => ct !== categoryName),
+      };
     });
   },
-  changeSort: (sortBy: "LATEST" | "LOWEST_ACCURACY") => {
-    set(() => {
-      return { sort: sortBy };
+  removeCategory: (categoryName) => {
+    set((state) => ({
+      categories: state.categories.filter((ct) => ct !== categoryName),
+    }));
+  },
+  changeMaxCorrectRate: (rate) => {
+    set((state) => {
+      if (state.maxCorrectRate !== rate) {
+        return { maxCorrectRate: rate };
+      }
+      return { maxCorrectRate: undefined };
     });
   },
-  changeMaxCorrectRate: (rate: number) => {
+  removeMaxCorrectRate: () => {
     set(() => {
-      return { maxCorrectRate: rate };
+      return { maxCorrectRate: undefined };
     });
   },
 }));

@@ -25,12 +25,12 @@ export function useClientFetch<TData = any>(
     ? { Authorization: `Bearer ${token}` }
     : undefined;
 
-  const { data, error, loading } = useQuery<TData>(query, {
+  const { data, error, loading, refetch } = useQuery<TData>(query, {
     ...options,
     context: {
       headers,
     },
   });
 
-  return { data, error, loading };
+  return { data, error, loading, refetch };
 }

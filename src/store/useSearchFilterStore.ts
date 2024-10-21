@@ -1,26 +1,25 @@
 import { create } from "zustand";
 
-interface ISearchFilterStore {
-  selectedFilterList: string[];
-  changeFilter: (filter: string) => void;
+interface IFilters {
+  filters: {
+    keywords: string[];
+    categories: string[];
+    maxCorrectRate: number | undefined;
+  };
 }
 
-// zustand 상태 분리
-// 검색어 상태
-// 카테고리 상태
-// 고급 질의 상태
+interface ISearchFilterStore extends IFilters {
+  setFilters: (newFilters: IFilters) => void;
+}
+
 export const useSearchFilterStore = create<ISearchFilterStore>((set) => ({
-  selectedFilterList: [],
-  changeFilter: (filter: string) =>
-    set((state) => {
-      if (!state.selectedFilterList.includes(filter)) {
-        return { selectedFilterList: [...state.selectedFilterList, filter] };
-      } else {
-        return {
-          selectedFilterList: state.selectedFilterList.filter(
-            (item) => item !== filter
-          ),
-        };
-      }
-    }),
+  filters: {
+    keywords: [],
+    categories: [],
+    maxCorrectRate: undefined,
+  },
+  setFilters: (newFilters) =>
+    set((state) => ({
+      filters: { ...state.filters, ...newFilters },
+    })),
 }));

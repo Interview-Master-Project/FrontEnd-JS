@@ -10,11 +10,15 @@ export default function Input({
 }: InputHTMLAttributes<HTMLInputElement>) {
   const [enteredValue, setEnteredValue] = useState("");
   const ref = useRef<HTMLInputElement | null>(null);
-  const { changeKeywords } = useSearchStore();
+  const { addKeyword } = useSearchStore();
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && ref.current === document.activeElement) {
-      changeKeywords(enteredValue.trim());
+    if (
+      e.key === "Enter" &&
+      ref.current === document.activeElement &&
+      enteredValue.trim().length
+    ) {
+      addKeyword(enteredValue.trim());
       setEnteredValue("");
     }
   };

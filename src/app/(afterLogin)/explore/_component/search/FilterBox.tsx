@@ -2,7 +2,7 @@
 
 import { useClientFetch } from "@/hooks/useClientFetch";
 import { GET_ALL_CATEGORIES, IData } from "@/graphql/query/get-all-categories";
-import { useSearchFilterStore } from "@/store/useSearchFilterStore";
+import { useSearchStore } from "@/store/useSearchStore";
 import { Filter } from "./Filter";
 import { CiFilter } from "react-icons/ci";
 import { IoFilterOutline } from "react-icons/io5";
@@ -13,7 +13,8 @@ import { useState } from "react";
 export default function FilterBox() {
   const { data } = useClientFetch<IData>(GET_ALL_CATEGORIES, {}, false);
   const maxCorrectSelector = [25, 50, 75];
-  const { selectedFilterList, changeFilter } = useSearchFilterStore();
+  const { categories, maxCorrectRate, changeCategories, changeMaxCorrectRate } =
+    useSearchStore();
 
   const [isOpen, setIsOpen] = useState({
     category: false,
@@ -43,17 +44,17 @@ export default function FilterBox() {
             !isOpen.category ? styles.hidden : ""
           }`}
         >
-          {data?.getAllCategories?.map((category) => (
-            <div key={category.id} className={styles.item}>
+          {data?.getAllCategories?.map(({ id, name }) => (
+            <div key={id} className={styles.item}>
               <input
                 type="checkbox"
-                id={`category-${category.id}`}
+                id={`category-${id}`}
                 name="categoriesId"
-                value={category.id}
-                checked={selectedFilterList.includes(category.name)}
-                onChange={() => changeFilter(category.name)}
+                value={id}
+                checked={categories.includes(name)}
+                onChange={() => changeCategories(name)}
               />
-              <label htmlFor={`category-${category.id}`}>{category.name}</label>
+              <label htmlFor={`category-${id}`}>{name}</label>
             </div>
           ))}
         </Filter.Dropdown>
@@ -71,17 +72,17 @@ export default function FilterBox() {
             !isOpen.advancedQ ? styles.hidden : ""
           }`}
         >
-          {maxCorrectSelector.map((value, idx) => (
+          {maxCorrectSelector.map((rate, idx) => (
             <div key={idx} className={styles.item}>
               <input
                 type="checkbox"
-                id={`under${value}`}
-                name={`under${value}`}
-                value={value}
-                checked={selectedFilterList.includes(`정답률 ${value}% 이하`)}
-                onChange={() => changeFilter(`정답률 ${value}% 이하`)}
+                id={`under${rate}`}
+                name={`under${rate}`}
+                value={rate}
+                checked={maxCorrectRate === rate}
+                onChange={() => changeMaxCorrectRate(rate)}
               />
-              <label htmlFor={`under${value}`}>정답률 {value}% 이하</label>
+              <label htmlFor={`under${rate}`}>정답률 {rate}% 이하</label>
             </div>
           ))}
         </Filter.Dropdown>
