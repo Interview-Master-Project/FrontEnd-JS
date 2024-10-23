@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useClientFetch } from "@/hooks/useClientFetch";
 import { GET_ALL_CATEGORIES, IData } from "@/graphql/query/get-all-categories";
 import { useSearchStore } from "@/store/useSearchStore";
@@ -8,7 +9,6 @@ import { CiFilter } from "react-icons/ci";
 import { IoFilterOutline } from "react-icons/io5";
 import { FaChevronDown as DownIcon } from "react-icons/fa";
 import styles from "./filterBox.module.scss";
-import { useState } from "react";
 
 export default function FilterBox() {
   const { data } = useClientFetch<IData>(GET_ALL_CATEGORIES, {}, false);

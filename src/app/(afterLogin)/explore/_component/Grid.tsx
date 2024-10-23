@@ -10,7 +10,6 @@ import { useClientFetch } from "@/hooks/useClientFetch";
 import { useSearchGridStore } from "@/store/useSearchGridStore";
 import { Card } from "../../_component/collections/Card";
 import { List } from "../../_component/collections/List";
-import ContainedButton from "@/app/_component/button/ContainedButton";
 import { calculateCorrectRate } from "../_lib/calculateCorrectRate";
 import clsx from "clsx";
 import styles from "../page.module.scss";
@@ -48,14 +47,6 @@ export default function Grid({ initialData }: { initialData: IData }) {
     refetch({ sort, offset });
   }, [sort, offset, refetch]);
 
-  const handleSortChange = (newSort: "LATEST" | "LOWEST_ACCURACY") => {
-    router.push(`/explore?sort=${newSort}&offset=0`);
-  };
-
-  const handleOffsetChange = (newOffset: number) => {
-    router.push(`/explore?sort=${sort}&offset=${newOffset}`);
-  };
-
   const collections = data?.searchCollections || initialData.searchCollections;
 
   return (
@@ -75,23 +66,26 @@ export default function Grid({ initialData }: { initialData: IData }) {
 
           if (selectedSearchGrid === "card") {
             return (
-              <Card key={collection.id}>
+              <Card
+                key={collection.id}
+                id={collection.id}
+                className={styles.card}
+              >
                 <Card.Access access={collection.access} />
-                <Image
-                  src={collection.imgUrl}
-                  alt={collection.id}
-                  width={80}
-                  height={80}
-                  style={{ objectFit: "cover" }}
-                  priority
-                />
-                <div style={{ height: 110 }}>
-                  <Card.Title className={styles.cardTitle}>
-                    {collection.name}
-                  </Card.Title>
+                <div className={styles.cardImageWrapper}>
+                  <Image
+                    src={collection.imgUrl as string}
+                    alt={collection.id}
+                    fill
+                    style={{ objectFit: "cover" }}
+                    priority
+                  />
+                </div>
+                <div className={styles.cardContent}>
+                  <Card.Title>{collection.name}</Card.Title>
                   <Card.Description>{collection.description}</Card.Description>
                 </div>
-                <Card.Info>
+                <Card.Info className={styles.cardInfo}>
                   <span>
                     <strong>{quizCount}</strong> 문제
                   </span>
@@ -103,34 +97,26 @@ export default function Grid({ initialData }: { initialData: IData }) {
                   </span>
                   <span>{collection.category.name}</span>
                 </Card.Info>
-                <Link href={`/collections/${collection.id}`}>
-                  <ContainedButton
-                    className={clsx(styles.cardBtn, styles.cardBtn_card)}
-                  >
-                    시작
-                  </ContainedButton>
-                </Link>
               </Card>
             );
           } else if (selectedSearchGrid === "list") {
             return (
-              <List key={collection.id}>
+              <List key={collection.id} id={collection.id} className={styles.list}>
                 <List.Access access={collection.access} />
-                <Image
-                  src={collection.imgUrl}
-                  alt={collection.id}
-                  width={80}
-                  height={80}
-                  style={{ objectFit: "cover" }}
-                  priority
-                />
-                <div style={{ width: 300 }}>
-                  <List.Title className={styles.cardTitle}>
-                    {collection.name}
-                  </List.Title>
+                <div className={styles.listImageWrapper}>
+                  <Image
+                    src={collection.imgUrl as string}
+                    alt={collection.id}
+                    fill
+                    style={{ objectFit: "cover" }}
+                    priority
+                  />
+                </div>
+                <div className={styles.listContent}>
+                  <List.Title>{collection.name}</List.Title>
                   <List.Description>{collection.description}</List.Description>
                 </div>
-                <Card.Info>
+                <Card.Info className={styles.listInfo}>
                   <span>
                     <strong>{quizCount}</strong> 문제
                   </span>
@@ -142,13 +128,6 @@ export default function Grid({ initialData }: { initialData: IData }) {
                   </span>
                   <span>{collection.category.name}</span>
                 </Card.Info>
-                <Link href={`/collections/${collection.id}/quizzes/123`}>
-                  <ContainedButton
-                    className={clsx(styles.cardBtn, styles.cardBtn_list)}
-                  >
-                    시작
-                  </ContainedButton>
-                </Link>
               </List>
             );
           }

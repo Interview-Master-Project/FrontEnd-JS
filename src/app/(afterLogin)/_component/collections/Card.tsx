@@ -1,11 +1,16 @@
+import Link from "next/link";
 import { MdOutlinePublic as PublicIcon } from "react-icons/md";
 import { BsIncognito as PrivateIcon } from "react-icons/bs";
-import { PropsWithChildren } from "react";
-import styles from "./card.module.scss";
+import { ComponentProps, PropsWithChildren } from "react";
 import clsx from "clsx";
+import styles from "./card.module.scss";
 
-function Container({ children }: PropsWithChildren) {
-  return <div className={styles.card}>{children}</div>;
+function Container({ children, id, className }: ComponentProps<"a">) {
+  return (
+    <Link href={`/collections/${id}`} className={`${styles.card} ${className}`}>
+      {children}
+    </Link>
+  );
 }
 
 interface AccessLabelProps {
@@ -27,20 +32,20 @@ function AccessLabel({ access }: AccessLabelProps) {
   );
 }
 
-interface TitleProps extends PropsWithChildren {
+interface TextProps extends PropsWithChildren {
   className?: string;
 }
 
-function Title({ children, className }: TitleProps) {
-  return <h5 className={className}>{children}</h5>;
+function Title({ children, className }: TextProps) {
+  return <h3 className={className}>{children}</h3>;
 }
 
-function Info({ children }: PropsWithChildren) {
-  return <div className={styles.info}>{children}</div>;
+function Info({ children, className }: TextProps) {
+  return <div className={`${className} ${styles.info}`}>{children}</div>;
 }
 
 function Description({ children }: PropsWithChildren) {
-  return <p className={styles.description}>{children}</p>;
+  return <span className={styles.description}>{children}</span>;
 }
 
 export const Card = Object.assign(Container, {
