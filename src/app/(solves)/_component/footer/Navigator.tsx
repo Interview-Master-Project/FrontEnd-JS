@@ -2,6 +2,11 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import { IData } from "@/graphql/query/get-quizzes-by-collection-id";
+import {
+  FaChevronLeft as PrevIcon,
+  FaChevronRight as NextIcon,
+} from "react-icons/fa";
+import styles from "./navigator.module.scss";
 
 type Props = {
   data: IData;
@@ -27,9 +32,9 @@ export default function Navigator({ data, quizId }: Props) {
   };
 
   return (
-    <>
+    <div className={styles.navigator}>
       <button onClick={() => handleClick(-1)} disabled={currQuizIdx === 0}>
-        이전
+        <PrevIcon />
       </button>
       <button
         onClick={() => handleClick(1)}
@@ -37,8 +42,8 @@ export default function Navigator({ data, quizId }: Props) {
           data.getQuizzesWithAttemptByCollectionId.length - 1 === currQuizIdx
         }
       >
-        다음
+        <NextIcon />
       </button>
-    </>
+    </div>
   );
 }

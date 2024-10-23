@@ -22,14 +22,14 @@ export default function Footer({ data, quizId }: Props) {
         <Image
           src={targetQuiz?.quiz.collection.imgUrl as string}
           alt="임시 이미지"
-          width={45}
-          height={45}
+          width={80}
+          height={80}
           style={{
             objectFit: "cover",
           }}
         />
         <span>{targetQuiz?.quiz.collection.name}</span>
-        <span>{">"}</span>
+        <span>&gt;</span>
         <span>{targetQuiz?.quiz.question}</span>
       </div>
       <div className={styles.footerCenter}>

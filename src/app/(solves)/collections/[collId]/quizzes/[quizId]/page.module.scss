@@ -2,7 +2,7 @@
 
 .container {
   @include container;
-  background-color: #ccc;
+  background-color: var(--bg);
 }
 
 .solveWrapper {

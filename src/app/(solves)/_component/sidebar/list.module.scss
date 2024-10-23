@@ -2,7 +2,7 @@
   width: 360px;
   height: calc(100dvh - 80px);
   overflow: auto;
-  background-color: #fff;
+  background-color: var(--fg);
   padding: 40px 5px;
   display: flex;
   flex-direction: column;
