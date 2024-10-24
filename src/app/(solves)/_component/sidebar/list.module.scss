@@ -31,7 +31,7 @@
 }
 
 .activeQuiz {
-  color: blue;
+  color: var(--theme-dark);
   opacity: 1 !important;
 }
 
@@ -46,15 +46,13 @@
   }
 
   & > progress {
-    width: 80%;
-    height: 20px;
-    border-radius: 10px;
+    width: 150px;
+    height: 10px;
+    border-radius: 4px;
     overflow: hidden;
     appearance: none;
 
     &::-webkit-progress-bar {
-      background: #f0f0f0;
-      border: 1px solid #eee;
       overflow: hidden;
     }
 

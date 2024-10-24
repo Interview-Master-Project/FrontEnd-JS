@@ -1,9 +1,34 @@
 .quizWrapper {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #636363;
+
+  padding: 10px 60px 10px 10px;
 
   position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+.quizAccess {
+  & > div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 20px;
+  }
+  & > .publicLabel {
+    background-color: var(--theme-dark);
+  }
+  & > .privateLabel {
+    background-color: var(--warning);
+  }
 }
 
 .quizSection {
@@ -12,4 +37,20 @@
   justify-content: flex-end;
   gap: 6px;
   margin: 10px 0;
+
+  & > progress {
+    width: 150px;
+    height: 10px;
+    border-radius: 4px;
+    overflow: hidden;
+    appearance: none;
+
+    &::-webkit-progress-bar {
+      overflow: hidden;
+    }
+
+    &::-webkit-progress-value {
+      background: var(--success);
+    }
+  }
 }

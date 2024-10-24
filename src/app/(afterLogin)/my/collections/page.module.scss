@@ -20,9 +20,14 @@
     align-items: center;
     gap: 5px;
     width: fit-content;
-    background-color: var(--theme-dark);
     padding: 5px 10px;
     border-radius: 20px;
+  }
+  & > .publicLabel {
+    background-color: var(--theme-dark);
+  }
+  & > .privateLabel {
+    background-color: var(--warning);
   }
 }
 

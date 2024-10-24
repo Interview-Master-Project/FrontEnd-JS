@@ -46,40 +46,44 @@ export default function Page() {
     <>
       <Container title="컬렉션 정보">
         <div className={styles.infoWrapper}>
-          <Dropdown onClose={handleOffDropdown} className={styles.infoEditBtn}>
-            <Dropdown.Active
-              onClick={handleCloseDropdown}
-              boxWidth={36}
-              boxHeight={36}
-            >
-              <BsThreeDots />
-            </Dropdown.Active>
-            <Dropdown.Menu isOpen={isOpen} containerWidth={100}>
-              <Dropdown.Item>
-                <Link href={`/my/editcoll?id=${collectionId}`}>수정</Link>
-              </Dropdown.Item>
-              <Dropdown.Item variant="alert">
-                <Link href="/my/collections/delete">삭제</Link>
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-          <Image
-            src={data?.getCollection.imgUrl as string}
-            alt={`컬렉션 ${collectionId} 이미지`}
-            width={80}
-            height={80}
-            style={{ objectFit: "cover" }}
-            priority
-          />
+          <div className={styles.infoEditBtn}>
+            <Dropdown onClose={handleOffDropdown}>
+              <Dropdown.Active
+                onClick={handleCloseDropdown}
+                boxWidth={36}
+                boxHeight={36}
+              >
+                <BsThreeDots />
+              </Dropdown.Active>
+              <Dropdown.Menu isOpen={isOpen} containerWidth={100}>
+                <Dropdown.Item>
+                  <Link href={`/my/editcoll?id=${collectionId}`}>수정</Link>
+                </Dropdown.Item>
+                <Dropdown.Item variant="alert">
+                  <Link href="/my/collections/delete">삭제</Link>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+          {data?.getCollection.imgUrl && (
+            <Image
+              src={data?.getCollection.imgUrl as string}
+              alt={`컬렉션 ${data?.getCollection.id} 이미지`}
+              width={80}
+              height={80}
+              style={{ objectFit: "cover" }}
+              priority
+            />
+          )}
           <div>
             <div className={styles.collectionAccess}>
               {data?.getCollection.access === "PRIVATE" ? (
-                <div>
+                <div className={styles.privateLabel}>
                   <PrivateIcon />
                   <span>Private</span>
                 </div>
               ) : (
-                <div>
+                <div className={styles.publicLabel}>
                   <PublicIcon />
                   <span>Public</span>
                 </div>
