@@ -8,15 +8,5 @@
 
 .cancelSaveSection {
   display: flex;
-  justify-content: flex-end;
   gap: 20px;
-
-  & > a {
-    &:first-child {
-      @include button(var(--warning), #fff, var(--warning));
-    }
-    &:last-child {
-      @include button(var(--success), #fff, var(--success));
-    }
-  }
 }

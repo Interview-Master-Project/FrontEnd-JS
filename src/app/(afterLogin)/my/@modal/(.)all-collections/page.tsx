@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEventHandler, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { MY_COLLECTIONS, IData } from "@/graphql/query/my-collections";
 import { useClientFetch } from "@/hooks/useClientFetch";
 import BackButton from "@/app/_component/BackButton";
@@ -21,14 +21,18 @@ export default function Page() {
   );
 
   const handleOffset = (offsetAdd: number) => {
-    setOffset(offset + offsetAdd);
+    setOffset((prevOffset) => {
+      const newOffset = prevOffset + offsetAdd;
+      refetch({ offset: newOffset });
+      return newOffset;
+    });
   };
 
-  useEffect(() => {
-    refetch({ offset });
-  }, [refetch]);
-
-  console.log(offset);
+  // useEffect(() => {
+  //   console.log(data?.myCollections.pageInfo.currentPage);
+  //   console.log(data?.myCollections.pageInfo.hasNextPage);
+  //   console.log(offset);
+  // }, [data, offset]);
 
   return (
     <div className={styles.modalBackground}>
@@ -41,18 +45,18 @@ export default function Page() {
         <div className={styles.modalFooter}>
           <button
             disabled={data?.myCollections.pageInfo.currentPage === 1}
-            onClick={(e) => {
-              e.preventDefault();
-              handleOffset(0);
+            onClick={() => {
+              // e.preventDefault();
+              handleOffset(-5);
             }}
           >
             이전
           </button>
           <button
-            disabled={data?.myCollections.pageInfo.hasNextPage}
-            onClick={(e) => {
-              e.preventDefault();
-              handleOffset(8);
+            disabled={!data?.myCollections.pageInfo.hasNextPage}
+            onClick={() => {
+              // e.preventDefault();
+              handleOffset(5);
             }}
           >
             다음

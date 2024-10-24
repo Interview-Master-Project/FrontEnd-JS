@@ -5,13 +5,9 @@ import { useState, useRef, ChangeEvent, MouseEvent, useEffect } from "react";
 import Image from "next/image";
 import clsx from "clsx";
 
-// props로 id를 전송받는다
-// id가 기존에 없던 것이라면 생성 페이지 (default 값으로)
-// id가 기존에 있던 것이라면 수정 페이지 (서버로부터 데이터 받아와서 data fetch)
-// 일단 테스트용으로 id를 1로 넘기면 기본값
-// id를 2로 넘기면 data fetch
-
-type Props = { id: number };
+type Props = {
+  id?: number;
+};
 
 export default function CollImgTitle({ id }: Props) {
   const [previewImage, setPreviewImage] =
@@ -22,7 +18,7 @@ export default function CollImgTitle({ id }: Props) {
   const [isValidTitle, setIsValidTitle] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (id <= 5) {
+    if (id && id <= 5) {
       setPreviewImage("/logo.png");
       setEnteredTitle("Java 객체지향 면접 질문");
     }

@@ -17,7 +17,6 @@
 @mixin modal {
   background-color: var(--fg);
   position: relative;
-  top: 5%;
   min-width: 600px;
   border-radius: 16px;
   box-shadow: var(--shadow);

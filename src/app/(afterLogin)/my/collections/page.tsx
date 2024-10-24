@@ -42,6 +42,14 @@ export default function Page() {
     setIsOpen(false);
   };
 
+  if (!data)
+    return (
+      <Link href="/">
+        <p>등록된 퀴즈가 없습니다.</p>
+        <p>새 퀴즈를 등록하세요.</p>
+      </Link>
+    );
+
   return (
     <>
       <Container title="컬렉션 정보">

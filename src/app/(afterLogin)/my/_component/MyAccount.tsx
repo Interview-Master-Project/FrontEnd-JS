@@ -40,23 +40,25 @@ export default function MyAccount() {
   return (
     <div className={styles.userProfile}>
       <h3>내 계정</h3>
-      <Dropdown onClose={handleOffDropdown} className={styles.profileEditBtn}>
-        <Dropdown.Active
-          onClick={handleCloseDropdown}
-          boxWidth={36}
-          boxHeight={36}
-        >
-          <EditIcon />
-        </Dropdown.Active>
-        <Dropdown.Menu isOpen={isDropdownOpen} containerWidth={160}>
-          <Dropdown.Item>
-            <div onClick={handleLogout}>로그아웃</div>
-          </Dropdown.Item>
-          <Dropdown.Item variant="alert">
-            <Link href="/my/delete-account">회원탈퇴</Link>
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
+      <div className={styles.profileEditBtn}>
+        <Dropdown onClose={handleOffDropdown}>
+          <Dropdown.Active
+            onClick={handleCloseDropdown}
+            boxWidth={36}
+            boxHeight={36}
+          >
+            <EditIcon />
+          </Dropdown.Active>
+          <Dropdown.Menu isOpen={isDropdownOpen} containerWidth={160}>
+            <Dropdown.Item>
+              <div onClick={handleLogout}>로그아웃</div>
+            </Dropdown.Item>
+            <Dropdown.Item variant="alert">
+              <Link href="/my/delete-account">회원탈퇴</Link>
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
       {image && (
         <Image
           src={user.image as string}
