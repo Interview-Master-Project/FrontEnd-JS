@@ -11,51 +11,16 @@
   position: absolute;
   right: 0;
   top: 0;
-  width: 36px;
-  height: 36px;
-  fill: rgba(0, 0, 0, 0.8);
   cursor: pointer;
-}
-
-.collEditDropdown,
-.quizEditDropdown {
-  position: absolute;
-  top: -100px;
-  right: 0;
-  background-color: #fff;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 6px;
-  width: 120px;
-  z-index: 1000;
-}
-
-.dropdownItem {
-  display: block;
-  padding: 10px;
-  color: #333;
-  font-size: 14px;
-  cursor: pointer;
-  border-bottom: 1px solid #e0e0e0;
-  text-align: center;
-
-  &:hover {
-    background-color: #f0f0f0;
-  }
-
-  &:last-child {
-    border-bottom: none;
-  }
-
-  &:nth-child(2) {
-    color: var(--warning);
-  }
 }
 
 .collectionAccess {
   & > div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
     width: fit-content;
-    border: 1px solid #636363;
+    background-color: var(--theme-dark);
     padding: 5px 10px;
     border-radius: 20px;
   }
@@ -69,25 +34,4 @@
   position: absolute;
   top: -50px;
   right: 0;
-  background-color: var(--ok);
-  border: 1px solid var(--layout);
-  border-radius: 20px;
-  font-size: 20px;
-  padding: 5px 20px;
-}
-
-.quizWrapper {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid #636363;
-
-  position: relative;
-}
-
-.quizSection {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: 6px;
-  margin: 10px 0;
 }

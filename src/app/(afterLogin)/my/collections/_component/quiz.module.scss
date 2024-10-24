@@ -1,0 +1,15 @@
+.quizWrapper {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #636363;
+
+  position: relative;
+}
+
+.quizSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 6px;
+  margin: 10px 0;
+}

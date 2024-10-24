@@ -62,3 +62,37 @@ export const GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID = gql`
     }
   }
 `;
+
+interface IBriefQuiz {
+  id: string;
+  question: string;
+  access: "PRIVATE" | "PUBLIC";
+  updatedAt: string;
+}
+
+interface IBriefQuizzes {
+  quiz: IBriefQuiz;
+  recentAnswerAt: string | null;
+  totalAttempts: number;
+  totalCorrectAttempts: number;
+}
+
+export interface IBriefData {
+  getQuizzesWithAttemptByCollectionId: IBriefQuizzes[];
+}
+
+export const GET_QUIZ_BRIEF = gql`
+  query MyQuery($collectionId: ID!) {
+    getQuizzesWithAttemptByCollectionId(collectionId: $collectionId) {
+      quiz {
+        id
+        question
+        access
+        updatedAt
+      }
+      recentAnswerAt
+      totalAttempts
+      totalCorrectAttempts
+    }
+  }
+`;
