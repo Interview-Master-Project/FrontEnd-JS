@@ -7,12 +7,14 @@ import { faker } from "@faker-js/faker";
 import { useClientFetch } from "@/hooks/useClientFetch";
 import { ME, IData } from "@/graphql/query/me";
 import { Dropdown } from "@/app/_component/dropdown/Dropdown";
+import { useLogout } from "@/hooks/useLogout";
 import styles from "./profile.module.scss";
 
 export default function Profile() {
   const { data, error, loading } = useClientFetch<IData>(ME, {}, true);
   const [image, setImage] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const { handleLogout } = useLogout();
 
   useEffect(() => {
     setImage(faker.image.avatarGitHub());
@@ -56,7 +58,7 @@ export default function Profile() {
           <Link href="/my">마이페이지</Link>
         </Dropdown.Item>
         <Dropdown.Item variant="alert">
-          <Link href="/explore">로그아웃</Link>
+          <div onClick={handleLogout}>로그아웃</div>
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>

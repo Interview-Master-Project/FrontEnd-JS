@@ -93,16 +93,14 @@ export default function Page() {
           </div>
         </div>
       </Container>
-      <div className={styles.listWrapper}>
-        <Container title="질문 리스트">
-          <Link href="/my/newquiz" className={styles.createNewBtn}>
-            <ContainedButton variant="base">+ 새 질문 추가</ContainedButton>
-          </Link>
-          {data?.getCollection.quizzes.map((quiz: IQuizzes) => (
-            <Quiz key={quiz.id} quizId={quiz.id} />
-          ))}
-        </Container>
-      </div>
+      <Container title="질문 리스트">
+        <Link href="/my/newquiz" className={styles.createNewBtn}>
+          <ContainedButton variant="base">+ 새 질문 추가</ContainedButton>
+        </Link>
+        {data?.getCollection.quizzes.map((quiz: IQuizzes) => (
+          <Quiz key={quiz.id} quizId={quiz.id} />
+        ))}
+      </Container>
     </>
   );
 }

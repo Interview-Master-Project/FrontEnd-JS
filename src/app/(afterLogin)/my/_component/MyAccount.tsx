@@ -9,6 +9,7 @@ import { MdModeEdit as EditIcon } from "react-icons/md";
 import { faker } from "@faker-js/faker";
 import { KakaoLogo, NaverLogo } from "../_lib/oAuthLogo";
 import { Dropdown } from "@/app/_component/dropdown/Dropdown";
+import { useLogout } from "@/hooks/useLogout";
 import styles from "./myAccount.module.scss";
 
 export default function MyAccount() {
@@ -16,6 +17,8 @@ export default function MyAccount() {
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [image, setImage] = useState<string | null>(null);
+
+  const { handleLogout } = useLogout();
 
   useEffect(() => {
     setImage(faker.image.avatarGitHub());
@@ -47,7 +50,7 @@ export default function MyAccount() {
         </Dropdown.Active>
         <Dropdown.Menu isOpen={isDropdownOpen} containerWidth={160}>
           <Dropdown.Item>
-            <Link href="/my/logout">로그아웃</Link>
+            <div onClick={handleLogout}>로그아웃</div>
           </Dropdown.Item>
           <Dropdown.Item variant="alert">
             <Link href="/my/delete-account">회원탈퇴</Link>
