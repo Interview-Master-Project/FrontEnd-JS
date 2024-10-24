@@ -13,7 +13,7 @@ export default async function Collections() {
       </Link>
       <div className={styles.listContainer}>
         <div className={styles.listHeader}>
-          <Link href="/my">
+          <Link href="/my/all-collections">
             <RightIcon />
             <span>전체 보기</span>
           </Link>
