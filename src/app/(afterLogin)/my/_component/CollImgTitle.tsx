@@ -62,7 +62,7 @@ export default function CollImgTitle({ id }: Props) {
 
   return (
     <div className={styles.imgTitleSection}>
-      <div className={styles.imgSection}>
+      {/* <div className={styles.imgSection}>
         <label htmlFor="imageInput">이미지 첨부</label>
         <input
           type="file"
@@ -83,7 +83,7 @@ export default function CollImgTitle({ id }: Props) {
         >
           초기화
         </button>
-      </div>
+      </div> */}
       <div>
         <input
           id="title"

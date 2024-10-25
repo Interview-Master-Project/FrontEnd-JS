@@ -26,7 +26,7 @@ export default function Page() {
   return (
     <form className={styles.form}>
       <Container title="컬렉션 제목">
-        <CollImgTitle id={6} />
+        <CollImgTitle />
       </Container>
       <Container title="상세 설명">
         <CollDescription id={6} />

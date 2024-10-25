@@ -9,7 +9,7 @@ export default function Histories() {
       <h3>히스토리</h3>
       <div className={styles.listContainer}>
         <div className={styles.listHeader}>
-          <Link href="/my">
+          <Link href="/my/collections/all-histories">
             <RightIcon />
             <span>전체 보기</span>
           </Link>
