@@ -14,29 +14,15 @@
   cursor: pointer;
 }
 
-.quizAccess {
-  & > div {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    width: fit-content;
-    padding: 5px 10px;
-    border-radius: 20px;
-  }
-  & > .publicLabel {
-    background-color: var(--theme-dark);
-  }
-  & > .privateLabel {
-    background-color: var(--warning);
-  }
-}
-
 .quizSection {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   gap: 6px;
   margin: 10px 0;
+
+  & > h6 {
+    font-size: 20px;
+  }
 
   & > progress {
     width: 150px;
@@ -53,4 +39,24 @@
       background: var(--success);
     }
   }
+
+  & > p {
+    font-size: 20px;
+  }
+
+  &__info {
+    overflow: hidden;
+  }
+
+  &__progress {
+    min-width: 200px;
+    justify-content: flex-start;
+  }
+}
+
+.quizQuestion {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
 }

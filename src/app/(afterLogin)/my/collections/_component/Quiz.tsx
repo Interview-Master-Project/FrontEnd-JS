@@ -11,8 +11,6 @@ import { useClientFetch } from "@/hooks/useClientFetch";
 import { motion } from "framer-motion";
 import { Dropdown } from "@/app/_component/dropdown/Dropdown";
 import { BsThreeDots } from "react-icons/bs";
-import { MdOutlinePublic as PublicIcon } from "react-icons/md";
-import { BsIncognito as PrivateIcon } from "react-icons/bs";
 import { calculateCorrectRate } from "@/app/(afterLogin)/explore/_lib/calculateCorrectRate";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -24,9 +22,10 @@ dayjs.locale("ko");
 
 type Props = {
   quizId: string;
+  quizIndex: number;
 };
 
-export default function Quizzes({ quizId }: Props) {
+export default function Quizzes({ quizId, quizIndex }: Props) {
   const params = useSearchParams();
   const collectionId = params.get("id");
   const { data, loading, error } = useClientFetch<IData>(
@@ -85,30 +84,18 @@ export default function Quizzes({ quizId }: Props) {
           </Dropdown.Menu>
         </Dropdown>
       </div>
-      <div className={styles.quizSection}>
-        <div className={styles.quizAccess}>
-          {targetQuiz.quiz.access === "PRIVATE" ? (
-            <div className={styles.privateLabel}>
-              <PrivateIcon />
-              <span>Private</span>
-            </div>
-          ) : (
-            <div className={styles.publicLabel}>
-              <PublicIcon />
-              <span>Public</span>
-            </div>
-          )}
-        </div>
-        <p>{targetQuiz.quiz.question}</p>
+      <div className={`${styles.quizSection} ${styles.quizSection__info}`}>
+        <h6>{quizIndex.toString().padStart(2, "0")}</h6>
+        <p className={styles.quizQuestion}>{targetQuiz.quiz.question}</p>
       </div>
-      <div className={styles.quizSection}>
+      <div className={`${styles.quizSection} ${styles.quizSection__progress}`}>
         {totalRate ? (
           <>
             <span>정답률 {totalRate}%</span>
             <progress value={totalRate} max={100}></progress>
           </>
         ) : (
-          <p>풀이 기록이 없어요!</p>
+          <span>풀이 기록이 없어요!</span>
         )}
         <span>{`Updated ${dayjs(targetQuiz.quiz.updatedAt).fromNow()}`}</span>
       </div>

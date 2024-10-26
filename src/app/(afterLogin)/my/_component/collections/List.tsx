@@ -5,6 +5,9 @@ import Image from "next/image";
 import { useClientFetch } from "@/hooks/useClientFetch";
 import { MY_COLLECTIONS, IData } from "@/graphql/query/my-collections";
 import { motion } from "framer-motion";
+import { MdOutlinePublic as PublicIcon } from "react-icons/md";
+import { BsIncognito as PrivateIcon } from "react-icons/bs";
+import clsx from "clsx";
 import styles from "./list.module.scss";
 
 export default function List() {
@@ -34,6 +37,18 @@ export default function List() {
             href={`/my/collections?id=${collection.id}`}
             className={styles.list}
           >
+            <div
+              className={clsx(styles.accessLabel, {
+                [styles.accessLabel_public]: collection.access === "PUBLIC",
+                [styles.accessLabel_private]: collection.access === "PRIVATE",
+              })}
+            >
+              {collection.access === "PUBLIC" ? (
+                <PublicIcon />
+              ) : (
+                <PrivateIcon />
+              )}
+            </div>
             <Image
               src={collection.imgUrl as string}
               alt={`${collection.name} 이미지`}

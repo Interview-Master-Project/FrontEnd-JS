@@ -83,7 +83,7 @@ export default function Page() {
               priority
             />
           )}
-          <div>
+          <div className={styles.collectionInfo}>
             <div className={styles.collectionAccess}>
               {data?.getCollection.access === "PRIVATE" ? (
                 <div className={styles.privateLabel}>
@@ -105,8 +105,8 @@ export default function Page() {
         <Link href="/my/newquiz" className={styles.createNewBtn}>
           <ContainedButton variant="base">+ 새 질문 추가</ContainedButton>
         </Link>
-        {data?.getCollection.quizzes.map((quiz: IQuizzes) => (
-          <Quiz key={quiz.id} quizId={quiz.id} />
+        {data?.getCollection.quizzes.map((quiz: IQuizzes, index: number) => (
+          <Quiz key={quiz.id} quizId={quiz.id} quizIndex={index + 1} />
         ))}
       </Container>
     </>

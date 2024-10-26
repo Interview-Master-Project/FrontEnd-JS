@@ -14,6 +14,16 @@
   cursor: pointer;
 }
 
+.collectionInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  & > h4 {
+    font-size: 24px;
+  }
+}
+
 .collectionAccess {
   & > div {
     display: flex;

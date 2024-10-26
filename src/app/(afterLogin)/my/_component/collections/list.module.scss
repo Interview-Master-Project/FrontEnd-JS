@@ -4,10 +4,39 @@
   gap: 20px;
   padding: 10px;
 
+  position: relative;
+
   & > div {
     & > span {
       font-size: 14px;
       opacity: 0.5;
     }
+  }
+}
+
+.accessLabel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+
+  width: 40px;
+  height: 40px;
+  border-radius: 0 0 0 8px;
+
+  &_public {
+    background-color: var(--theme-dark);
+  }
+  &_private {
+    background-color: var(--warning);
   }
 }
