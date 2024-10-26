@@ -2,8 +2,12 @@ import { create } from "zustand";
 
 export type TCategories = { id: string; name: string };
 
+type MaxLength<T extends any[]> = T["length"] extends 0 | 1 | 2 | 3 | 4 | 5
+  ? T
+  : string[];
+
 export interface ISearchStore {
-  keywords: string[];
+  keywords: MaxLength<string[]>;
   categories: TCategories[];
   maxCorrectRate: number | undefined;
   addKeyword: (keyword: string) => void;

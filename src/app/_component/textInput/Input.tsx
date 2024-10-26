@@ -10,17 +10,18 @@ export default function Input({
 }: InputHTMLAttributes<HTMLInputElement>) {
   const [enteredValue, setEnteredValue] = useState("");
   const ref = useRef<HTMLInputElement | null>(null);
-  const { addKeyword } = useSearchStore();
+  const { keywords, addKeyword } = useSearchStore();
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (
       e.key === "Enter" &&
       ref.current === document.activeElement &&
-      enteredValue.trim().length
+      enteredValue.trim().length &&
+      keywords.length < 5
     ) {
       addKeyword(enteredValue.trim());
       setEnteredValue("");
-    }
+    } else return;
   };
 
   return (
@@ -28,6 +29,7 @@ export default function Input({
       ref={ref}
       type="text"
       value={enteredValue}
+      maxLength={20}
       onChange={(e) => setEnteredValue(e.target.value)}
       onKeyDown={handleKeyDown}
       className={styles.input}
