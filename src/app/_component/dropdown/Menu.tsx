@@ -25,7 +25,7 @@ export default function Menu({
           }}
           initial={{ opacity: 1, scale: 0.5, x: 20, y: -50 }}
           animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
-          exit={{ opacity: 1, scale: 0.5, x: 20, y: -50 }}
+          // exit={{ opacity: 1, scale: 0.5, x: 20, y: -50 }}
         >
           <ul>{children}</ul>
         </motion.div>
