@@ -4,9 +4,9 @@ import { useState } from "react";
 import { useClientFetch } from "@/hooks/useClientFetch";
 import { GET_ALL_CATEGORIES, IData } from "@/graphql/query/get-all-categories";
 import { useSearchStore } from "@/store/useSearchStore";
-import { Filter } from "./Filter";
 import { CiFilter } from "react-icons/ci";
 import { IoFilterOutline } from "react-icons/io5";
+import { Dropdown } from "@/app/_component/dropdown/Dropdown";
 import { FaChevronDown as DownIcon } from "react-icons/fa";
 import styles from "./filterBox.module.scss";
 
@@ -20,73 +20,121 @@ export default function FilterBox() {
     category: false,
     advancedQ: false,
   });
-  const handleOpen = (identifier: "category" | "advancedQ") => {
-    setIsOpen((prev) => {
+
+  const handleOffDropdown = (key: keyof typeof isOpen) => {
+    setIsOpen((prevState) => {
       return {
-        ...prev,
-        [identifier]: !prev[identifier],
+        ...prevState,
+        [key]: false,
+      };
+    });
+  };
+
+  const handleCloseDropdown = (key: keyof typeof isOpen) => {
+    setIsOpen((prevState) => {
+      return {
+        ...prevState,
+        [key]: !prevState[key],
       };
     });
   };
 
   return (
     <div className={styles.wrapper}>
-      <Filter onClick={() => handleOpen("category")}>
-        <Filter.Icon>
-          <CiFilter />
-        </Filter.Icon>
-        <Filter.Label>카테고리</Filter.Label>
-        <Filter.Icon>
-          <DownIcon />
-        </Filter.Icon>
-        <Filter.Dropdown
-          className={`${styles.dropdown} ${
-            !isOpen.category ? styles.hidden : ""
-          }`}
+      <Dropdown
+        className={styles.dropdown}
+        onClose={() => handleOffDropdown("category")}
+      >
+        <Dropdown.Active
+          onClick={() => handleCloseDropdown("category")}
+          boxWidth={500}
+          boxHeight={80}
         >
-          {data?.getAllCategories?.map((category) => (
-            <div key={category.id} className={styles.item}>
-              <input
-                type="checkbox"
-                id={`category-${category.id}`}
-                name="categoriesId"
-                value={category.id}
-                checked={categories.includes(category)}
-                onChange={() => changeCategories(category)}
-              />
-              <label htmlFor={`category-${category.id}`}>{category.name}</label>
+          <div className={styles.categoriesBtn}>
+            <div>
+              <CiFilter />
+              <span>카테고리</span>
             </div>
+            <div>
+              <DownIcon />
+            </div>
+          </div>
+        </Dropdown.Active>
+        <Dropdown.Menu
+          isOpen={isOpen.category}
+          containerWidth={500}
+          positionTop={80}
+          positionLeft
+          variant="foreground"
+        >
+          {data?.getAllCategories.map((category) => (
+            <Dropdown.Item
+              key={category.id}
+              onClick={() => changeCategories(category)}
+            >
+              <div key={category.id} className={styles.item}>
+                <input
+                  type="checkbox"
+                  id={`category-${category.id}`}
+                  name="categoriesId"
+                  value={category.id}
+                  checked={categories.includes(category)}
+                  onChange={() => changeCategories(category)}
+                />
+                <label htmlFor={`category-${category.id}`}>
+                  {category.name}
+                </label>
+              </div>
+            </Dropdown.Item>
           ))}
-        </Filter.Dropdown>
-      </Filter>
-      <Filter onClick={() => handleOpen("advancedQ")}>
-        <Filter.Icon>
-          <IoFilterOutline />
-        </Filter.Icon>
-        <Filter.Label>고급 질의</Filter.Label>
-        <Filter.Icon>
-          <DownIcon />
-        </Filter.Icon>
-        <Filter.Dropdown
-          className={`${styles.dropdown} ${
-            !isOpen.advancedQ ? styles.hidden : ""
-          }`}
+        </Dropdown.Menu>
+      </Dropdown>
+      <Dropdown
+        className={styles.dropdown}
+        onClose={() => handleOffDropdown("advancedQ")}
+      >
+        <Dropdown.Active
+          onClick={() => handleCloseDropdown("advancedQ")}
+          boxWidth={500}
+          boxHeight={80}
+        >
+          <div className={styles.advancedQBtn}>
+            <div>
+              <IoFilterOutline />
+              <span>고급 질의</span>
+            </div>
+            <div>
+              <DownIcon />
+            </div>
+          </div>
+        </Dropdown.Active>
+        <Dropdown.Menu
+          isOpen={isOpen.advancedQ}
+          containerWidth={500}
+          positionLeft
+          positionTop={80}
+          variant="foreground"
         >
           {maxCorrectSelector.map((rate) => (
-            <div key={rate} className={styles.item}>
-              <input
-                type="checkbox"
-                id={`under${rate}`}
-                name={`under${rate}`}
-                value={rate}
-                checked={maxCorrectRate === rate}
-                onChange={() => changeMaxCorrectRate(rate)}
-              />
-              <label htmlFor={`under${rate}`}>정답률 {rate}% 이하</label>
-            </div>
+            <Dropdown.Item
+              key={rate}
+              onClick={() => changeMaxCorrectRate(rate)}
+            >
+              <div className={styles.item}>
+                <input
+                  type="checkbox"
+                  id={`under${rate}`}
+                  name={`under${rate}`}
+                  value={rate}
+                  checked={maxCorrectRate === rate}
+                  onChange={() => changeMaxCorrectRate(rate)}
+                />
+                <label htmlFor={`under${rate}`}>정답률 {rate}% 이하</label>
+              </div>
+            </Dropdown.Item>
           ))}
-        </Filter.Dropdown>
-      </Filter>
+        </Dropdown.Menu>
+      </Dropdown>
     </div>
   );
 }

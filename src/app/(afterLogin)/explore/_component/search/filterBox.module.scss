@@ -2,14 +2,15 @@
   width: 1000px;
   height: 80px;
   display: flex;
+
+  position: relative;
 }
 
 .dropdown {
   position: absolute;
-  top: 100%;
+  top: 0;
   left: 0;
   width: 100%;
-  border: 1px solid #ccc;
   background-color: var(--fg);
   z-index: 11;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -21,6 +22,30 @@
 
 .item {
   padding: 10px;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
+  gap: 10px;
+}
+
+.categoriesBtn,
+.advancedQBtn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background-color: var(--fg);
+  border: 2px solid var(--bg);
+
+  & div {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  & svg {
+    width: 24px;
+    height: 24px;
+  }
 }
