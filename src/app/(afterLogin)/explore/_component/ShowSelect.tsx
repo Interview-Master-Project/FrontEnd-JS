@@ -1,23 +1,19 @@
 "use client";
 
-import { ChangeEventHandler, useEffect } from "react";
 import { useSearchGridStore } from "@/store/useSearchGridStore";
 import { useSortOffsetStore } from "@/store/useSortOffsetStore";
 import { HiOutlineSquares2X2 as CardSwitchIcon } from "react-icons/hi2";
 import { HiMenu as ListSwitchIcon } from "react-icons/hi";
 import { useRouter } from "next/navigation";
 import styles from "./showSelect.module.scss";
+import Selector from "@/app/_component/selector/Selector";
 
-// 보기 방식 선택(카드 or 리스트)
-// sort 방식 선택
-// sort를 변경 시 url에 적용
 export default function ShowSelect() {
   const { changeGrid } = useSearchGridStore();
   const { sort, offset, changeSort } = useSortOffsetStore();
 
   const router = useRouter();
-  const handleSort: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    const newSort = e.target.value as "LATEST" | "LOWEST_ACCURACY";
+  const handleSort = (newSort: string) => {
     router.push(`/explore?sort=${newSort}&offset=${offset}`);
     changeSort(newSort);
   };
@@ -28,10 +24,14 @@ export default function ShowSelect() {
         <CardSwitchIcon onClick={() => changeGrid("card")} />
         <ListSwitchIcon onClick={() => changeGrid("list")} />
       </div>
-      <select onChange={handleSort}>
-        <option value="LATEST">최신순</option>
-        <option value="LOWEST_ACCURACY">정답률 낮은 순</option>
-      </select>
+      <Selector
+        width={150}
+        onChange={handleSort}
+        options={[
+          { value: "LATEST", label: "최신순" },
+          { value: "LOWEST_ACCURACY", label: "정답률 낮은 순" },
+        ]}
+      />
     </div>
   );
 }

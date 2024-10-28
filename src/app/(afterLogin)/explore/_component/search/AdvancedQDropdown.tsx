@@ -1,15 +1,25 @@
+import { useState } from "react";
+import { useSearchStore } from "@/store/useSearchStore";
 import { Dropdown } from "@/app/_component/dropdown/Dropdown";
+import Selector from "@/app/_component/selector/Selector";
 import { IoFilterOutline } from "react-icons/io5";
 import { FaChevronDown as DownIcon } from "react-icons/fa";
-import { useSearchStore } from "@/store/useSearchStore";
-import { useState } from "react";
 import styles from "./filterBox.module.scss";
 
-export default function AdvancedQDropdown() {
-  const maxCorrectSelector = [25, 50, 75];
-  const { categories, maxCorrectRate, changeCategories, changeMaxCorrectRate } =
-    useSearchStore();
+const maxCorrectSelector = [
+  { value: "10", label: "정답률 10% 이하" },
+  { value: "20", label: "정답률 20% 이하" },
+  { value: "30", label: "정답률 30% 이하" },
+  { value: "40", label: "정답률 40% 이하" },
+  { value: "50", label: "정답률 50% 이하" },
+  { value: "60", label: "정답률 60% 이하" },
+  { value: "70", label: "정답률 70% 이하" },
+  { value: "80", label: "정답률 80% 이하" },
+  { value: "90", label: "정답률 90% 이하" },
+];
 
+export default function AdvancedQDropdown() {
+  const { maxCorrectRate, changeMaxCorrectRate } = useSearchStore();
   const [isAdvancedQOpen, setIsAdvancedQOpen] = useState(false);
 
   const handleAdvancedQOffDropdown = () => {
@@ -18,16 +28,6 @@ export default function AdvancedQDropdown() {
 
   const handleAdvancedQCloseDropdown = () => {
     setIsAdvancedQOpen(!isAdvancedQOpen);
-    // if (key === "advancedQ") {
-    // } else if (key === "category") {
-    //   setIsCategoryOpen(!isCategoryOpen);
-    // }
-    // setIsOpen((prevState) => {
-    //   return {
-    //     ...prevState,
-    //     [key]: !prevState[key],
-    //   };
-    // });
   };
 
   return (
@@ -49,26 +49,16 @@ export default function AdvancedQDropdown() {
       </Dropdown.Active>
       <Dropdown.Menu
         isOpen={isAdvancedQOpen}
-        containerWidth={500}
+        containerWidth={250}
         positionLeft
         positionTop={80}
         variant="foreground"
       >
-        {maxCorrectSelector.map((rate) => (
-          <Dropdown.Item key={rate} onClick={() => changeMaxCorrectRate(rate)}>
-            <div className={styles.item}>
-              <input
-                type="checkbox"
-                id={`under${rate}`}
-                name={`under${rate}`}
-                value={rate}
-                checked={maxCorrectRate === rate}
-                onChange={() => changeMaxCorrectRate(rate)}
-              />
-              <label htmlFor={`under${rate}`}>정답률 {rate}% 이하</label>
-            </div>
-          </Dropdown.Item>
-        ))}
+        <Selector
+          width={250}
+          onChange={(rate) => changeMaxCorrectRate(+rate)}
+          options={maxCorrectSelector}
+        />
       </Dropdown.Menu>
     </Dropdown>
   );

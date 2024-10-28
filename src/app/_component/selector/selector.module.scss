@@ -1,0 +1,37 @@
+.wrapper {
+  position: relative;
+  z-index: 11;
+  cursor: pointer;
+}
+
+.selected {
+  padding: 10px;
+  font-size: 16px;
+  background-color: var(--bg);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  border-radius: 4px;
+  background-color: var(--fg);
+}
+
+.option {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.option:hover {
+  background-color: rgba(30, 162, 181, 0.2);
+}
+
+.hiddenSelect {
+  display: none;
+}
