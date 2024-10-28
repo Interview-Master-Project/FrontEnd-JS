@@ -8,6 +8,7 @@ type Props = {
   containerWidth: number;
   positionTop?: number;
   variant?: "background" | "foreground";
+  scrollOption?: boolean;
   isOpen: boolean; // 열림 여부
 };
 
@@ -17,6 +18,7 @@ export default function Menu({
   containerWidth: width,
   positionTop: top = 30,
   variant = "background",
+  scrollOption = false,
   isOpen,
 }: Props) {
   return (
@@ -26,6 +28,7 @@ export default function Menu({
           className={clsx(styles.menu, {
             [styles.menu__left]: positionLeft,
             [styles.menu__foreground]: variant === "foreground",
+            [styles.menu__scrollOption]: scrollOption,
           })}
           style={{
             width, // 외부 주입 메뉴 width

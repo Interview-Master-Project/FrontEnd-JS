@@ -1,0 +1,44 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.hiddenCheckbox {
+  display: none;
+}
+
+.customLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s border-color 0.3s;
+}
+
+.checkmark {
+  width: 12px;
+  height: 12px;
+  background-color: var(--theme-dark);
+  border-radius: 2px;
+}
+
+input:checked + .checkbox {
+  border-color: var(--theme-dark);
+  background-color: #e0f7e9;
+}
+
+input:checked + .customLabel:last-child {
+  color: var(--theme-dark);
+}
