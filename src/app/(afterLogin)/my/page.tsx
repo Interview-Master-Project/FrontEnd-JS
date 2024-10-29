@@ -10,7 +10,7 @@ const Chart = dynamic(() => import("./_component/dashboard/HeatMapChart"), {
 
 export default function Page() {
   return (
-    <>
+    <div className={styles.mypageWrapper}>
       <div className={styles.rowContentsWrapper}>
         <MyAccount />
         <Chart />
@@ -19,6 +19,6 @@ export default function Page() {
         <Collections />
         <Histories />
       </div>
-    </>
+    </div>
   );
 }

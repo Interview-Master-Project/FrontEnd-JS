@@ -3,7 +3,11 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 100px;
+  gap: 50px;
+}
+
+.imageBtn {
+  display: flex;
 }
 
 .cancelSaveSection {
