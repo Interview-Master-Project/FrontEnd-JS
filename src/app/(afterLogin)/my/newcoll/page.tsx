@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import Link from "next/link";
 import { GET_ALL_CATEGORIES, IData } from "@/graphql/query/get-all-categories";
 import { useClientFetch } from "@/hooks/useClientFetch";
 import { useCollectionFormStore } from "@/store/useCollectionFormStore";
@@ -13,6 +14,8 @@ import {
   AiOutlineCheck as VMark,
   AiOutlineClose as XMark,
 } from "react-icons/ai";
+import { MdOutlinePublic as PublicIcon } from "react-icons/md";
+import { BsIncognito as PrivateIcon } from "react-icons/bs";
 import axios from "axios";
 import { redirect } from "next/navigation";
 import styles from "./page.module.scss";
@@ -191,7 +194,13 @@ export default function Page() {
             checked={access === "PUBLIC"}
             onChange={(e) => changeAccess(e.target.value as typeof access)}
           />
-          Public
+          <div className={styles.labelContent}>
+            <PublicIcon className={styles.icon} />
+            <div>
+              <strong>Public</strong>
+              <p>해당 컬렉션이 모든 유저에게 노출됩니다.</p>
+            </div>
+          </div>
         </label>
         <label>
           <input
@@ -201,16 +210,26 @@ export default function Page() {
             checked={access === "PRIVATE"}
             onChange={(e) => changeAccess(e.target.value as typeof access)}
           />
-          Private
+          <div className={styles.labelContent}>
+            <PrivateIcon className={styles.icon} />
+            <div>
+              <strong>Private</strong>
+              <p>해당 컬렉션은 나 자신만 볼 수 있습니다.</p>
+            </div>
+          </div>
         </label>
       </FormGroup>
 
       {error && <p>{error}</p>}
 
-      <ContainedButton type="submit" disabled={isLoading}>
-        {isLoading ? "저장 중..." : "저장 및 추가"}
-      </ContainedButton>
-      <OutlinedButton variant="red">취소</OutlinedButton>
+      <div className={styles.cancelSaveSection}>
+        <ContainedButton type="submit" disabled={isLoading}>
+          {isLoading ? "저장 중..." : "저장 및 추가"}
+        </ContainedButton>
+        <OutlinedButton variant="red">
+          <Link href="/my">취소</Link>
+        </OutlinedButton>
+      </div>
     </form>
   );
 }
