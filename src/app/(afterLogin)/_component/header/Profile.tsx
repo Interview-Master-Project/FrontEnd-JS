@@ -54,12 +54,20 @@ export default function Profile() {
         </div>
       </Dropdown.Active>
       <Dropdown.Menu isOpen={isOpen} containerWidth={120} positionTop={60}>
-        <Dropdown.Item>
-          <Link href="/my">마이페이지</Link>
-        </Dropdown.Item>
-        <Dropdown.Item variant="alert">
-          <div onClick={handleLogout}>로그아웃</div>
-        </Dropdown.Item>
+        {data ? (
+          <>
+            <Dropdown.Item>
+              <Link href="/my">마이페이지</Link>
+            </Dropdown.Item>
+            <Dropdown.Item variant="alert">
+              <div onClick={handleLogout}>로그아웃</div>
+            </Dropdown.Item>
+          </>
+        ) : (
+          <Dropdown.Item>
+            <Link href="/login">로그인</Link>
+          </Dropdown.Item>
+        )}
       </Dropdown.Menu>
     </Dropdown>
   );
