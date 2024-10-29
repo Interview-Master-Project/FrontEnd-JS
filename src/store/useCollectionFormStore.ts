@@ -25,16 +25,16 @@ export const useCollectionFormStore = create<ICollectionFormData>((set) => ({
     });
   },
   changeImage: (file) => {
-    set((state) => {
-      if (file) {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = () => {
-          return { image: reader.result as string };
-        };
-      }
-      return state;
-    });
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        const imageDataUrl = reader.result as string;
+        set(() => ({ image: imageDataUrl }));
+      };
+    } else {
+      set(() => ({ image: null }));
+    }
   },
   changeCategoryId: (newId) => {
     set(() => {

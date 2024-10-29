@@ -6,6 +6,25 @@
   gap: 50px;
 }
 
+.formGroupContainer {
+  display: flex;
+  gap: 20px;
+  padding: 10px;
+
+  background-color: var(--fg);
+  border: 1px solid var(--reverse-fg);
+}
+
+.groupSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__reverseBg {
+    background-color: white;
+  }
+}
+
 .imageBtn {
   display: flex;
 }

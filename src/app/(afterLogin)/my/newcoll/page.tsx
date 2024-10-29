@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import Link from "next/link";
 import { GET_ALL_CATEGORIES, IData } from "@/graphql/query/get-all-categories";
 import { useClientFetch } from "@/hooks/useClientFetch";
@@ -16,8 +16,8 @@ import {
 } from "react-icons/ai";
 import { MdOutlinePublic as PublicIcon } from "react-icons/md";
 import { BsIncognito as PrivateIcon } from "react-icons/bs";
-import axios from "axios";
-import { redirect } from "next/navigation";
+import { useFormSubmit } from "@/hooks/useFormSubmit";
+import { useRouter } from "next/navigation";
 import styles from "./page.module.scss";
 
 export default function Page() {
@@ -34,9 +34,6 @@ export default function Page() {
     categoryId,
     changeCategoryId,
   } = useCollectionFormStore();
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const [editName, setEditName] = useState(false);
   const [isValidName, setIsValidName] = useState<boolean | null>(null);
@@ -66,46 +63,75 @@ export default function Page() {
 
   const imageRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError(null);
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setIsLoading(true);
+  //   setError(null);
 
-    try {
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("description", description);
-      formData.append("access", access);
-      formData.append("categoryId", categoryId as string);
-      if (image) formData.append("image", image);
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append("name", name);
+  //     formData.append("description", description);
+  //     formData.append("access", access);
+  //     formData.append("categoryId", categoryId as string);
+  //     if (image) formData.append("image", image);
 
-      // await axios.post("/api/collections", formData, {
-      //   headers: {
-      //     "Content-Type": "multipart/form-data",
-      //   },
-      // });
-      console.log(formData.get("name"));
-      console.log(formData.get("description"));
-      console.log(formData.get("access"));
-      console.log(formData.get("categoryId"));
-      console.log(formData.get("image"));
+  //     // await axios.post("/api/collections", formData, {
+  //     //   headers: {
+  //     //     "Content-Type": "multipart/form-data",
+  //     //   },
+  //     // });
 
+  //     await new Promise((resolve) => setTimeout(resolve, 2000));
+
+  //     console.log(formData.get("name"));
+  //     console.log(formData.get("description"));
+  //     console.log(formData.get("access"));
+  //     console.log(formData.get("categoryId"));
+  //     console.log(formData.get("image"));
+
+  //     changeName("");
+  //     changeImage(null);
+  //     changeDescription("");
+  //     changeAccess("PUBLIC");
+  //     changeCategoryId(null);
+
+  //     // redirect("/my");
+  //   } catch (err) {
+  //     setError("컬렉션 생성에 실패했습니다");
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+  const router = useRouter();
+  const { isLoading, error, handleSubmit } = useFormSubmit({
+    onSuccess: () => {
       changeName("");
       changeImage(null);
       changeDescription("");
-      changeAccess("PUBLIC");
       changeCategoryId(null);
+      changeAccess("PUBLIC");
+      router.push("/my");
+    },
+    onError: (error) => console.error(error),
+  });
 
-      // redirect("/my");
-    } catch (err) {
-      setError("컬렉션 생성에 실패했습니다");
-    } finally {
-      setIsLoading(false);
-    }
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("access", access);
+    formData.append("categoryId", categoryId as string);
+    if (image) formData.append("image", image);
+
+    handleSubmit(formData);
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <form onSubmit={onSubmit} className={styles.form}>
       <FormGroup label="컬렉션 제목" formName="name">
         <input
           type="text"
@@ -135,20 +161,44 @@ export default function Page() {
         </FormGroup.Message>
       </FormGroup>
       <FormGroup label="컬렉션 이미지" formName="image" optional>
-        <input
-          type="file"
-          id="image"
-          name="image"
-          accept=".jpg,.jpeg,.png"
-          ref={imageRef}
-          onChange={(e) => {
-            changeImage(e.target.files?.[0]);
-          }}
-        />
-        <Image src={previewImage} alt="미리보기" width={80} height={80} />
-        <div className={styles.imageBtn}>
-          <ContainedButton variant="green">이미지 첨부</ContainedButton>
-          <OutlinedButton variant="red">초기화</OutlinedButton>
+        <div className={styles.formGroupContainer}>
+          <div className={styles.groupSection__reverseBg}>
+            <input
+              type="file"
+              id="image"
+              name="image"
+              accept=".jpg,.jpeg,.png"
+              ref={imageRef}
+              onChange={(e) => changeImage(e.target.files?.[0])}
+              hidden
+            />
+            <Image
+              src={image ?? previewImage}
+              alt="미리보기"
+              width={80}
+              height={80}
+            />
+          </div>
+          <div className={styles.groupSection}>
+            <span>
+              이미지는 <strong>.jpg .jpeg .png</strong> 확장자만 가능합니다.
+            </span>
+            <div className={styles.imageBtn}>
+              {!image && (
+                <ContainedButton
+                  variant="green"
+                  onClick={() => imageRef.current?.click()}
+                >
+                  이미지 첨부
+                </ContainedButton>
+              )}
+              {image && (
+                <OutlinedButton variant="red" onClick={() => changeImage(null)}>
+                  초기화
+                </OutlinedButton>
+              )}
+            </div>
+          </div>
         </div>
       </FormGroup>
       <FormGroup label="카테고리" formName="categoryId">
@@ -233,24 +283,3 @@ export default function Page() {
     </form>
   );
 }
-
-// return (
-//   <form className={styles.form}>
-//     <Container title="컬렉션 제목">
-//       <CollImgTitle />
-//     </Container>
-//     <Container title="상세 설명">
-//       <CollDescription id={6} />
-//     </Container>
-//     <Container title="공개 범위 여부">
-//       <CollAccess id={6} />
-//     </Container>
-//     <SelectCategories titleOp />
-//     <div className={styles.cancelSaveSection}>
-//       <ContainedButton>저장 및 추가</ContainedButton>
-//       <Link href="/my">
-//         <OutlinedButton variant="red">취소</OutlinedButton>
-//       </Link>
-//     </div>
-//   </form>
-// );

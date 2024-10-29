@@ -9,6 +9,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    width: fit-content;
 
     & > p {
       font-size: 12px;
@@ -20,7 +21,8 @@
   & > select,
   & > textarea {
     all: unset;
-    border: 1px solid rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--reverse-fg);
+    padding-left: 10px;
 
     background-color: var(--fg);
     height: 45px;
