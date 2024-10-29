@@ -21,6 +21,10 @@ const nextConfig = {
         source: "/api/auth/naver",
         destination: `${process.env.NEXT_PUBLIC_SERVER_URL_PORT}/api/auth/naver`,
       },
+      {
+        source: "/api/collections",
+        destination: `${process.env.NEXT_PUBLIC_SERVER_URL_PORT}/api/collections`,
+      },
     ];
   },
   reactStrictMode: false,

@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 interface ICollectionFormData {
   name: string;
-  image: string | null;
+  image: File | null;
   description: string;
   access: "PUBLIC" | "PRIVATE";
   categoryId: string | null;
@@ -20,35 +20,18 @@ export const useCollectionFormStore = create<ICollectionFormData>((set) => ({
   access: "PUBLIC",
   categoryId: null,
   changeName: (newName) => {
-    set(() => {
-      return { name: newName };
-    });
+    set(() => ({ name: newName }));
   },
   changeImage: (file) => {
-    if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = () => {
-        const imageDataUrl = reader.result as string;
-        set(() => ({ image: imageDataUrl }));
-      };
-    } else {
-      set(() => ({ image: null }));
-    }
+    set(() => ({ image: file || null }));
   },
   changeCategoryId: (newId) => {
-    set(() => {
-      return { categoryId: newId };
-    });
+    set(() => ({ categoryId: newId }));
   },
   changeDescription: (newDescription) => {
-    set(() => {
-      return { description: newDescription };
-    });
+    set(() => ({ description: newDescription }));
   },
   changeAccess: (newAccess) => {
-    set(() => {
-      return { access: newAccess };
-    });
+    set(() => ({ access: newAccess }));
   },
 }));

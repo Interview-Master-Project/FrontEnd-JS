@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { GET_ALL_CATEGORIES, IData } from "@/graphql/query/get-all-categories";
 import { useClientFetch } from "@/hooks/useClientFetch";
@@ -19,6 +19,8 @@ import { BsIncognito as PrivateIcon } from "react-icons/bs";
 import { useFormSubmit } from "@/hooks/useFormSubmit";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.scss";
+
+const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2 MB
 
 export default function Page() {
   const { data } = useClientFetch<IData>(GET_ALL_CATEGORIES, {}, false);
@@ -62,47 +64,23 @@ export default function Page() {
   };
 
   const imageRef = useRef<HTMLInputElement>(null);
+  const [viewerImage, setViewerImage] = useState<any>(image);
+  const handleChangeImage = (file: File | undefined) => {
+    if (!file) return null;
 
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   setIsLoading(true);
-  //   setError(null);
+    if (file.size > MAX_FILE_SIZE) {
+      alert("파일 크기는 2MB를 초과할 수 없습니다.");
+      changeImage(null);
+      setViewerImage(null);
+      return;
+    }
 
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append("name", name);
-  //     formData.append("description", description);
-  //     formData.append("access", access);
-  //     formData.append("categoryId", categoryId as string);
-  //     if (image) formData.append("image", image);
-
-  //     // await axios.post("/api/collections", formData, {
-  //     //   headers: {
-  //     //     "Content-Type": "multipart/form-data",
-  //     //   },
-  //     // });
-
-  //     await new Promise((resolve) => setTimeout(resolve, 2000));
-
-  //     console.log(formData.get("name"));
-  //     console.log(formData.get("description"));
-  //     console.log(formData.get("access"));
-  //     console.log(formData.get("categoryId"));
-  //     console.log(formData.get("image"));
-
-  //     changeName("");
-  //     changeImage(null);
-  //     changeDescription("");
-  //     changeAccess("PUBLIC");
-  //     changeCategoryId(null);
-
-  //     // redirect("/my");
-  //   } catch (err) {
-  //     setError("컬렉션 생성에 실패했습니다");
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setViewerImage(reader.result as string);
+    };
+  };
 
   const router = useRouter();
   const { isLoading, error, handleSubmit } = useFormSubmit({
@@ -169,11 +147,14 @@ export default function Page() {
               name="image"
               accept=".jpg,.jpeg,.png"
               ref={imageRef}
-              onChange={(e) => changeImage(e.target.files?.[0])}
+              onChange={(e) => {
+                handleChangeImage(e.target.files?.[0]);
+                changeImage(e.target.files?.[0]);
+              }}
               hidden
             />
             <Image
-              src={image ?? previewImage}
+              src={viewerImage ?? previewImage}
               alt="미리보기"
               width={80}
               height={80}
@@ -193,7 +174,13 @@ export default function Page() {
                 </ContainedButton>
               )}
               {image && (
-                <OutlinedButton variant="red" onClick={() => changeImage(null)}>
+                <OutlinedButton
+                  variant="red"
+                  onClick={() => {
+                    setViewerImage(null);
+                    changeImage(null);
+                  }}
+                >
                   초기화
                 </OutlinedButton>
               )}

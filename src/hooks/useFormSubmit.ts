@@ -26,6 +26,7 @@ export const useFormSubmit = ({ onSuccess, onError }: FormSubmitParams) => {
       // (테스트) 의도적 2초 지연
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
+      console.log("컬렉션 data", Object.fromEntries(formData.entries()));
       // 실제 요청 시
       await axios.post("/api/collections", formData, {
         headers,
