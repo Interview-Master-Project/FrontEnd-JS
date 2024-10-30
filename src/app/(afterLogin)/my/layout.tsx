@@ -4,17 +4,15 @@ import styles from "./layout.module.scss";
 
 type Props = {
   children: ReactNode;
-  modal: ReactNode;
 };
 
-export default function MyLayout({ children, modal }: Props) {
+export default function MyLayout({ children }: Props) {
   return (
     <main className={styles.main}>
       <div className={styles.title}>
         <Title />
       </div>
       {children}
-      {modal}
     </main>
   );
 }
