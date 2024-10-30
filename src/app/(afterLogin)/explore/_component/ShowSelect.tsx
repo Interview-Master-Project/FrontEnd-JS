@@ -5,8 +5,8 @@ import { useSortOffsetStore } from "@/store/useSortOffsetStore";
 import { HiOutlineSquares2X2 as CardSwitchIcon } from "react-icons/hi2";
 import { HiMenu as ListSwitchIcon } from "react-icons/hi";
 import { useRouter } from "next/navigation";
-import styles from "./showSelect.module.scss";
 import Selector from "@/app/_component/selector/Selector";
+import styles from "./showSelect.module.scss";
 
 export default function ShowSelect() {
   const { changeGrid } = useSearchGridStore();

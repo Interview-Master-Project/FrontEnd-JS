@@ -21,12 +21,15 @@
   & > select,
   & > textarea {
     all: unset;
-    border: 1px solid var(--reverse-fg);
+    border: 1px solid rgb(113, 113, 113);
     padding-left: 10px;
 
     background-color: var(--fg);
     height: 45px;
     font-size: 24px;
+
+    display: flex;
+    align-items: center;
 
     &[type="file"] {
       display: none;
@@ -35,6 +38,11 @@
     &:focus {
       border: 1px solid var(--theme-dark);
     }
+  }
+
+  & > textarea {
+    resize: vertical;
+    max-height: 180px;
   }
 }
 

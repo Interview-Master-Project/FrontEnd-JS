@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { FaChevronDown as DownIcon } from "react-icons/fa";
+import clsx from "clsx";
 import styles from "./selector.module.scss";
 
 type TOption = {
@@ -10,12 +11,18 @@ type TOption = {
 };
 
 type Props = {
-  width: number; // 외부에서 width 결정
+  width: number | string; // 외부에서 width 결정
   onChange: (value: string) => void;
   options: Array<TOption>;
+  scrollOption?: boolean;
 };
 
-export default function Selector({ width, onChange, options }: Props) {
+export default function Selector({
+  width,
+  onChange,
+  options,
+  scrollOption = false,
+}: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState(options[0]);
 
@@ -39,7 +46,11 @@ export default function Selector({ width, onChange, options }: Props) {
         <DownIcon />
       </div>
       {isOpen && (
-        <div className={styles.options}>
+        <div
+          className={clsx(styles.options, {
+            [styles.options__scrollOption]: scrollOption,
+          })}
+        >
           {options.map((option) => (
             <div
               key={option.value}

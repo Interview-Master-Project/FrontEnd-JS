@@ -12,7 +12,18 @@
   padding: 10px;
 
   background-color: var(--fg);
-  border: 1px solid var(--reverse-fg);
+  border: 1px solid rgb(113, 113, 113);
+
+  &__column {
+    flex-direction: column;
+
+    & > label {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      gap: 10px;
+    }
+  }
 }
 
 .groupSection {

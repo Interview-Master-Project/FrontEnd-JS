@@ -28,10 +28,10 @@ export const useFormSubmit = ({ onSuccess, onError }: FormSubmitParams) => {
 
       console.log("컬렉션 data", Object.fromEntries(formData.entries()));
       // 실제 요청 시
-      await axios.post("/api/collections", formData, {
-        headers,
-        withCredentials: true,
-      });
+      // await axios.post("/api/collections", formData, {
+      //   headers,
+      //   withCredentials: true,
+      // });
 
       console.log(
         "컬렉션 생성 Success",

@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { GET_ALL_CATEGORIES, IData } from "@/graphql/query/get-all-categories";
 import { useClientFetch } from "@/hooks/useClientFetch";
 import { useCollectionFormStore } from "@/store/useCollectionFormStore";
@@ -14,10 +15,11 @@ import {
   AiOutlineCheck as VMark,
   AiOutlineClose as XMark,
 } from "react-icons/ai";
+import TextareaAutosize from "react-textarea-autosize";
 import { MdOutlinePublic as PublicIcon } from "react-icons/md";
 import { BsIncognito as PrivateIcon } from "react-icons/bs";
+import Selector from "@/app/_component/selector/Selector";
 import { useFormSubmit } from "@/hooks/useFormSubmit";
-import { useRouter } from "next/navigation";
 import styles from "./page.module.scss";
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2 MB
@@ -82,6 +84,10 @@ export default function Page() {
     };
   };
 
+  const handleChangeCategory = (selectedId: string) => {
+    changeCategoryId(selectedId);
+  };
+
   const router = useRouter();
   const { isLoading, error, handleSubmit } = useFormSubmit({
     onSuccess: () => {
@@ -102,7 +108,10 @@ export default function Page() {
     formData.append("name", name);
     formData.append("description", description);
     formData.append("access", access);
-    formData.append("categoryId", categoryId as string);
+    formData.append(
+      "categoryId",
+      categoryId ?? (data?.getAllCategories[0].id as string)
+    );
     if (image) formData.append("image", image);
 
     handleSubmit(formData);
@@ -189,22 +198,25 @@ export default function Page() {
         </div>
       </FormGroup>
       <FormGroup label="카테고리" formName="categoryId">
-        <select
-          name="categoryId"
-          id="categoryId"
-          value={categoryId ?? data?.getAllCategories[0].id}
-          onChange={(e) => changeCategoryId(e.target.value)}
+        <div
+          className={styles.formGroupContainer}
+          style={{ width: "100%", height: "100%" }}
         >
-          {data?.getAllCategories.map(({ id, name }) => (
-            <option key={id} value={id}>
-              {name}
-            </option>
-          ))}
-        </select>
+          {data?.getAllCategories && (
+            <Selector
+              width="inherit"
+              onChange={handleChangeCategory}
+              options={data?.getAllCategories.map(
+                ({ id: value, name: label }) => ({ value, label })
+              )}
+              scrollOption
+            />
+          )}
+        </div>
       </FormGroup>
       <FormGroup label="상세 설명" formName="description">
-        <textarea
-          id="description"
+        <TextareaAutosize
+          id="desciption"
           name="description"
           value={description}
           onChange={(e) => changeDescription(e.target.value)}
@@ -223,38 +235,42 @@ export default function Page() {
         </FormGroup.Message>
       </FormGroup>
       <FormGroup label="공개 범위" formName="access">
-        <label>
-          <input
-            type="radio"
-            name="access"
-            value="PUBLIC"
-            checked={access === "PUBLIC"}
-            onChange={(e) => changeAccess(e.target.value as typeof access)}
-          />
-          <div className={styles.labelContent}>
-            <PublicIcon className={styles.icon} />
-            <div>
-              <strong>Public</strong>
-              <p>해당 컬렉션이 모든 유저에게 노출됩니다.</p>
+        <div
+          className={`${styles.formGroupContainer} ${styles.formGroupContainer__column}`}
+        >
+          <label>
+            <input
+              type="radio"
+              name="access"
+              value="PUBLIC"
+              checked={access === "PUBLIC"}
+              onChange={(e) => changeAccess(e.target.value as typeof access)}
+            />
+            <div className={styles.labelContent}>
+              <PublicIcon className={styles.icon} />
+              <div>
+                <strong>Public</strong>
+                <p>해당 컬렉션이 모든 유저에게 노출됩니다.</p>
+              </div>
             </div>
-          </div>
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="access"
-            value="PRIVATE"
-            checked={access === "PRIVATE"}
-            onChange={(e) => changeAccess(e.target.value as typeof access)}
-          />
-          <div className={styles.labelContent}>
-            <PrivateIcon className={styles.icon} />
-            <div>
-              <strong>Private</strong>
-              <p>해당 컬렉션은 나 자신만 볼 수 있습니다.</p>
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="access"
+              value="PRIVATE"
+              checked={access === "PRIVATE"}
+              onChange={(e) => changeAccess(e.target.value as typeof access)}
+            />
+            <div className={styles.labelContent}>
+              <PrivateIcon className={styles.icon} />
+              <div>
+                <strong>Private</strong>
+                <p>해당 컬렉션은 나 자신만 볼 수 있습니다.</p>
+              </div>
             </div>
-          </div>
-        </label>
+          </label>
+        </div>
       </FormGroup>
 
       {error && <p>{error}</p>}
