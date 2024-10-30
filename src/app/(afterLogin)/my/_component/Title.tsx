@@ -15,6 +15,8 @@ export default function Title() {
     title = "마이페이지";
   } else if (pathname === "/my/editcoll") {
     title = "컬렉션 수정";
+  } else if (pathname === "/my/edit") {
+    title = "내 정보 수정";
   } else {
     title = "";
   }
