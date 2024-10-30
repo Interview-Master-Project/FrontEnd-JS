@@ -3,7 +3,12 @@ import type { NextRequest } from "next/server";
 
 // 공용 및 보호된 경로 정의
 const PUBLIC_ROUTE = ["/"];
-const PRIVATE_ROUTE = ["/my", "/my/:path*", "/collections/:path*"];
+const PRIVATE_ROUTE = [
+  "/my",
+  "/my/:path*",
+  "/collections/:path*",
+  "/details/:path*",
+];
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -32,5 +37,5 @@ export function middleware(req: NextRequest) {
 
 // 미들웨어 적용 경로 설정
 export const config = {
-  matcher: ["/", "/my", "/my/:path*", "/collections/:path*"],
+  matcher: ["/", "/my", "/my/:path*", "/collections/:path*", "/details/:path*"],
 };

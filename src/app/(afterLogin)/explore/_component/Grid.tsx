@@ -46,7 +46,9 @@ export default function Grid({ initialData }: { initialData: IData }) {
     refetch({ sort, offset });
   }, [sort, offset, refetch]);
 
-  const collections = data?.searchCollections || initialData.searchCollections;
+  const collections =
+    data?.searchCollectionsForAuthUser ||
+    initialData.searchCollectionsForAuthUser;
 
   return (
     <div className={styles.gridWrapper}>
@@ -143,9 +145,9 @@ export default function Grid({ initialData }: { initialData: IData }) {
         )}
       </div>
       <Navigator
-        currentPage={data?.searchCollections.pageInfo.currentPage}
-        hasNextPage={data?.searchCollections.pageInfo.hasNextPage}
-        totalPages={data?.searchCollections.pageInfo.totalPages}
+        currentPage={data?.searchCollectionsForAuthUser.pageInfo.currentPage}
+        hasNextPage={data?.searchCollectionsForAuthUser.pageInfo.hasNextPage}
+        totalPages={data?.searchCollectionsForAuthUser.pageInfo.totalPages}
       />
     </div>
   );

@@ -24,9 +24,15 @@ type Props = {
   collectionId: string;
   quizId: string;
   quizIndex: number;
+  isCreator: boolean;
 };
 
-export default function Quizzes({ collectionId, quizId, quizIndex }: Props) {
+export default function Quizzes({
+  collectionId,
+  quizId,
+  quizIndex,
+  isCreator,
+}: Props) {
   const { data, loading, error } = useClientFetch<IData>(
     GET_QUIZ_BRIEF,
     {
@@ -64,25 +70,35 @@ export default function Quizzes({ collectionId, quizId, quizIndex }: Props) {
       className={styles.quizWrapper}
       whileHover={{ backgroundColor: "rgba(30, 162, 181, 0.2)" }}
     >
-      <div className={styles.dropdown}>
-        <Dropdown onClose={handleOffDropdown}>
-          <Dropdown.Active
-            onClick={handleCloseDropdown}
-            boxWidth={36}
-            boxHeight={36}
-          >
-            <BsThreeDots />
-          </Dropdown.Active>
-          <Dropdown.Menu isOpen={isOpen} containerWidth={100}>
-            <Dropdown.Item>
-              <Link href={`/my/editquiz?id=${targetQuiz.quiz.id}`}>수정</Link>
-            </Dropdown.Item>
-            <Dropdown.Item variant="alert">
-              <Link href="/explore">삭제</Link>
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      </div>
+      {isCreator && (
+        <div className={styles.dropdown}>
+          <Dropdown onClose={handleOffDropdown}>
+            <Dropdown.Active
+              onClick={handleCloseDropdown}
+              boxWidth={36}
+              boxHeight={36}
+            >
+              <BsThreeDots />
+            </Dropdown.Active>
+            <Dropdown.Menu isOpen={isOpen} containerWidth={100}>
+              <Dropdown.Item>
+                <Link
+                  href={`/my/collections/${collectionId}/quizzes/${targetQuiz.quiz.id}/edit`}
+                >
+                  수정
+                </Link>
+              </Dropdown.Item>
+              <Dropdown.Item variant="alert">
+                <Link
+                  href={`/my/collections/${collectionId}/quizzes/${targetQuiz.quiz.id}/delete`}
+                >
+                  삭제
+                </Link>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+      )}
       <div className={`${styles.quizSection} ${styles.quizSection__info}`}>
         <h6>{quizIndex.toString().padStart(2, "0")}</h6>
         <p className={styles.quizQuestion}>{targetQuiz.quiz.question}</p>

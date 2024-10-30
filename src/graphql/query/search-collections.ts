@@ -30,7 +30,7 @@ interface ISearchCollections {
 }
 
 export interface IData {
-  searchCollections: ISearchCollections;
+  searchCollectionsForAuthUser: ISearchCollections;
 }
 
 // 컬렉션 검색(최초 렌더링 + 검색 시 모두 사용)
@@ -42,7 +42,7 @@ export const SEARCH_COLLECTIONS = gql`
     $categoryIds: [Int]
     $maxCorrectRate: Int
   ) {
-    searchCollections(
+    searchCollectionsForAuthUser(
       keywords: $keywords
       paging: { offset: $offset, pageSize: 8 }
       sort: $sort
