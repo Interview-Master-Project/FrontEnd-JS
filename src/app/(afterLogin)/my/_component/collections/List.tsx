@@ -23,7 +23,7 @@ export default function List({ data }: { data: IData }) {
           }}
         >
           <Link
-            href={`/my/collections?id=${collection.id}`}
+            href={`/details/collections/${collection.id}`}
             className={styles.list}
           >
             <div

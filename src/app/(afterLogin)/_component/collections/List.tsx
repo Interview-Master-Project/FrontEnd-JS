@@ -7,7 +7,10 @@ import styles from "./list.module.scss";
 
 function Container({ children, id, className }: ComponentProps<"a">) {
   return (
-    <Link href={`/collections/${id}`} className={`${styles.list} ${className}`}>
+    <Link
+      href={`/details/collections/${id}`}
+      className={`${styles.list} ${className}`}
+    >
       {children}
     </Link>
   );

@@ -21,13 +21,12 @@ dayjs.extend(relativeTime);
 dayjs.locale("ko");
 
 type Props = {
+  collectionId: string;
   quizId: string;
   quizIndex: number;
 };
 
-export default function Quizzes({ quizId, quizIndex }: Props) {
-  const params = useSearchParams();
-  const collectionId = params.get("id");
+export default function Quizzes({ collectionId, quizId, quizIndex }: Props) {
   const { data, loading, error } = useClientFetch<IData>(
     GET_QUIZ_BRIEF,
     {

@@ -2,6 +2,9 @@ import { gql } from "@apollo/client";
 
 export interface IQuizzes {
   id: string;
+  access: "PUBLIC" | "PRIVATE";
+  question: string;
+  updatedAt: string;
 }
 
 interface IGetCollection {
@@ -10,6 +13,9 @@ interface IGetCollection {
   imgUrl: string;
   access: "PUBLIC" | "PRIVATE";
   quizzes: IQuizzes[];
+  creator: {
+    id: string;
+  };
 }
 
 export interface IData {
@@ -28,6 +34,9 @@ export const GET_COLLECTION = gql`
         access
         question
         updatedAt
+      }
+      creator {
+        id
       }
     }
   }

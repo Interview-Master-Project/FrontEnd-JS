@@ -7,7 +7,10 @@ import styles from "./card.module.scss";
 
 function Container({ children, id, className }: ComponentProps<"a">) {
   return (
-    <Link href={`/collections/${id}`} className={`${styles.card} ${className}`}>
+    <Link
+      href={`/details/collections/${id}`}
+      className={`${styles.card} ${className}`}
+    >
       {children}
     </Link>
   );
