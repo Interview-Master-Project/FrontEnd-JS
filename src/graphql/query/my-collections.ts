@@ -12,7 +12,7 @@ interface ICollectionsWithAttempt {
   collection: ICollection;
 }
 
-interface IPageInfo {
+export interface IPageInfo {
   currentPage: number;
   hasNextPage: boolean;
   totalPages: number;

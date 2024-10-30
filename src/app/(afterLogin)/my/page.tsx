@@ -8,7 +8,14 @@ const Chart = dynamic(() => import("./_component/dashboard/HeatMapChart"), {
   ssr: false, // 서버 사이드 렌더링 비활성화
 });
 
-export default function Page() {
+type Props = {
+  searchParams: {
+    sort?: "LATEST" | "LOWEST_ACCURACY";
+    offset?: string;
+  };
+};
+
+export default function Page({ searchParams }: Props) {
   return (
     <div className={styles.mypageWrapper}>
       <div className={styles.rowContentsWrapper}>
@@ -16,7 +23,7 @@ export default function Page() {
         <Chart />
       </div>
       <div className={styles.rowContentsWrapper}>
-        <Collections />
+        <Collections searchParams={searchParams} />
         <Histories />
       </div>
     </div>

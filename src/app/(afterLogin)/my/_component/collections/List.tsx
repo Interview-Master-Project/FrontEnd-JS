@@ -10,18 +10,7 @@ import { BsIncognito as PrivateIcon } from "react-icons/bs";
 import clsx from "clsx";
 import styles from "./list.module.scss";
 
-export default function List() {
-  const { data, loading, error } = useClientFetch<IData>(
-    MY_COLLECTIONS,
-    {
-      variables: {
-        sort: "LATEST",
-        offset: 0,
-      },
-    },
-    true
-  );
-
+export default function List({ data }: { data: IData }) {
   return (
     <>
       {data?.myCollections.collectionsWithAttempt.map(({ collection }) => (
