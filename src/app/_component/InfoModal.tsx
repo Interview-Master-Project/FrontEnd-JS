@@ -1,8 +1,8 @@
 import BackButton from "./BackButton";
-import styles from "./infoModal.module.scss";
 import Image from "next/image";
 import logo from "../../../public/logo.png";
 import { ReactNode } from "react";
+import styles from "./infoModal.module.scss";
 
 type Props = {
   title: string;
