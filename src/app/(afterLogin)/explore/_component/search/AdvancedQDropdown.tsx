@@ -29,7 +29,11 @@ export default function AdvancedQDropdown() {
   };
 
   return (
-    <Dropdown className={styles.dropdown} onClose={handleAdvancedQOffDropdown}>
+    <Dropdown
+      className={styles.dropdown}
+      onClose={handleAdvancedQOffDropdown}
+      disabled={!user}
+    >
       <Dropdown.Active
         onClick={handleAdvancedQCloseDropdown}
         boxWidth={500}

@@ -10,7 +10,7 @@
   }
 
   &__disabled {
-    cursor: not-allowed !important;
+    pointer-events: none !important;
   }
 }
 
