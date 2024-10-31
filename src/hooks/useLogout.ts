@@ -13,6 +13,7 @@ export const useLogout = () => {
 
       client.clearStore();
 
+      localStorage.removeItem("user-storage");
       router.replace("/");
     } catch (err) {
       console.error("로그아웃에 실패했습니다.", err);

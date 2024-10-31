@@ -12,6 +12,7 @@ import styles from "./showSelect.module.scss";
 export default function ShowSelect() {
   const { changeGrid } = useSearchGridStore();
   const { sort, offset, changeSort } = useSortOffsetStore();
+
   const { user } = useUserStore();
 
   const router = useRouter();
@@ -34,7 +35,7 @@ export default function ShowSelect() {
           { value: "LOWEST_ACCURACY", label: "정답률 낮은 순" },
           { value: "MOST_LIKED", label: "좋아요 많은 순" },
         ]}
-        defaultValue={2}
+        defaultValue={!user ? 2 : 0}
         disabled={!user}
       />
     </div>

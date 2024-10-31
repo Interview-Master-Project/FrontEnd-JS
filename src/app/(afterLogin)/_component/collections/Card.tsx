@@ -1,4 +1,8 @@
 import Link from "next/link";
+import {
+  FaHeart as ContainedHeart,
+  FaRegHeart as OutlinedHeart,
+} from "react-icons/fa";
 import { MdOutlinePublic as PublicIcon } from "react-icons/md";
 import { BsIncognito as PrivateIcon } from "react-icons/bs";
 import { ComponentProps, PropsWithChildren } from "react";
@@ -23,7 +27,10 @@ interface LikesLabelProps {
 function LikesLabel({ likes }: LikesLabelProps) {
   return (
     <>
-      <div className={styles.likesLabel}>{likes}</div>
+      <div className={styles.likesLabel}>
+        <OutlinedHeart />
+        <span>{likes}</span>
+      </div>
     </>
   );
 }
