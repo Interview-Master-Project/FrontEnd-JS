@@ -42,6 +42,9 @@ export default function CollectionDetails({ isCreator, data }: Props) {
   return (
     <>
       <Container title="컬렉션 정보">
+        <ContainedButton className={styles.startBtn}>
+          <Link href={`/collections/${collectionId}`}>문제 풀기</Link>
+        </ContainedButton>
         <div className={styles.infoWrapper}>
           <div className={styles.infoEditBtn}>
             {isCreator && (

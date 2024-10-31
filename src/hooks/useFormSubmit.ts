@@ -3,11 +3,16 @@ import axios, { AxiosError } from "axios";
 import { useCookies } from "next-client-cookies";
 
 interface FormSubmitParams {
+  endpoint: string;
   onSuccess?: () => void;
   onError?: (error: unknown) => void;
 }
 
-export const useFormSubmit = ({ onSuccess, onError }: FormSubmitParams) => {
+export const useFormSubmit = ({
+  endpoint,
+  onSuccess,
+  onError,
+}: FormSubmitParams) => {
   const cookies = useCookies();
   const token = cookies.get("authToken");
   const headers = {
@@ -26,13 +31,21 @@ export const useFormSubmit = ({ onSuccess, onError }: FormSubmitParams) => {
       // (테스트) 의도적 2초 지연
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
+      // 테스트
       console.log("컬렉션 data", Object.fromEntries(formData.entries()));
       // 실제 요청 시
-      // await axios.post("/api/collections", formData, {
-      //   headers,
-      //   withCredentials: true,
-      // });
+      await Promise.any([
+        axios.post(endpoint, formData, {
+          headers,
+          withCredentials: true,
+        }),
+        axios.patch(endpoint, formData, {
+          headers,
+          withCredentials: true,
+        }),
+      ]);
 
+      // 테스트
       console.log(
         "컬렉션 생성 Success",
         Object.fromEntries(formData.entries())

@@ -13,7 +13,10 @@ export default function Title() {
     title = "새 질문 추가";
   } else if (pathname === "/my") {
     title = "마이페이지";
-  } else if (pathname === "/my/editcoll") {
+  } else if (
+    pathname.includes("/my/collections/") &&
+    pathname.endsWith("/edit")
+  ) {
     title = "컬렉션 수정";
   } else if (pathname === "/my/edit") {
     title = "내 정보 수정";

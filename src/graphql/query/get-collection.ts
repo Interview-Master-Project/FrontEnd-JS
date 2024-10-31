@@ -12,6 +12,11 @@ interface IGetCollection {
   name: string;
   imgUrl: string;
   access: "PUBLIC" | "PRIVATE";
+  description: string;
+  category: {
+    id: string;
+    name: string;
+  };
   quizzes: IQuizzes[];
   creator: {
     id: string;
@@ -29,6 +34,11 @@ export const GET_COLLECTION = gql`
       name
       imgUrl
       access
+      description
+      category {
+        id
+        name
+      }
       quizzes {
         id
         access

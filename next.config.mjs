@@ -25,6 +25,10 @@ const nextConfig = {
         source: "/api/collections",
         destination: `${process.env.NEXT_PUBLIC_SERVER_URL_PORT}/api/collections`,
       },
+      {
+        source: "/api/collections/:collId*",
+        destination: `${process.env.NEXT_PUBLIC_SERVER_URL_PORT}/api/collections/:collId*`,
+      },
     ];
   },
   reactStrictMode: false,

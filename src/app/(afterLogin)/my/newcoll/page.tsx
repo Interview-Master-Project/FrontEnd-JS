@@ -90,6 +90,7 @@ export default function Page() {
 
   const router = useRouter();
   const { isLoading, error, handleSubmit } = useFormSubmit({
+    endpoint: "/api/collections",
     onSuccess: () => {
       changeName("");
       changeImage(null);
@@ -97,6 +98,7 @@ export default function Page() {
       changeCategoryId(null);
       changeAccess("PUBLIC");
       router.push("/my");
+      router.refresh();
     },
     onError: (error) => console.error(error),
   });
