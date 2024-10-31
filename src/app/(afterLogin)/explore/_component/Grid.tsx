@@ -4,7 +4,14 @@ import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { useSearchFilterStore } from "@/store/useSearchFilterStore";
-import { IData, SEARCH_COLLECTIONS } from "@/graphql/query/search-collections";
+import {
+  IData as IALData,
+  SEARCH_COLLECTIONS_FOR_AUTH_USER,
+} from "@/graphql/query/search-collections-for-auth-user";
+import {
+  IData as IBLData,
+  SEARCH_COLLECTIONS_FOR_GUEST,
+} from "@/graphql/query/search-collections-for-guest";
 import { useClientFetch } from "@/hooks/useClientFetch";
 import { useSearchGridStore } from "@/store/useSearchGridStore";
 import { Card } from "../../_component/collections/Card";
@@ -14,7 +21,14 @@ import { calculateCorrectRate } from "../_lib/calculateCorrectRate";
 import clsx from "clsx";
 import styles from "../page.module.scss";
 
-export default function Grid({ initialData }: { initialData: IData }) {
+type DataType = IALData | IBLData;
+
+type Props = {
+  initialData: IALData | IBLData;
+  isLoggedIn: boolean;
+};
+
+export default function Grid({ initialData, isLoggedIn }: Props) {
   const { selectedSearchGrid } = useSearchGridStore(); // 보기형식 === Card | List
   const { keywords, categories, maxCorrectRate } = useSearchFilterStore();
 
@@ -23,19 +37,24 @@ export default function Grid({ initialData }: { initialData: IData }) {
   const sort = searchParams.get("sort") || "LATEST";
   const offset = parseInt(searchParams.get("offset") || "0", 10);
 
-  const { data, loading, error, refetch } = useClientFetch<IData>(
-    SEARCH_COLLECTIONS,
-    {
-      variables: {
+  const query = isLoggedIn
+    ? SEARCH_COLLECTIONS_FOR_AUTH_USER
+    : SEARCH_COLLECTIONS_FOR_GUEST;
+  const variables = isLoggedIn
+    ? {
         keywords,
         categoryIds: categories.map((ct) => +ct),
         maxCorrectRate,
         sort,
         offset,
-      },
-      fetchPolicy: "cache-and-network",
+      }
+    : { keywords, categoryIds: categories.map((ct) => +ct), offset };
+  const { data, loading, error, refetch } = useClientFetch<DataType>(
+    query,
+    {
+      variables,
     },
-    true
+    isLoggedIn
   );
 
   useEffect(() => {
@@ -46,9 +65,11 @@ export default function Grid({ initialData }: { initialData: IData }) {
     refetch({ sort, offset });
   }, [sort, offset, refetch]);
 
-  const collections =
-    data?.searchCollectionsForAuthUser ||
-    initialData.searchCollectionsForAuthUser;
+  const collections = isLoggedIn
+    ? (data as IALData)?.searchCollectionsForAuthUser ??
+      (initialData as IALData).searchCollectionsForAuthUser
+    : (data as IBLData)?.searchCollectionsForGuest ??
+      (initialData as IBLData).searchCollectionsForGuest;
 
   return (
     <div className={styles.gridWrapper}>
@@ -145,9 +166,9 @@ export default function Grid({ initialData }: { initialData: IData }) {
         )}
       </div>
       <Navigator
-        currentPage={data?.searchCollectionsForAuthUser.pageInfo.currentPage}
-        hasNextPage={data?.searchCollectionsForAuthUser.pageInfo.hasNextPage}
-        totalPages={data?.searchCollectionsForAuthUser.pageInfo.totalPages}
+        currentPage={collections.pageInfo.currentPage}
+        hasNextPage={collections.pageInfo.hasNextPage}
+        totalPages={collections.pageInfo.totalPages}
       />
     </div>
   );

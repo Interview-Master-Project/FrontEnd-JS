@@ -6,6 +6,7 @@ interface ICollection {
   imgUrl: string;
   description: string;
   access: "PUBLIC" | "PRIVATE";
+  likes: number;
   category: { id: string; name: string };
 }
 
@@ -24,17 +25,17 @@ export interface IPageInfo {
   totalPages: number;
 }
 
-interface ISearchCollections {
+interface ISearchCollectionsForAuthUser {
   collectionsWithAttempt: ICollectionsWithAttempt[];
   pageInfo: IPageInfo;
 }
 
 export interface IData {
-  searchCollectionsForAuthUser: ISearchCollections;
+  searchCollectionsForAuthUser: ISearchCollectionsForAuthUser;
 }
 
-// 컬렉션 검색(최초 렌더링 + 검색 시 모두 사용)
-export const SEARCH_COLLECTIONS = gql`
+// 컬렉션 검색(로그인 유저용)
+export const SEARCH_COLLECTIONS_FOR_AUTH_USER = gql`
   query MyQuery(
     $keywords: [String]
     $offset: Int
@@ -54,8 +55,9 @@ export const SEARCH_COLLECTIONS = gql`
           id
           name
           imgUrl
-          description
           access
+          description
+          likes
           category {
             id
             name
