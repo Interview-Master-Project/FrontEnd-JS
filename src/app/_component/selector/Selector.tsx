@@ -15,6 +15,9 @@ type Props = {
   onChange: (value: string) => void;
   options: Array<TOption>;
   scrollOption?: boolean;
+  selectedValue?: number | undefined;
+  disabled?: boolean;
+  defaultValue?: number;
 };
 
 export default function Selector({
@@ -22,9 +25,12 @@ export default function Selector({
   onChange,
   options,
   scrollOption = false,
+  selectedValue,
+  disabled,
+  defaultValue,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState(options[0]);
+  const [selected, setSelected] = useState(options[defaultValue ?? 0]);
 
   const handleSelect = (option: TOption) => {
     setSelected(option);
@@ -32,17 +38,28 @@ export default function Selector({
     setIsOpen(false);
   };
 
+  const handleOpen = () => {
+    if (disabled) {
+      return;
+    }
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div
-      className={styles.wrapper}
+      className={clsx(styles.wrapper, {
+        [styles.wrapper__disabled]: disabled,
+      })}
       style={{
         width,
       }}
       tabIndex={0}
       onBlur={() => setIsOpen(false)}
     >
-      <div className={styles.selected} onClick={() => setIsOpen(!isOpen)}>
-        <span>{selected.label}</span>
+      <div className={styles.selected} onClick={handleOpen}>
+        <span>
+          {selectedValue ? `정답률 ${selectedValue}% 이하` : selected.label}
+        </span>
         <DownIcon />
       </div>
       {isOpen && (

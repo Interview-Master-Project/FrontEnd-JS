@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import styles from "./active.module.scss";
 
 type Props = {
@@ -5,6 +6,7 @@ type Props = {
   boxWidth: number;
   boxHeight: number;
   onClick: () => void;
+  disabled?: boolean;
 };
 
 export default function Active({
@@ -12,10 +14,13 @@ export default function Active({
   boxWidth: width,
   boxHeight: height,
   onClick,
+  disabled,
 }: Props) {
   return (
     <div
-      className={styles.container}
+      className={clsx(styles.container, {
+        [styles.container__disabled]: disabled,
+      })}
       style={{
         width, // 외부 주입 width
         height, // 외부 주입 height

@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useUserStore } from "@/store/useUserStore";
 import { useCallback, useEffect, useState } from "react";
 
 type Props = {
@@ -12,6 +13,7 @@ export default function Auth2Redirect({ provider }: Props) {
   const router = useRouter();
   const [code, setCode] = useState<string | null>(null);
   const [state, setState] = useState<string | null>(null);
+  const { loginUser } = useUserStore();
 
   useEffect(() => {
     // 쿼리 파라미터 추출
@@ -46,6 +48,7 @@ export default function Auth2Redirect({ provider }: Props) {
 
         const success = response.data;
         if (success) {
+          loginUser(success);
           router.replace("/explore");
         } else {
           // 로그인 실패
@@ -55,7 +58,7 @@ export default function Auth2Redirect({ provider }: Props) {
         console.error("로그인에 실패했습니다.", err);
       }
     },
-    [provider, router, state]
+    [provider, router, loginUser, state]
   );
 
   useEffect(() => {

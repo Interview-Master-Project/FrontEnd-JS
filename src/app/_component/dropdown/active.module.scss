@@ -8,6 +8,10 @@
     width: 100%;
     height: 100%;
   }
+
+  &__disabled {
+    cursor: not-allowed !important;
+  }
 }
 
 .hiddenButton {

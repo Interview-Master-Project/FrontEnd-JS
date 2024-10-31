@@ -1,9 +1,8 @@
 import { create } from "zustand";
 
 interface IUser {
-  id: string;
   nickname: string;
-  oAuthProvider: string;
+  userId: number;
 }
 
 interface IUserStore {
