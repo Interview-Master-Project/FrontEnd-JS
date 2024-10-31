@@ -16,6 +16,18 @@ function Container({ children, id, className }: ComponentProps<"a">) {
   );
 }
 
+interface LikesLabelProps {
+  likes: number;
+}
+
+function LikesLabel({ likes }: LikesLabelProps) {
+  return (
+    <>
+      <div className={styles.likesLabel}>{likes}</div>
+    </>
+  );
+}
+
 interface AccessLabelProps {
   access: string;
 }
@@ -56,4 +68,5 @@ export const Card = Object.assign(Container, {
   Info,
   Description,
   Access: AccessLabel,
+  Likes: LikesLabel,
 });

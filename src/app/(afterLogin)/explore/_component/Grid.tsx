@@ -94,6 +94,7 @@ export default function Grid({ initialData, isLoggedIn }: Props) {
                   id={collection.id}
                   className={styles.card}
                 >
+                  <Card.Likes likes={collection.likes} />
                   <Card.Access access={collection.access} />
                   <div className={styles.cardImageWrapper}>
                     <Image
@@ -131,6 +132,7 @@ export default function Grid({ initialData, isLoggedIn }: Props) {
                   id={collection.id}
                   className={styles.list}
                 >
+                  <List.Likes likes={collection.likes} />
                   <List.Access access={collection.access} />
                   <div className={styles.listImageWrapper}>
                     <Image

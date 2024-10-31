@@ -16,6 +16,18 @@ function Container({ children, id, className }: ComponentProps<"a">) {
   );
 }
 
+interface LikesLabelProps {
+  likes: number;
+}
+
+function LikesLabel({ likes }: LikesLabelProps) {
+  return (
+    <>
+      <div className={styles.likesLabel}>{likes}</div>
+    </>
+  );
+}
+
 interface AccessLabelProps {
   access: string;
 }
@@ -51,4 +63,5 @@ export const List = Object.assign(Container, {
   Title,
   Description,
   Access: AccessLabel,
+  Likes: LikesLabel,
 });

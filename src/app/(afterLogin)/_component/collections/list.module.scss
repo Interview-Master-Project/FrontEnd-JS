@@ -18,6 +18,14 @@
   }
 }
 
+.likesLabel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  color: var(--warning);
+}
+
 .accessLabel {
   display: flex;
   justify-content: center;
