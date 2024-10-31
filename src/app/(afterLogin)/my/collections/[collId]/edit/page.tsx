@@ -217,6 +217,7 @@ export default function Page() {
             <div className={styles.imageBtn}>
               {!image && (
                 <ContainedButton
+                  type="button"
                   variant="green"
                   onClick={() => imageRef.current?.click()}
                 >
@@ -225,6 +226,7 @@ export default function Page() {
               )}
               {image && (
                 <OutlinedButton
+                  type="button"
                   variant="red"
                   onClick={() => {
                     setViewerImage(null);
@@ -320,7 +322,7 @@ export default function Page() {
         <ContainedButton type="submit" disabled={isLoading}>
           {isLoading ? "저장 중..." : "저장 및 추가"}
         </ContainedButton>
-        <OutlinedButton variant="red">
+        <OutlinedButton variant="red" type="button">
           <Link href="/my">취소</Link>
         </OutlinedButton>
       </div>
