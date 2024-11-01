@@ -18,6 +18,11 @@ export default function Title() {
     pathname.endsWith("/edit")
   ) {
     title = "컬렉션 수정";
+  } else if (
+    pathname.includes("/my/collections/") &&
+    pathname.endsWith("/newquiz")
+  ) {
+    title = "새 질문 추가";
   } else if (pathname === "/my/edit") {
     title = "내 정보 수정";
   } else {
