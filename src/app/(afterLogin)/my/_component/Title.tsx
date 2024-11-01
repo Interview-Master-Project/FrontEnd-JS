@@ -17,7 +17,11 @@ export default function Title() {
     pathname.includes("/my/collections/") &&
     pathname.endsWith("/edit")
   ) {
-    title = "컬렉션 수정";
+    if (pathname.includes("/quizzes")) {
+      title = "질문 수정";
+    } else {
+      title = "컬렉션 수정";
+    }
   } else if (
     pathname.includes("/my/collections/") &&
     pathname.endsWith("/newquiz")

@@ -25,8 +25,8 @@ import Selector from "@/app/_component/selector/Selector";
 import TextareaAutosize from "react-textarea-autosize";
 import { MdOutlinePublic as PublicIcon } from "react-icons/md";
 import { BsIncognito as PrivateIcon } from "react-icons/bs";
-import styles from "./page.module.scss";
 import { useFormSubmit } from "@/hooks/useFormSubmit";
+import styles from "./page.module.scss";
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2 MB
 
@@ -320,7 +320,7 @@ export default function Page() {
 
       <div className={styles.cancelSaveSection}>
         <ContainedButton type="submit" disabled={isLoading}>
-          {isLoading ? "저장 중..." : "저장 및 추가"}
+          {isLoading ? "저장 중..." : "변경사항 저장"}
         </ContainedButton>
         <OutlinedButton variant="red" type="button">
           <Link href="/my">취소</Link>
