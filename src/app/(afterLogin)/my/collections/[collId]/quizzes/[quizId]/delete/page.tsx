@@ -1,5 +1,9 @@
-import Page from "../../../page";
+import QuizDeleteModal from "../../../_component/QuizDeleteModal";
 
 export default function ModalPage() {
-  return <Page />;
+  return (
+    <>
+      <QuizDeleteModal />
+    </>
+  );
 }
