@@ -34,16 +34,16 @@ export const useFormSubmit = ({
       // 테스트
       console.log("컬렉션 data", Object.fromEntries(formData.entries()));
       // 실제 요청 시
-      await Promise.any([
-        axios.post(endpoint, formData, {
-          headers,
-          withCredentials: true,
-        }),
-        axios.patch(endpoint, formData, {
-          headers,
-          withCredentials: true,
-        }),
-      ]);
+      // await Promise.any([
+      //   axios.post(endpoint, formData, {
+      //     headers,
+      //     withCredentials: true,
+      //   }),
+      //   axios.patch(endpoint, formData, {
+      //     headers,
+      //     withCredentials: true,
+      //   }),
+      // ]);
 
       // 테스트
       console.log(

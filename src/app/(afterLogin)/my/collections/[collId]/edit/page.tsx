@@ -122,11 +122,6 @@ export default function Page() {
   const { isLoading, error, handleSubmit } = useFormSubmit({
     endpoint: `/api/collections/${params.collId}`,
     onSuccess: () => {
-      changeName("");
-      changeImage(null);
-      changeDescription("");
-      changeCategoryId(null);
-      changeAccess("PUBLIC");
       router.push("/my");
       router.refresh();
     },
@@ -137,24 +132,24 @@ export default function Page() {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append(
-      "newName",
-      name === "" ? (prevData?.getCollection.name as string) : name
-    );
-    formData.append(
-      "newDescription",
-      description === ""
-        ? (prevData?.getCollection.description as string)
-        : description
-    );
-    formData.append("newAccess", access);
-    formData.append(
-      "categoryId",
-      categoryId ?? (categoryData?.getAllCategories[0].id as string)
-    );
+    if (prevData?.getCollection.name !== name) {
+      formData.append("newName", name);
+    }
+    if (prevData?.getCollection.description !== description) {
+      formData.append("newDescription", description);
+    }
+    if (prevData?.getCollection.access !== access) {
+      formData.append("newAccess", access);
+    }
+    if (prevData?.getCollection.category.id !== categoryId) {
+      formData.append(
+        "categoryId",
+        categoryId ?? (categoryData?.getAllCategories[0].id as string)
+      );
+    }
     if (image) formData.append("image", image);
-    else if (prevData?.getCollection.imgUrl)
-      formData.append("image", prevData.getCollection.imgUrl);
+    // else if (prevData?.getCollection.imgUrl)
+    //   formData.append("image", prevData.getCollection.imgUrl);
 
     handleSubmit(formData);
   };

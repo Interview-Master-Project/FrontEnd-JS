@@ -3,10 +3,9 @@
 import InfoModal from "@/app/_component/InfoModal";
 import ContainedButton from "@/app/_component/button/ContainedButton";
 import OutlinedButton from "@/app/_component/button/OutlinedButton";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { DELETE_COLLECTION } from "@/graphql/mutation/delete-collection";
 import { useMutation } from "@apollo/client";
-import { useParams } from "next/navigation";
 import { useCookies } from "next-client-cookies";
 
 export default function CollectionDeleteModal() {
