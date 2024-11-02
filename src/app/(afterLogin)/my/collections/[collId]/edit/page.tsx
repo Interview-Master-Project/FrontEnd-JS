@@ -242,12 +242,13 @@ export default function Page() {
         >
           {categoryData?.getAllCategories && (
             <Selector
-              width="inherit"
+              width="100%"
               onChange={handleChangeCategory}
               options={categoryData?.getAllCategories.map(
                 ({ id: value, name: label }) => ({ value, label })
               )}
               scrollOption
+              selectedValue={categoryData.getAllCategories.find(({ id }) => id === categoryId)?.name}
             />
           )}
         </div>

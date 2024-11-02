@@ -61,7 +61,9 @@ export default function AdvancedQDropdown() {
           width={250}
           onChange={(rate) => changeMaxCorrectRate(+rate)}
           options={maxCorrectSelector}
-          selectedValue={maxCorrectRate}
+          selectedValue={
+            maxCorrectRate ? `정답률 ${maxCorrectRate}% 이하` : "정답률 선택"
+          }
         />
       </Dropdown.Menu>
     </Dropdown>

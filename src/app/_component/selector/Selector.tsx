@@ -15,7 +15,7 @@ type Props = {
   onChange: (value: string) => void;
   options: Array<TOption>;
   scrollOption?: boolean;
-  selectedValue?: number | undefined;
+  selectedValue?: any;
   disabled?: boolean;
   defaultValue?: number;
 };
@@ -57,9 +57,7 @@ export default function Selector({
       onBlur={() => setIsOpen(false)}
     >
       <div className={styles.selected} onClick={handleOpen}>
-        <span>
-          {selectedValue ? `정답률 ${selectedValue}% 이하` : selected.label}
-        </span>
+        <span>{selectedValue ?? selected.label}</span>
         <DownIcon />
       </div>
       {isOpen && (

@@ -92,11 +92,6 @@ export default function Page() {
   const { isLoading, error, handleSubmit } = useFormSubmit({
     endpoint: "/api/collections",
     onSuccess: () => {
-      changeName("");
-      changeImage(null);
-      changeDescription("");
-      changeCategoryId(null);
-      changeAccess("PUBLIC");
       router.push("/my");
       router.refresh();
     },
