@@ -12,20 +12,29 @@ type Props = {
 export default function Navigator({ pageInfo }: Props) {
   const router = useRouter();
 
+  console.log(pageInfo.currentPage);
+
   // 미구현됨
   return (
     <div className={styles.navigator}>
       <ContainedButton
-        // disabled={pageInfo.currentPage === 1}
-        disabled
-        onClick={() => router.push(`/my?sort=LATEST&offset=0`)}
+        disabled={pageInfo.currentPage === 1}
+        onClick={() =>
+          router.push(
+            `/my?sort=LATEST&offset=${(pageInfo.currentPage - 2) * 5}`,
+            { scroll: false }
+          )
+        }
       >
         이전
       </ContainedButton>
       <ContainedButton
-        // disabled={!pageInfo.hasNextPage}
-        disabled
-        onClick={() => router.push(`/my?sort=LATEST&offset=5`)}
+        disabled={!pageInfo.hasNextPage}
+        onClick={() =>
+          router.push(`/my?sort=LATEST&offset=${pageInfo.currentPage * 5}`, {
+            scroll: false,
+          })
+        }
       >
         다음
       </ContainedButton>
