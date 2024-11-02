@@ -62,8 +62,7 @@ export default function Page() {
       });
       // router push 후 refresh
       console.log("Mutation result: ", res.data);
-      router.push(`/my/collections/${collectionId}`);
-      router.refresh();
+      window.location.replace(`/my/collections/${collectionId}`);
     } catch (err) {
       console.error("Error: ", err);
     }

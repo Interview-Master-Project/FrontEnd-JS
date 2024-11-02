@@ -24,8 +24,7 @@ export default function CollectionDeleteModal() {
           headers: { Authorization: `Bearer ${token}` },
         },
       });
-      router.push("/my"); // 삭제 후 /my 경로로 이동
-      router.refresh();
+      window.location.replace("/my");
     } catch (error) {
       console.error("컬렉션 삭제 오류:", error);
       // 필요 시 에러 처리를 위한 추가 로직 작성

@@ -7,6 +7,7 @@ import { useRouter, useParams } from "next/navigation";
 import { DELETE_QUIZ } from "@/graphql/mutation/delete-quiz";
 import { useMutation } from "@apollo/client";
 import { useCookies } from "next-client-cookies";
+import { GET_COLLECTION } from "@/graphql/query/get-collection";
 
 export default function QuizDeleteModal() {
   const router = useRouter();
@@ -24,8 +25,7 @@ export default function QuizDeleteModal() {
           headers: { Authorization: `Bearer ${token}` },
         },
       });
-      router.push("/my"); // 삭제 후 /my 경로로 이동
-      router.refresh();
+      window.location.replace(`/my/collections/${collId}`);
     } catch (error) {
       console.error("질문 삭제 오류:", error);
       // 필요 시 에러 처리를 위한 추가 로직 작성
