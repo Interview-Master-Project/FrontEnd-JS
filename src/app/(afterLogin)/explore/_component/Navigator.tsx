@@ -22,15 +22,32 @@ export default function Navigator({
 }: Props) {
   const { sort, changeOffset } = useSortOffsetStore();
 
-  // totalPages 만큼 배열 크기와 1, 2, 3,... 생성
-  const pageArr: number[] = Array(totalPages)
-    .fill(1)
-    .map((value, idx) => value + idx);
+  const pageArr: number[] = (() => {
+    if (totalPages <= 10) {
+      // 총 페이지 수가 10 이하인 경우, 전체 페이지를 표시
+      return Array.from({ length: totalPages }, (_, idx) => idx + 1);
+    }
+
+    if (currentPage <= 5) {
+      // currentPage가 1~5에 있을 경우, 1부터 10까지 표시
+      return Array.from({ length: 10 }, (_, idx) => idx + 1);
+    }
+
+    if (totalPages - currentPage < 5) {
+      // currentPage가 끝에서 4 이하일 경우, (totalPages - 9)부터 totalPages까지 표시
+      return Array.from({ length: 10 }, (_, idx) => totalPages - 9 + idx);
+    }
+
+    // 그 외의 경우, currentPage를 중심으로 앞뒤로 5개씩 표시
+    return Array.from({ length: 10 }, (_, idx) => currentPage - 5 + idx);
+  })();
 
   const router = useRouter();
   const handleOffset = (newOffset: number) => {
     changeOffset(newOffset);
-    router.push(`/explore?sort=${sort}&offset=${newOffset}`);
+
+    const currentPath = window.location.pathname;
+    router.push(`${currentPath}?sort=${sort}&offset=${newOffset}`);
   };
 
   return (

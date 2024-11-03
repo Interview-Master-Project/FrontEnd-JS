@@ -1,11 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useSearchStore } from "@/store/useSearchStore";
 import ContainedButton from "@/app/_component/button/ContainedButton";
 import { TiDelete as DeleteIcon } from "react-icons/ti";
 import { useSearchFilterStore } from "@/store/useSearchFilterStore";
-import { useSortOffsetStore } from "@/store/useSortOffsetStore";
 import styles from "./filterResult.module.scss";
 
 export default function FilterResult() {
@@ -18,13 +16,10 @@ export default function FilterResult() {
     removeMaxCorrectRate,
   } = useSearchStore();
   const { setFilters } = useSearchFilterStore();
-  const { changeOffset, changeSort } = useSortOffsetStore();
 
   const categoryIds = categories.map(({ id }) => id);
-  const router = useRouter();
   const handleSearch = () => {
     setFilters({ keywords, categories: categoryIds, maxCorrectRate });
-    router.push("/explore");
   };
 
   return (

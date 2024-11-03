@@ -1,0 +1,14 @@
+.listWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.lists {
+  display: grid;
+  grid-auto-rows: auto;
+
+  gap: 30px;
+  padding-bottom: 50px;
+
+  grid-template-columns: repeat(2, 1fr);
+}

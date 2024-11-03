@@ -4,6 +4,7 @@ import type { NextRequest } from "next/server";
 // 공용 및 보호된 경로 정의
 const PUBLIC_ROUTE = ["/"];
 const PRIVATE_ROUTE = [
+  "/explore/quiz",
   "/my",
   "/my/:path*",
   "/collections/:path*",
@@ -37,5 +38,5 @@ export function middleware(req: NextRequest) {
 
 // 미들웨어 적용 경로 설정
 export const config = {
-  matcher: ["/", "/my", "/my/:path*", "/collections/:path*", "/details/:path*"],
+  matcher: ["/", "/explore/quiz", "/my", "/my/:path*", "/collections/:path*", "/details/:path*"],
 };
