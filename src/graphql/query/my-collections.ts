@@ -6,6 +6,7 @@ interface ICollection {
   access: "PUBLIC" | "PRIVATE";
   imgUrl: string;
   description: string;
+  likes: number;
 }
 
 interface ICollectionsWithAttempt {
@@ -41,6 +42,7 @@ export const MY_COLLECTIONS = gql`
           access
           imgUrl
           description
+          likes
         }
       }
       pageInfo {

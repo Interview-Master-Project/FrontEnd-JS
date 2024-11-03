@@ -11,10 +11,6 @@ type Props = {
 
 export default function Navigator({ pageInfo }: Props) {
   const router = useRouter();
-
-  console.log(pageInfo.currentPage);
-
-  // 미구현됨
   return (
     <div className={styles.navigator}>
       <ContainedButton

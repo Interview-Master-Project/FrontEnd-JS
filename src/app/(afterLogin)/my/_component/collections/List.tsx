@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useClientFetch } from "@/hooks/useClientFetch";
-import { MY_COLLECTIONS, IData } from "@/graphql/query/my-collections";
+import { FaRegHeart as OutlinedHeart } from "react-icons/fa";
+import { IData } from "@/graphql/query/my-collections";
 import { motion } from "framer-motion";
 import { MdOutlinePublic as PublicIcon } from "react-icons/md";
 import { BsIncognito as PrivateIcon } from "react-icons/bs";
@@ -49,6 +49,10 @@ export default function List({ data }: { data: IData }) {
             <div>
               <h3>{collection.name}</h3>
               <span>{collection.description}</span>
+            </div>
+            <div className={styles.likesLabel}>
+              <OutlinedHeart />
+              <span>{collection.likes}</span>
             </div>
           </Link>
         </motion.div>

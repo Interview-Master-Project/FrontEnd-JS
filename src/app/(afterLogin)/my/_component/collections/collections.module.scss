@@ -3,14 +3,12 @@
 .collections {
   @include card;
   flex: 2;
+}
 
-  // & > a {
-  //   display: inline-block;
-
-  //   position: absolute;
-  //   top: -50px;
-  //   left: 90px;
-  // }
+.sort {
+  position: absolute;
+  top: -50px;
+  right: 0;
 }
 
 .listContainer {

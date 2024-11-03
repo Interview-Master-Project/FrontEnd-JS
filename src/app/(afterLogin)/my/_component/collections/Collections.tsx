@@ -4,6 +4,7 @@ import { MY_COLLECTIONS, IData } from "@/graphql/query/my-collections";
 import { fetchQueryData } from "@/utils/fetchQueryData";
 import List from "./List";
 import Navigator from "./Navigator";
+import Sort from "./Sort";
 import styles from "./collections.module.scss";
 
 type Props = {
@@ -15,7 +16,6 @@ type Props = {
 
 export default async function Collections({ searchParams }: Props) {
   const { sort, offset } = searchParams;
-
   const { data, loading, error } = await fetchQueryData<IData>({
     query: MY_COLLECTIONS,
     variables: {
@@ -28,6 +28,9 @@ export default async function Collections({ searchParams }: Props) {
   return (
     <div className={styles.collections}>
       <h3>내 컬렉션</h3>
+      <div className={styles.sort}>
+        <Sort />
+      </div>
       <div className={styles.listContainer}>
         <div className={styles.listHeader}>
           <Link href="/my/newcoll">
