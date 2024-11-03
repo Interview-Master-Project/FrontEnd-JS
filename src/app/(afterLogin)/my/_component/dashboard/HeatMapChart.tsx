@@ -15,7 +15,7 @@ const calculateData = (count: number, data: IData, targetDay: number) => {
       .sort((a, b) => a.weekIndex - b.weekIndex) || [];
 
   return Array.from({ length: count }, (_, i) => ({
-    x: `W${i + 1}`,
+    x: filteredData[i]?.date,
     y: filteredData[i]?.quizzesSolved ?? 0,
   }));
 };
@@ -36,7 +36,7 @@ export default function ApexChart() {
   const [series, setSeries] = useState<
     {
       name: string;
-      data: { x: string; y: number; quizzesSolved?: number }[]; // quizzesSolved 추가
+      data: { x: string; y: number }[]; // quizzesSolved 추가
     }[]
   >([]);
 
@@ -74,17 +74,15 @@ export default function ApexChart() {
       enabled: true,
       shared: false,
       intersect: true,
-      x: {
-        formatter: (value) => `${value}`, // X축 레이블
-      },
-      y: {
-        formatter: (value) => `Solved: ${value}`, // Y축 값 포맷
-      },
-      custom: ({ seriesIndex, dataPointIndex }) => {
-        const quizzesSolved =
-          series[seriesIndex]?.data[dataPointIndex]?.quizzesSolved;
-
-        return `<div style="padding: 5px;">Solved: ${quizzesSolved ?? 0}</div>`;
+      custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+        return (
+          '<div style="padding: 10px; color: black;">' +
+          "<span>" +
+          "풀이 횟수: " +
+          series[seriesIndex][dataPointIndex] +
+          "</span>" +
+          "</div>"
+        );
       },
     },
     plotOptions: {
@@ -92,10 +90,10 @@ export default function ApexChart() {
         shadeIntensity: 0.5, // 음영 강도 (0 ~ 1)
         colorScale: {
           ranges: [
-            { from: 0, to: 0, color: "#f1f1f1", name: "None" }, // 데이터 없음
-            { from: 1, to: 10, color: "#cae5ff", name: "Low" }, // 낮은 값의 색상
-            { from: 11, to: 30, color: "#87dbff", name: "Medium" }, // 중간 값의 색상
-            { from: 31, to: 100, color: "#309bff", name: "High" }, // 높은 값의 색상
+            { from: 0, to: 0, color: "#f1f1f1", name: "0" }, // 데이터 없음
+            { from: 1, to: 10, color: "#cae5ff", name: "1-10" }, // 낮은 값의 색상
+            { from: 11, to: 30, color: "#87dbff", name: "11-30" }, // 중간 값의 색상
+            { from: 31, to: 100, color: "#309bff", name: "31-100" }, // 높은 값의 색상
           ],
         },
       },
@@ -120,7 +118,7 @@ export default function ApexChart() {
           options={options}
           series={series}
           type="heatmap"
-          height={300}
+          height={350}
         />
       )}
     </div>
