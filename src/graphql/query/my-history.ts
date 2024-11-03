@@ -7,6 +7,7 @@ interface ICollection {
   description: string;
   updatedAt: string;
   access: "PUBLIC" | "PRIVATE";
+  likes: number;
 }
 
 interface ICollectionsWithAttempt {
@@ -36,6 +37,7 @@ export const MY_HISTORY = gql`
           description
           updatedAt
           access
+          likes
         }
       }
     }

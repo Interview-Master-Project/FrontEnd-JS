@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useClientFetch } from "@/hooks/useClientFetch";
-import { MY_HISTORY, IData } from "@/graphql/query/my-history";
+import { IData } from "@/graphql/query/my-history";
 import { motion } from "framer-motion";
 import clsx from "clsx";
 import { MdOutlinePublic as PublicIcon } from "react-icons/md";
 import { BsIncognito as PrivateIcon } from "react-icons/bs";
+import { FaRegHeart as OutlinedHeart } from "react-icons/fa";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
@@ -16,14 +16,7 @@ import styles from "./list.module.scss";
 dayjs.extend(relativeTime);
 dayjs.locale("ko");
 
-export default function List() {
-  const { data, loading, error } = useClientFetch<IData>(MY_HISTORY, {
-    variables: {
-      offset: 0,
-      filter: "PRIVATE",
-    },
-  });
-
+export default function List({ data }: { data: IData }) {
   return (
     <>
       {data?.myHistory.collectionsWithAttempt.map(({ collection }) => (
@@ -62,6 +55,10 @@ export default function List() {
             <div>
               <h3>{collection.name}</h3>
               <span>{dayjs(collection.updatedAt).fromNow()}</span>
+            </div>
+            <div className={styles.likesLabel}>
+              <OutlinedHeart />
+              <span>{collection.likes}</span>
             </div>
           </Link>
         </motion.div>
