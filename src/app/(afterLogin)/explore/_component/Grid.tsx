@@ -18,6 +18,10 @@ import { Card } from "../../_component/collections/Card";
 import { List } from "../../_component/collections/List";
 import Navigator from "./Navigator";
 import { calculateCorrectRate } from "../_lib/calculateCorrectRate";
+import { useMutation } from "@apollo/client";
+import { LIKE } from "@/graphql/mutation/like";
+import { UNLIKE } from "@/graphql/mutation/unlike";
+import { useCookies } from "next-client-cookies";
 import clsx from "clsx";
 import styles from "../page.module.scss";
 
@@ -57,6 +61,11 @@ export default function Grid({ initialData, isLoggedIn }: Props) {
     isLoggedIn
   );
 
+  const [likeCollection] = useMutation(LIKE);
+  const [unlikeCollection] = useMutation(UNLIKE);
+  const cookies = useCookies();
+  const token = cookies.get("authToken");
+
   useEffect(() => {
     refetch({ keywords, categories, maxCorrectRate });
   }, [keywords, categories, maxCorrectRate, refetch]);
@@ -71,6 +80,33 @@ export default function Grid({ initialData, isLoggedIn }: Props) {
     : (data as IBLData)?.searchCollectionsForGuest ??
       (initialData as IBLData).searchCollectionsForGuest;
 
+  const handleLikes = async (id: string, isLiked: boolean) => {
+    try {
+      const mutationTarget = isLiked ? unlikeCollection : likeCollection;
+      await mutationTarget({
+        variables: { collectionId: id },
+        context: {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+        update(cache) {
+          cache.modify({
+            id: cache.identify({ __typename: "Collection", id }),
+            fields: {
+              likes(existingLikes = 0) {
+                return isLiked ? existingLikes - 1 : existingLikes + 1;
+              },
+              isLiked(existingLiked) {
+                return !existingLiked; // 좋아요 표시가 완료되면 isLiked 필드를 true로 업데이트
+              },
+            },
+          });
+        },
+      });
+    } catch (error) {
+      console.error("Like/Unlike mutation error:", error);
+    }
+  };
+
   return (
     <div className={styles.gridWrapper}>
       <div
@@ -83,6 +119,7 @@ export default function Grid({ initialData, isLoggedIn }: Props) {
           ({
             collection,
             quizCount, // 문제 수
+            isLiked,
             ...rest
           }) => {
             const { recentRate, totalRate } = calculateCorrectRate(rest);
@@ -91,37 +128,33 @@ export default function Grid({ initialData, isLoggedIn }: Props) {
               return (
                 <Card
                   key={collection.id}
-                  id={collection.id}
-                  className={styles.card}
+                  href={`/details/collections/${collection.id}`}
                 >
-                  <Card.Likes likes={collection.likes} />
+                  <Card.ImageFrame
+                    src={collection.imgUrl}
+                    alt={`id: ${collection.id}`}
+                  />
                   <Card.Access access={collection.access} />
-                  <div className={styles.cardImageWrapper}>
-                    <Image
-                      src={collection.imgUrl as string}
-                      alt={collection.id}
-                      fill
-                      style={{ objectFit: "cover" }}
-                      priority
+                  <Card.Info>
+                    <Card.Brief
+                      title={collection.name}
+                      category={collection.category.name}
                     />
-                  </div>
-                  <div className={styles.cardContent}>
-                    <Card.Title>{collection.name}</Card.Title>
-                    <Card.Description>
-                      {collection.description}
-                    </Card.Description>
-                  </div>
-                  <Card.Info className={styles.cardInfo}>
-                    <span>
-                      <strong>{quizCount}</strong> 문제
-                    </span>
-                    <span>
-                      최근정답률 <strong>{recentRate ?? "-"}</strong>%
-                    </span>
-                    <span>
-                      총합정답률 <strong>{totalRate ?? "-"}</strong>%
-                    </span>
-                    <span>{collection.category.name}</span>
+                    <Card.Details
+                      description={collection.description}
+                      correctRate={totalRate ? `${totalRate}%` : "-"}
+                      quizCount={quizCount}
+                    >
+                      <Card.Likes
+                        likes={collection.likes}
+                        isLiked={isLiked}
+                        onMutate={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          handleLikes(collection.id, isLiked);
+                        }}
+                      />
+                    </Card.Details>
                   </Card.Info>
                 </Card>
               );
