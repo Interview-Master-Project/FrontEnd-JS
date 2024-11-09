@@ -1,37 +1,42 @@
+import { ComponentProps, MouseEventHandler } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { MdOutlinePublic as PublicIcon } from "react-icons/md";
+import { BsIncognito as PrivateIcon } from "react-icons/bs";
+import { motion } from "framer-motion";
 import {
   FaHeart as ContainedHeart,
   FaRegHeart as OutlinedHeart,
 } from "react-icons/fa";
-import { MdOutlinePublic as PublicIcon } from "react-icons/md";
-import { BsIncognito as PrivateIcon } from "react-icons/bs";
-import { ComponentProps, PropsWithChildren } from "react";
 import clsx from "clsx";
 import styles from "./card.module.scss";
 
-function Container({ children, id, className }: ComponentProps<"a">) {
+function Container({ children, href }: ComponentProps<"a">) {
   return (
-    <Link
-      href={`/details/collections/${id}`}
-      className={`${styles.card} ${className}`}
-    >
+    <Link href={href as string} className={styles.card}>
       {children}
     </Link>
   );
 }
 
-interface LikesLabelProps {
-  likes: number;
+interface ImageFrameProps extends ComponentProps<"img"> {
+  variant?: "default";
 }
 
-function LikesLabel({ likes }: LikesLabelProps) {
+function ImageFrame({ src, alt, variant = "default" }: ImageFrameProps) {
+  const sizes = {
+    default: [210, 210],
+  };
+
   return (
-    <>
-      <div className={styles.likesLabel}>
-        <OutlinedHeart />
-        <span>{likes}</span>
-      </div>
-    </>
+    <div className={styles.imageFrame}>
+      <Image
+        src={src as string}
+        alt={alt as string}
+        width={sizes[variant][0]}
+        height={sizes[variant][0]}
+      />
+    </div>
   );
 }
 
@@ -41,39 +46,95 @@ interface AccessLabelProps {
 
 function AccessLabel({ access }: AccessLabelProps) {
   return (
-    <>
-      <div
-        className={clsx(styles.accessLabel, {
-          [styles.accessLabel_public]: access === "PUBLIC",
-          [styles.accessLabel_private]: access === "PRIVATE",
-        })}
-      >
-        {access === "PUBLIC" ? <PublicIcon /> : <PrivateIcon />}
-      </div>
-    </>
+    <div
+      className={clsx(styles.accessLabel, {
+        [styles.accessLabel__public]: access === "PUBLIC",
+        [styles.accessLabel__private]: access === "PRIVATE",
+      })}
+    >
+      {access === "PUBLIC" ? <PublicIcon /> : <PrivateIcon />}
+    </div>
   );
 }
 
-interface TextProps extends PropsWithChildren {
-  className?: string;
+function InfoContainer({ children }: ComponentProps<"div">) {
+  return (
+    <motion.div
+      initial={{ height: 90 }}
+      whileHover={{ height: 180 }}
+      transition={{ type: "tween", stiffness: 400, damping: 20 }}
+      className={styles.infoContainer}
+    >
+      {children}
+    </motion.div>
+  );
 }
 
-function Title({ children, className }: TextProps) {
-  return <h3 className={className}>{children}</h3>;
+interface ContentsBriefProps {
+  title: string;
+  category: string;
 }
 
-function Info({ children, className }: TextProps) {
-  return <div className={`${className} ${styles.info}`}>{children}</div>;
+function ContentsBriefWrapper({ title, category }: ContentsBriefProps) {
+  return (
+    <div
+      className={`${styles.contentsWrapper} ${styles.contentsWrapper__brief}`}
+    >
+      <h3>{title}</h3>
+      <span>{category}</span>
+    </div>
+  );
 }
 
-function Description({ children }: PropsWithChildren) {
-  return <span className={styles.description}>{children}</span>;
+interface ContentsDetailProps {
+  description: string;
+  quizCount: number;
+  correctRate: number | string;
+  children: React.ReactNode;
+}
+
+function ContentsDetailsWrapper({
+  description,
+  quizCount,
+  correctRate,
+  children,
+}: ContentsDetailProps) {
+  return (
+    <div
+      className={`${styles.contentsWrapper} ${styles.contentsWrapper__details}`}
+    >
+      <h5>{description}</h5>
+      <span>
+        <strong>{quizCount}</strong> 문제
+      </span>
+      <span>
+        전체 정답률 <strong>{correctRate}</strong>
+      </span>
+      {children}
+    </div>
+  );
+}
+
+interface LikesLabelProps {
+  likes: number;
+  isLiked: boolean;
+  onMutate: MouseEventHandler;
+}
+
+function LikesLabel({ likes, isLiked, onMutate }: LikesLabelProps) {
+  return (
+    <div className={styles.likesLabel} onClick={onMutate}>
+      {isLiked ? <ContainedHeart /> : <OutlinedHeart />}
+      <span>{likes}</span>
+    </div>
+  );
 }
 
 export const Card = Object.assign(Container, {
-  Title,
-  Info,
-  Description,
+  ImageFrame,
+  Info: InfoContainer,
   Access: AccessLabel,
+  Brief: ContentsBriefWrapper,
+  Details: ContentsDetailsWrapper,
   Likes: LikesLabel,
 });

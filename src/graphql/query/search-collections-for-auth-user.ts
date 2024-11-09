@@ -13,6 +13,7 @@ interface ICollection {
 interface ICollectionsWithAttempt {
   collection: ICollection;
   quizCount: number;
+  isLiked: boolean;
   recentAttempts: number;
   recentCorrectAttempts: number;
   totalAttempts: number;
@@ -64,6 +65,7 @@ export const SEARCH_COLLECTIONS_FOR_AUTH_USER = gql`
           }
         }
         quizCount
+        isLiked
         recentAttempts
         recentCorrectAttempts
         totalAttempts
