@@ -4,7 +4,7 @@ import {
   IData,
 } from "@/graphql/query/get-quizzes-by-collection-id";
 import { fetchQueryData } from "@/utils/fetchQueryData";
-import Footer from "@/app/(solves)/_component/footer/Footer";
+import Navigator from "@/app/(solves)/_component/navigator/Navigator";
 import SolveZone from "@/app/(solves)/_component/SolveZone";
 import Sidebar from "@/app/(solves)/_component/sidebar/Sidebar";
 import styles from "./page.module.scss";
@@ -29,8 +29,8 @@ export default async function Page({ params }: Props) {
       {/* <Sidebar data={data} />
       <div className={styles.solveWrapper}>
         <SolveZone data={data} />
-      </div>
-      <Footer data={data} quizId={quizId} /> */}
+      </div> */}
+      <Navigator collId={collId} quizId={quizId} />
     </div>
   );
 }

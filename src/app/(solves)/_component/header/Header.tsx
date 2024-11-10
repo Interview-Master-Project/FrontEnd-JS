@@ -27,13 +27,13 @@ export default async function Header({ collId: collectionId, quizId }: Props) {
   return (
     <header className={styles.headerContainer}>
       <div className={styles.infoContainer}>
-        <section>
+        <div>
           <IoMenu className={styles.menuIcon} />
           <h3>{targetQuiz?.collection.name}</h3>
           <RightIcon className={styles.rightIcon} />
           <h3>{targetQuiz?.question}</h3>
           <h5>{targetQuiz?.collection.category.name}</h5>
-        </section>
+        </div>
       </div>
       <div className={styles.progressContainer}>
         <progress value="20" max="100"></progress>

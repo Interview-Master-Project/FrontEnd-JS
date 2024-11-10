@@ -3,7 +3,7 @@ import clsx from "clsx";
 import styles from "./outlinedButton.module.scss";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "base" | "red" | "green";
+  variant?: "base" | "red" | "green" | "gray";
 }
 
 /**
@@ -22,6 +22,7 @@ export default function OutlinedButton({
         [styles.base]: variant === "base",
         [styles.red]: variant === "red",
         [styles.green]: variant === "green",
+        [styles.gray]: variant === "gray",
       })}
     >
       {children}
