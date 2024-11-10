@@ -3,6 +3,4 @@
 .container {
   @include container;
   background-color: var(--bg);
-
-  position: relative;
 }

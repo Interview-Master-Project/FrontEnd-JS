@@ -1,9 +1,8 @@
 .headerContainer {
-  width: 100dvw;
+  width: inherit;
   height: 60px;
   display: flex;
   flex-direction: column;
-  z-index: 10;
 }
 
 .progressContainer {
@@ -15,22 +14,5 @@
   /* 진행 바 스타일 */
   & > progress {
     width: 100%;
-    // height: 100%;
-    // appearance: none; /* 기본 스타일 제거 */
   }
-
-  // /* 진행 바의 채워진 부분 */
-  // & > progress::-webkit-progress-value {
-  //   background-color: blue; /* 파란색 진행 바 */
-  // }
-
-  // /* 진행 바의 전체 부분 (백그라운드) */
-  // & > progress::-webkit-progress-bar {
-  //   background-color: lightgray;
-  // }
-
-  // /* 파이어폭스와 호환성을 위한 스타일 */
-  // & > progress::-moz-progress-bar {
-  //   background-color: blue;
-  // }
 }
