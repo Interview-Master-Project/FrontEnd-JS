@@ -1,31 +1,28 @@
 "use client";
 
-import { useState } from "react";
-import Tab from "./Tab";
-import { FaListUl as ListIcon } from "react-icons/fa";
-import { MdHistory as HistoryIcon } from "react-icons/md";
-import List from "./List";
-import History from "./History";
-import { IData } from "@/graphql/query/get-quizzes-by-collection-id";
+import { useSwitchStore } from "@/store/useSwitchStore";
+import { motion } from "framer-motion";
 import styles from "./sidebar.module.scss";
 
-export default function Sidebar({ data }: { data: IData }) {
-  const [view, setView] = useState<"list" | "history">("list");
+type Props = {
+  collId: string;
+  quizId: string;
+};
+
+export default function Sidebar({ collId, quizId }: Props) {
+  const { isOpen, close } = useSwitchStore();
 
   return (
-    <>
-      <div className={styles.sideBar}>
-        <Tab isActive={view === "list"} onClick={() => setView("list")}>
-          <ListIcon />
-          <span>목록</span>
-        </Tab>
-        <Tab isActive={view === "history"} onClick={() => setView("history")}>
-          <HistoryIcon />
-          <span>기록</span>
-        </Tab>
-      </div>
-      {view === "list" && <List data={data} />}
-      {view === "history" && <History data={data} />}
-    </>
+    <motion.div
+      initial={{ width: 0 }}
+      animate={{ width: isOpen ? 250 : 0 }}
+      transition={{ type: "tween", duration: 0.3, stiffness: 300 }}
+      className={styles.sidebar}
+    >
+      <button onClick={close} className={styles.closeBtn}>
+        X
+      </button>
+      <span>컨텐츠!</span>
+    </motion.div>
   );
 }

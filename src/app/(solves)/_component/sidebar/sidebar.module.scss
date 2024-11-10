@@ -1,7 +1,11 @@
-.sideBar {
-  width: 80px;
-  height: calc(100dvh - 80px);
-  z-index: 999;
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  margin: 60px 0 80px 0;
   background-color: var(--fg);
-  border-right: 1px solid #636363;
+  box-shadow: var(--shadow);
+  z-index: 5;
+  overflow-y: auto;
 }
