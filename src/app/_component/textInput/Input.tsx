@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, KeyboardEvent } from "react";
+import { useRef, useState, KeyboardEvent, ChangeEvent } from "react";
 import { InputHTMLAttributes } from "react";
 import { useSearchStore } from "@/store/useSearchStore";
 import styles from "./input.module.scss";
@@ -19,9 +19,18 @@ export default function Input({
       enteredValue.trim().length &&
       keywords.length < 5
     ) {
+      e.preventDefault();
       addKeyword(enteredValue.trim());
-      setEnteredValue("");
+
+      // 상태 업데이트 지연 처리
+      setTimeout(() => {
+        setEnteredValue("");
+      }, 0);
     } else return;
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setEnteredValue(e.target.value);
   };
 
   return (
@@ -30,7 +39,7 @@ export default function Input({
       type="text"
       value={enteredValue}
       maxLength={20}
-      onChange={(e) => setEnteredValue(e.target.value)}
+      onChange={handleChange}
       onKeyDown={handleKeyDown}
       className={styles.input}
       {...rest}
