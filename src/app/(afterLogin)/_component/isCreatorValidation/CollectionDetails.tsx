@@ -100,12 +100,15 @@ export default function CollectionDetails({ isCreator, data }: Props) {
         </div>
       </Container>
       <Container title="질문 리스트">
-        <Link
-          href={`/my/collections/${collectionId}/newquiz`}
-          className={styles.createNewBtn}
-        >
-          <ContainedButton variant="base">+ 새 질문 추가</ContainedButton>
-        </Link>
+        {isCreator && (
+          <Link
+            href={`/my/collections/${collectionId}/newquiz`}
+            className={styles.createNewBtn}
+          >
+            <ContainedButton variant="base">+ 새 질문 추가</ContainedButton>
+          </Link>
+        )}
+        {!data?.getCollection.quizzes.length && <p>등록된 퀴즈가 없습니다.</p>}
         {data?.getCollection.quizzes.map((quiz: IQuizzes, index: number) => (
           <Quiz
             key={quiz.id}
