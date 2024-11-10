@@ -96,3 +96,36 @@ export const GET_QUIZ_BRIEF = gql`
     }
   }
 `;
+
+interface IHeaderQuiz {
+  id: string;
+  question: string;
+  collection: ICollection;
+}
+
+interface IHeaderQuizzes {
+  quiz: IHeaderQuiz;
+}
+
+export interface IHeaderData {
+  getQuizzesWithAttemptByCollectionId: IHeaderQuizzes[];
+}
+
+export const GET_QUIZ_HEADER = gql`
+  query MyQuery($collectionId: ID!) {
+    getQuizzesWithAttemptByCollectionId(collectionId: $collectionId) {
+      quiz {
+        id
+        question
+        collection {
+          id
+          name
+          category {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+`;

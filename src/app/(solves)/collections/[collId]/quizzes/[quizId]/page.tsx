@@ -1,3 +1,4 @@
+import Header from "@/app/(solves)/_component/header/Header";
 import {
   GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID,
   IData,
@@ -14,21 +15,22 @@ type Props = {
 
 export default async function Page({ params }: Props) {
   const { collId, quizId } = params;
-  const { data, loading, error } = await fetchQueryData<IData>({
-    query: GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID,
-    variables: {
-      collectionId: collId,
-    },
-    requiresAuth: true,
-  });
+  // const { data, loading, error } = await fetchQueryData<IData>({
+  // query: GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID,
+  //   variables: {
+  //     collectionId: collId,
+  //   },
+  //   requiresAuth: true,
+  // });
 
   return (
     <div className={styles.container}>
-      <Sidebar data={data} />
+      <Header collId={collId} quizId={quizId} />
+      {/* <Sidebar data={data} />
       <div className={styles.solveWrapper}>
         <SolveZone data={data} />
       </div>
-      <Footer data={data} quizId={quizId} />
+      <Footer data={data} quizId={quizId} /> */}
     </div>
   );
 }
