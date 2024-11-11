@@ -1,5 +1,15 @@
 .solveZoneWrapper {
-  width: inherit;
-  height: inherit;
+  width: 100%;
+  height: calc(100% - 120px);
   background-color: teal;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & > section {
+    width: 750px;
+    min-height: 500px;
+    background-color: orange;
+  }
 }

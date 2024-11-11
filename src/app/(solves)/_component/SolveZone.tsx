@@ -13,9 +13,9 @@ export default function SolveZone({ collId, quizId }: Props) {
 
   return (
     <main className={styles.solveZoneWrapper}>
-      <div>문제!</div>
-      <div>문제!</div>
-      <div>문제!</div>
+      <section>
+        문제입니다.
+      </section>
     </main>
   );
 }
