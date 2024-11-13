@@ -19,18 +19,18 @@
     overflow: hidden;
   }
   & > progress::-webkit-progress-bar {
-    background-color: var(--fg); /* 프로그레스 배경 색 */
+    background-color: var(--reverse-fg); /* 프로그레스 배경 색 */
   }
 
   & > progress::-webkit-progress-value {
-    background-color: var(--ok); /* 진행 부분 색상 */
-    border-radius: 10px; /* 끝을 둥글게 */
+    background-color: var(--success); /* 진행 부분 색상 */
+    border-radius: 0 10px 10px 0; /* 끝을 둥글게 */
     transition: width 0.3s ease; /* 부드러운 애니메이션 */
   }
 
   /* Firefox 용 스타일 */
   & > progress::-moz-progress-bar {
-    background-color: var(--ok);
-    border-radius: 10px;
+    background-color: var(--success);
+    border-radius: 0 10px 10px 0;
   }
 }

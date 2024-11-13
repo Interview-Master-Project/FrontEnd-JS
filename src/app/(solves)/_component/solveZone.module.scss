@@ -1,7 +1,6 @@
 .solveZoneWrapper {
   width: 100%;
   height: calc(100% - 120px);
-  background-color: teal;
 
   display: flex;
   align-items: center;
@@ -10,6 +9,84 @@
   & > section {
     width: 750px;
     min-height: 500px;
-    background-color: orange;
+    border-radius: 8px;
+    background-color: var(--fg);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    & > div {
+      width: 100%;
+      padding: 20px;
+    }
   }
+}
+
+.solveHeader {
+  display: flex;
+  height: 70px;
+
+  & > .questionMark {
+    user-select: auto;
+    color: var(--theme-dark);
+    margin: 0.25rem 1rem 0 0;
+    scale: 1.5;
+    line-height: 20px;
+  }
+
+  & > h6 {
+    letter-spacing: -1px;
+    font-size: 20px;
+  }
+}
+
+.solveContent {
+  flex: auto;
+
+  & > textarea {
+    all: unset;
+    border: 1px solid rgb(113, 113, 113);
+    width: 100%;
+
+    background-color: var(--bg);
+    height: 45px;
+    font-size: 24px;
+
+    display: flex;
+    align-items: center;
+
+    resize: vertical;
+    max-height: 180px;
+
+    &:focus {
+      border: 1px solid var(--theme-dark);
+    }
+  }
+}
+
+.solveAnswerDropdown {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: var(--bg);
+  margin-top: 20px;
+  gap: 20px;
+  cursor: pointer;
+
+  & > .dropdownTab {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.solveNav {
+  border-top: 1px solid var(--reverse-fg);
+  height: 80px;
+
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
