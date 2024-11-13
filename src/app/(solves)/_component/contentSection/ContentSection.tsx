@@ -9,7 +9,7 @@ export default function ContentSection({ children }: PropsWithChildren) {
 
   return (
     <motion.div
-      initial={{ width: "100dvw" }}
+      initial={!isOpen && { width: "100dvw" }}
       animate={{ width: isOpen ? "calc(100dvw - 320px)" : "100dvw" }}
       transition={{ type: "tween", duration: 0.3, stiffness: 200 }}
     >

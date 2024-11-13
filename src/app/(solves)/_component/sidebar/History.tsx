@@ -21,7 +21,7 @@ export default function History({ data }: { data: IData }) {
   )} ${currHistory?.slice(11, 19)}`;
 
   return (
-    <div className={styles.historyContainer}>
+    <div className={styles.historyWrapper}>
       <div className={styles.historyHeader}>
         <span>이 문제에 대한 내 히스토리</span>
       </div>

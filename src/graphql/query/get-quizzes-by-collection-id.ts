@@ -15,7 +15,7 @@ interface IQuiz {
   collection: ICollection;
 }
 
-interface IQuizzes {
+export interface IQuizzes {
   quiz: IQuiz;
   recentAnswerAt: string | null;
   totalAttempts: number;

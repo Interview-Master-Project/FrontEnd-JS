@@ -27,7 +27,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <div className={styles.container}>
-      <Sidebar collId={collId} quizId={quizId} />
+      <Sidebar data={data} />
       <ContentSection>
         <Header data={data} collId={collId} quizId={quizId} />
         <SolveZone collId={collId} quizId={quizId} />
