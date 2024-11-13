@@ -1,63 +1,33 @@
-.listContainer {
-  width: 360px;
-  height: calc(100dvh - 80px);
-  overflow: auto;
-  background-color: var(--fg);
-  padding: 40px 5px;
+.listWrapper {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-}
-
-.list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  font-size: 16px;
+  padding: 10px;
+  width: 100%;
 
   & > li {
-    & :first-child {
-      display: inline-block;
-      margin-right: 10px;
+    all: unset;
+    display: flex;
+    padding: 10px;
+    cursor: pointer;
+    transition: scale 0.2s ease;
+
+    &:hover {
+      background-color: rgba(30, 162, 181, 0.2);
     }
 
-    opacity: 0.5;
-
-    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
-    overflow: hidden; /* 넘친 부분을 숨김 */
-    text-overflow: ellipsis; /* ...으로 말줄임 표시 */
+    &:active {
+      scale: 0.8;
+    }
   }
 }
 
-.activeQuiz {
-  color: var(--theme-dark);
-  opacity: 1 !important;
+.listIndex {
+  flex: 1;
 }
 
-.progressContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  & > span {
-    opacity: 0.5;
-  }
-
-  & > progress {
-    width: 150px;
-    height: 10px;
-    border-radius: 4px;
-    overflow: hidden;
-    appearance: none;
-
-    &::-webkit-progress-bar {
-      overflow: hidden;
-    }
-
-    &::-webkit-progress-value {
-      background: var(--success);
-    }
-  }
+.listQuestion {
+  flex: 8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

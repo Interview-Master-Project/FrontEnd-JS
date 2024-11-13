@@ -1,73 +1,67 @@
 "use client";
 
 import { useState } from "react";
-import { useParams } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import { IData } from "@/graphql/query/get-quizzes-by-collection-id";
 import TextareaAutosize from "react-textarea-autosize";
+import {
+  IoMdArrowDropdown as DownIcon,
+  IoMdArrowDropup as UpIcon,
+} from "react-icons/io";
 import ContainedButton from "@/app/_component/button/ContainedButton";
+import OutlinedButton from "@/app/_component/button/OutlinedButton";
 import styles from "./solveZone.module.scss";
 
-export default function SolveZone({ data }: { data: IData }) {
-  const { quizId } = useParams();
-  const [showAnswer, setShowAnswer] = useState(false);
+type Props = {
+  data: IData;
+  quizId: string;
+};
 
-  // 해당하는 퀴즈 정보 찾기
+export default function SolveZone({ data, quizId }: Props) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOpen = () => setIsOpen(!isOpen);
+
   const targetQuiz = data?.getQuizzesWithAttemptByCollectionId.find(
-    (item) => item.quiz.id === quizId
-  );
-
-  const [correctCnt, setCorrectCnt] = useState(
-    targetQuiz?.totalCorrectAttempts
-  );
-  const [wrongCnt, setWrongCnt] = useState(
-    targetQuiz?.totalCorrectAttempts
-      ? targetQuiz?.totalAttempts - targetQuiz?.totalCorrectAttempts
-      : 0
-  );
-
-  const [clicked, setClicked] = useState(false);
-
-  const handleCorrectClick = () => {
-    setCorrectCnt((prev) => prev! + 1);
-    setClicked(true); // 클릭 후 두 버튼 모두 비활성화
-  };
-
-  const handleWrongClick = () => {
-    setWrongCnt((prev) => prev! + 1);
-    setClicked(true); // 클릭 후 두 버튼 모두 비활성화
-  };
+    ({ quiz }) => quiz.id === quizId
+  )?.quiz;
 
   return (
-    <div className={styles.solveZone}>
-      <div className={styles.question}>
-        <span style={{ fontSize: 32, color: "blue" }}>Q</span>
-        <h3>{targetQuiz?.quiz.question}</h3>
-      </div>
-      <div>
-        <TextareaAutosize className={styles.textarea} />
-      </div>
-      <div onClick={() => setShowAnswer(!showAnswer)}>
-        <span className={styles.activeAnswer}>
-          {showAnswer ? "답변 숨기기" : "답변 보기"}
-        </span>
-        {showAnswer && (
-          <p className={styles.answer}>{targetQuiz?.quiz.answer}</p>
-        )}
-      </div>
-      <div className={styles.correctCheckZone}>
-        <ContainedButton
-          variant="green"
-          disabled={clicked}
-          onClick={handleCorrectClick}
-        >{`맞았어요 ${correctCnt ?? 0}`}</ContainedButton>
-        <ContainedButton
-          disabled={clicked}
-          variant="red"
-          onClick={handleWrongClick}
-        >
-          {`틀렸어요 ${wrongCnt ?? 0}`}
-        </ContainedButton>
-      </div>
-    </div>
+    <main className={styles.solveZoneWrapper}>
+      <section>
+        <div className={styles.solveHeader}>
+          <div className={styles.questionMark}>Q.</div>
+          <h6>{targetQuiz?.question}</h6>
+        </div>
+        <div className={styles.solveContent}>
+          <TextareaAutosize />
+          <div
+            className={styles.solveAnswerDropdown}
+            role="button"
+            onClick={handleOpen}
+          >
+            <div className={styles.dropdownTab}>
+              퀴즈 해설 보기
+              {isOpen ? <UpIcon /> : <DownIcon />}
+            </div>
+            {isOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.1 }}
+                style={{ overflow: "hidden" }}
+              >
+                <p>{targetQuiz?.answer}</p>
+              </motion.div>
+            )}
+          </div>
+        </div>
+        <div className={styles.solveNav}>
+          <ContainedButton>맞았어요 1</ContainedButton>
+          <OutlinedButton variant="red">틀렸어요 0</OutlinedButton>
+        </div>
+      </section>
+    </main>
   );
 }
