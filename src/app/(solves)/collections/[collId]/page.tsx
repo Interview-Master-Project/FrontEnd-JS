@@ -1,14 +1,14 @@
 import { redirect } from "next/navigation";
+import { fetchQueryData } from "@/utils/fetchQueryData";
 import {
   GET_QUIZZES_ONLY_ID,
   IData,
 } from "@/graphql/query/get-quizzes-by-collection-id";
-import { fetchQueryData } from "@/utils/fetchQueryData";
+import NoQuizzes from "./_component/NoQuizzes";
 import {
   GET_LATEST_COLLECTION_ATTEMPT,
-  IData as IAttemptCheckData,
+  IData as IAttemptData,
 } from "@/graphql/query/get-latest-collection-attempt";
-import NoQuizzes from "./_component/NoQuizzes";
 
 type TParams = {
   params: {
@@ -16,50 +16,57 @@ type TParams = {
   };
 };
 
-// 2-2-1. alert 오픈(새로하기, 이어하기)
-// 2-2-1-1. 새로하기 선택함 => 뮤테 deleteRecent
-// 2-2-1-2. 이어하기 선택함 => 쿼리 getLatestQuizzesAttempt
-
-// 3. 풀이 페이지 redirect
-
 export default async function Page({ params }: TParams) {
   const { collId } = params;
 
-  // 1. 쿼리 getLatestCollectionAttempt (=> error, data 안에 completedAt === null)
-  const { data: attemptCheckData } = await fetchQueryData<IAttemptCheckData>({
-    query: GET_LATEST_COLLECTION_ATTEMPT,
+  const { data } = await fetchQueryData<IData>({
+    query: GET_QUIZZES_ONLY_ID,
     variables: {
       collectionId: collId,
     },
     requiresAuth: true,
   });
+  const initQuizId = data.getQuizzesWithAttemptByCollectionId[0]?.quiz.id;
 
-  // 2-1. completedAt === "날짜"
-  if (attemptCheckData.getLatestCollectionAttempt.completedAt !== null) {
-    // 2-1-1. 뮤테 startSolveCollection
-    console.log("2-1-1. 뮤테 startSolveCollection");
+  // 1번 문제로 redirect하는 함수
+  const redirection = () => {
+    if (initQuizId) {
+      redirect(`/collections/${collId}/quizzes/${initQuizId}`);
+    } else {
+      return <NoQuizzes collId={collId} />;
+    }
+  };
+
+  // 기록 유무 확인
+  try {
+    const { data: attemptData } = await fetchQueryData<IAttemptData>({
+      query: GET_LATEST_COLLECTION_ATTEMPT,
+      variables: {
+        collectionId: collId,
+      },
+      requiresAuth: true,
+    });
+
+    // 풀이 기록이 있음
+    console.log(attemptData.getLatestCollectionAttempt.completedAt);
+
+    if (attemptData.getLatestCollectionAttempt.completedAt) {
+      console.log("중단기록 없음");
+      // startSolveCollection 함수 실행
+      // redirection
+    } else {
+      console.log("중단기록 있음");
+      // 모달 띄우기
+      // 선택 여부에 따라 조건부 함수 실행
+    }
+
+    return null;
+
+    // 1. 중단한 적 있음
+
+    // 2. 중단한 적 없음
+  } catch (err) {
+    // 풀이 기록 전무
+    redirection();
   }
-
-  // 2-2. data 안에 completedAt === null
-  else {
-    console.log("data 안에 completedAt === null");
-  }
-
-  return null;
-
-  // const { data } = await fetchQueryData<IData>({
-  //   query: GET_QUIZZES_ONLY_ID,
-  //   variables: {
-  //     collectionId: collId,
-  //   },
-  //   requiresAuth: true,
-  // });
-
-  // const initQuizId = data.getQuizzesWithAttemptByCollectionId[0]?.quiz.id;
-
-  // if (initQuizId) {
-  //   redirect(`/collections/${collId}/quizzes/${initQuizId}`);
-  // } else {
-  //   return <NoQuizzes collId={collId} />;
-  // }
 }
