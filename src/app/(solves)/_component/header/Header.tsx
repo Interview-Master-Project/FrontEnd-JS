@@ -1,34 +1,32 @@
-import { fetchQueryData } from "@/utils/fetchQueryData";
-import {
-  GET_QUIZ_HEADER,
-  IHeaderData,
-} from "@/graphql/query/get-quizzes-by-collection-id";
+import { IData } from "@/graphql/query/get-quizzes-by-collection-id";
 import Info from "./Info";
 import styles from "./header.module.scss";
 
 type Props = {
+  data: IData;
   collId: string;
   quizId: string;
 };
 
-export default async function Header({ collId: collectionId, quizId }: Props) {
-  const { data } = await fetchQueryData<IHeaderData>({
-    query: GET_QUIZ_HEADER,
-    variables: {
-      collectionId,
-    },
-    requiresAuth: true,
-  });
-
+export default function Header({ data, collId, quizId }: Props) {
   const targetQuiz = data.getQuizzesWithAttemptByCollectionId.find(
     ({ quiz }) => quiz.id === quizId
   )?.quiz;
+
+  const quizLen = data.getQuizzesWithAttemptByCollectionId.length;
+  const currQuizIdx = data.getQuizzesWithAttemptByCollectionId.findIndex(
+    ({ quiz }) => quiz.id === quizId
+  ); // 현재 퀴즈 인덱스
 
   return (
     <header className={styles.headerContainer}>
       <Info targetQuiz={targetQuiz} />
       <div className={styles.progressContainer}>
-        <progress value="20" max="100"></progress>
+        <progress
+          id="progress"
+          value={currQuizIdx.toString()}
+          max={quizLen.toString()}
+        ></progress>
       </div>
     </header>
   );

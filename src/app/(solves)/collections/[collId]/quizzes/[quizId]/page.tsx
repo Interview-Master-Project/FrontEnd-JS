@@ -29,7 +29,7 @@ export default async function Page({ params }: Props) {
     <div className={styles.container}>
       <Sidebar collId={collId} quizId={quizId} />
       <ContentSection>
-        <Header collId={collId} quizId={quizId} />
+        <Header data={data} collId={collId} quizId={quizId} />
         <SolveZone collId={collId} quizId={quizId} />
         <Navigator data={data} collId={collId} quizId={quizId} />
       </ContentSection>

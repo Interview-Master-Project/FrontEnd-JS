@@ -19,6 +19,8 @@ export default function Info({ targetQuiz }: Props) {
         <h3>{targetQuiz?.collection.name}</h3>
         <RightIcon className={styles.rightIcon} />
         <h3>{targetQuiz?.question}</h3>
+      </div>
+      <div>
         <h5>{targetQuiz?.collection.category.name}</h5>
       </div>
     </div>
