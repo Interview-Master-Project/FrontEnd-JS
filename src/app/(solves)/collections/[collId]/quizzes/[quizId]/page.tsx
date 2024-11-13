@@ -1,3 +1,8 @@
+import { fetchQueryData } from "@/utils/fetchQueryData";
+import {
+  GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID,
+  IData,
+} from "@/graphql/query/get-quizzes-by-collection-id";
 import Sidebar from "@/app/(solves)/_component/sidebar/Sidebar";
 import ContentSection from "@/app/(solves)/_component/contentSection/ContentSection";
 import Header from "@/app/(solves)/_component/header/Header";
@@ -9,8 +14,16 @@ type Props = {
   params: { collId: string; quizId: string };
 };
 
-export default function Page({ params }: Props) {
+export default async function Page({ params }: Props) {
   const { collId, quizId } = params;
+
+  const { data } = await fetchQueryData<IData>({
+    query: GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID,
+    variables: {
+      collectionId: collId,
+    },
+    requiresAuth: true,
+  });
 
   return (
     <div className={styles.container}>
@@ -18,7 +31,7 @@ export default function Page({ params }: Props) {
       <ContentSection>
         <Header collId={collId} quizId={quizId} />
         <SolveZone collId={collId} quizId={quizId} />
-        <Navigator collId={collId} quizId={quizId} />
+        <Navigator data={data} collId={collId} quizId={quizId} />
       </ContentSection>
     </div>
   );
