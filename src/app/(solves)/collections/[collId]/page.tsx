@@ -35,5 +35,10 @@ export default async function Page({ params }: TParams) {
     if (noQuizzes) return <NoQuizzes collId={collId} />;
   }
 
-  return <Guess userCollectionAttemptId={userCollectionAttemptId as string} />;
+  return (
+    <Guess
+      collId={collId}
+      userCollectionAttemptId={userCollectionAttemptId as string}
+    />
+  );
 }
