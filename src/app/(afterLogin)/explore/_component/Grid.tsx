@@ -61,11 +61,6 @@ export default function Grid({ initialData, isLoggedIn }: Props) {
     isLoggedIn
   );
 
-  const [likeCollection] = useMutation(LIKE);
-  const [unlikeCollection] = useMutation(UNLIKE);
-  const cookies = useCookies();
-  const token = cookies.get("authToken");
-
   useEffect(() => {
     refetch({ keywords, categories, maxCorrectRate });
   }, [keywords, categories, maxCorrectRate, refetch]);
@@ -74,37 +69,71 @@ export default function Grid({ initialData, isLoggedIn }: Props) {
     refetch({ sort, offset });
   }, [sort, offset, refetch]);
 
+  // for render data
+  const targetData = isLoggedIn ? (data as IALData) : (data as IBLData);
   const collections = isLoggedIn
     ? (data as IALData)?.searchCollectionsForAuthUser ??
       (initialData as IALData).searchCollectionsForAuthUser
     : (data as IBLData)?.searchCollectionsForGuest ??
       (initialData as IBLData).searchCollectionsForGuest;
 
-  const handleLikes = async (id: string, isLiked: boolean) => {
-    try {
-      const mutationTarget = isLiked ? unlikeCollection : likeCollection;
-      await mutationTarget({
-        variables: { collectionId: id },
-        context: {
-          headers: { Authorization: `Bearer ${token}` },
-        },
-        update(cache) {
-          cache.modify({
-            id: cache.identify({ __typename: "Collection", id }),
-            fields: {
-              likes(existingLikes = 0) {
-                return isLiked ? existingLikes - 1 : existingLikes + 1;
-              },
-              isLiked(existingLiked) {
-                return !existingLiked; // 좋아요 표시가 완료되면 isLiked 필드를 true로 업데이트
+  const cookies = useCookies();
+  const token = cookies.get("authToken");
+
+  // like/unlike mutation
+  const [likeCollection] = useMutation(LIKE);
+  const [unlikeCollection] = useMutation(UNLIKE);
+  const handleLikes = async (collectionId: string, isLiked: boolean) => {
+    if (!isLoggedIn) return; // 로그인 유저만 실행 가능
+
+    // isLiked 여부에 따라 실행할 mutation 조건부 처리
+    const targetMutation = isLiked ? unlikeCollection : likeCollection;
+    await targetMutation({
+      variables: { collectionId },
+      context: {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+      update(cache, { data }) {
+        if (!data) return;
+
+        const prevData = cache.readQuery<IALData>({
+          query: SEARCH_COLLECTIONS_FOR_AUTH_USER,
+          variables,
+        });
+
+        if (prevData) {
+          const updatedCollections =
+            prevData.searchCollectionsForAuthUser.collectionsWithAttempt.map(
+              (item) => {
+                if (item.collection.id === collectionId) {
+                  return {
+                    ...item,
+                    collection: {
+                      ...item.collection,
+                      likes: isLiked
+                        ? item.collection.likes - 1
+                        : item.collection.likes + 1,
+                    },
+                    isLiked: !isLiked,
+                  };
+                }
+                return item;
+              }
+            );
+          cache.writeQuery({
+            query: SEARCH_COLLECTIONS_FOR_AUTH_USER,
+            variables,
+            data: {
+              ...prevData,
+              searchCollectionsForAuthUser: {
+                ...prevData?.searchCollectionsForAuthUser,
+                collectionsWithAttempt: updatedCollections,
               },
             },
           });
-        },
-      });
-    } catch (error) {
-      console.error("Like/Unlike mutation error:", error);
-    }
+        }
+      },
+    });
   };
 
   return (
