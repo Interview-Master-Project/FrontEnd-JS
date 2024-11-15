@@ -9,6 +9,7 @@ type Props = {
   subtitle?: string;
   description?: string | ReactNode;
   children: ReactNode; // Link, button 요소
+  backButtonActive?: boolean;
 };
 
 export default function InfoModal({
@@ -16,12 +17,13 @@ export default function InfoModal({
   subtitle,
   description,
   children,
+  backButtonActive = true,
 }: Props) {
   return (
     <div className={styles.modalBackground}>
       <div className={styles.modal}>
         <div className={styles.modalHeader}>
-          <BackButton />
+          {backButtonActive && <BackButton />}
           <Image src={logo} alt="로고" className={styles.logo} />
           <h1>
             {title}
