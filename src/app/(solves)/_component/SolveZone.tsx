@@ -34,7 +34,7 @@ export default function SolveZone({
   const [clicked, setClicked] = useState(
     quizzes.find(({ quiz }) => quiz.id === quizId)?.isCorrect !== undefined
   );
-  console.log(quizzes);
+
   const [isOpen, setIsOpen] = useState(false);
 
   const { data, refetch } = useClientFetch<IData>(

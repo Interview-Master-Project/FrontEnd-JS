@@ -49,7 +49,12 @@ export default async function Page({ params }: Props) {
           quizId={quizId}
           userCollectionAttemptId={userCollectionAttemptId}
         />
-        <Navigator data={data} collId={collId} quizId={quizId} />
+        <Navigator
+          data={data}
+          collId={collId}
+          quizId={quizId}
+          userCollectionAttemptId={userCollectionAttemptId}
+        />
       </ContentSection>
     </div>
   );

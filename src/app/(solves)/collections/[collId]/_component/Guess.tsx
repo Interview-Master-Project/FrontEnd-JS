@@ -13,6 +13,10 @@ import {
   IData,
 } from "@/graphql/query/get-latest-quizzes-attempt";
 import { useLatestQuizzesAttemptStore } from "@/store/useLatestQuizzesAttemptStore";
+import {
+  GET_QUIZZES_ONLY_ID,
+  IData as IQuizIdData,
+} from "@/graphql/query/get-quizzes-by-collection-id";
 
 type Props = {
   collId: string;
@@ -42,14 +46,23 @@ export default function Guess({ collId, userCollectionAttemptId }: Props) {
     true
   );
 
+  const { data } = useClientFetch<IQuizIdData>(
+    GET_QUIZZES_ONLY_ID,
+    {
+      variables: { collectionId: collId },
+    },
+    true
+  );
+
+  const firstQuizId = data?.getQuizzesWithAttemptByCollectionId[0]?.quiz.id;
+
   const handleClickContinue = async (selectContinue: boolean) => {
     if (!selectContinue) {
       await deleteRecent();
-      router.refresh();
+      window.location.assign(`/collections/${collId}/quizzes/${firstQuizId}`);
     } else {
       setQuizzes(latestQuizzesAttemptData?.getLatestQuizzesAttempt ?? []);
-      await deleteRecent();
-      router.refresh();
+      router.push(`/collections/${collId}/quizzes/${firstQuizId}`);
     }
   };
 
