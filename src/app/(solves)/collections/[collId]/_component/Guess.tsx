@@ -6,7 +6,6 @@ import { DELETE_RECENT_ATTEMPT } from "@/graphql/mutation/delete-recent-attempt"
 import ContainedButton from "@/app/_component/button/ContainedButton";
 import OutlinedButton from "@/app/_component/button/OutlinedButton";
 import InfoModal from "@/app/_component/InfoModal";
-import { GET_LATEST_COLLECTION_ATTEMPT } from "@/graphql/query/get-latest-collection-attempt";
 import { useCookies } from "next-client-cookies";
 import { useClientFetch } from "@/hooks/useClientFetch";
 import {
@@ -33,21 +32,13 @@ export default function Guess({ collId, userCollectionAttemptId }: Props) {
     DELETE_RECENT_ATTEMPT,
     {
       variables: { userCollectionAttemptId },
-      refetchQueries: [
-        {
-          query: GET_LATEST_COLLECTION_ATTEMPT,
-          variables: { collectionId: collId },
-          context: { headers },
-        },
-      ],
-      awaitRefetchQueries: true,
     },
     true
   );
 
   const { data: latestQuizzesAttemptData } = useClientFetch<IData>(
     GET_LATEST_QUIZZES_ATTEMPT,
-    { variables: { userCollectionAttemptId } },
+    { variables: { userCollectionAttemptId }, fetchPolicy: "no-cache" },
     true
   );
 

@@ -1,4 +1,7 @@
+"use client";
+
 import { IData } from "@/graphql/query/get-quizzes-by-collection-id";
+import { useLatestQuizzesAttemptStore } from "@/store/useLatestQuizzesAttemptStore";
 import Info from "./Info";
 import styles from "./header.module.scss";
 
@@ -9,14 +12,13 @@ type Props = {
 };
 
 export default function Header({ data, collId, quizId }: Props) {
+  const { quizzes } = useLatestQuizzesAttemptStore();
+
   const targetQuiz = data.getQuizzesWithAttemptByCollectionId.find(
     ({ quiz }) => quiz.id === quizId
   )?.quiz;
 
   const quizLen = data.getQuizzesWithAttemptByCollectionId.length;
-  const currQuizIdx = data.getQuizzesWithAttemptByCollectionId.findIndex(
-    ({ quiz }) => quiz.id === quizId
-  ); // 현재 퀴즈 인덱스
 
   return (
     <header className={styles.headerContainer}>
@@ -24,7 +26,7 @@ export default function Header({ data, collId, quizId }: Props) {
       <div className={styles.progressContainer}>
         <progress
           id="progress"
-          value={currQuizIdx.toString()}
+          value={quizzes.length.toString()}
           max={quizLen.toString()}
         ></progress>
       </div>

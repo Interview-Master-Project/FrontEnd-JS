@@ -1,19 +1,27 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
+import { useLatestQuizzesAttemptStore } from "@/store/useLatestQuizzesAttemptStore";
 import { IData } from "@/graphql/query/get-quizzes-by-collection-id";
 import ContainedButton from "@/app/_component/button/ContainedButton";
 import OutlinedButton from "@/app/_component/button/OutlinedButton";
 import styles from "./navigator.module.scss";
+import { useClientMutation } from "@/hooks/useClientMutation";
 
 type Props = {
   data: IData;
   collId: string;
   quizId: string;
+  userCollectionAttemptId: string;
 };
 
-export default function Navigator({ data, collId, quizId }: Props) {
+export default function Navigator({
+  data,
+  collId,
+  quizId,
+  userCollectionAttemptId,
+}: Props) {
+  const { quizzes } = useLatestQuizzesAttemptStore();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -30,6 +38,11 @@ export default function Navigator({ data, collId, quizId }: Props) {
     const newPath = pathname.replace(/\/(\d+)$/, `/${navigateQuizId}`);
     router.push(newPath);
   };
+
+  // useClientMutation()
+
+  // 문제를 모두 풀고 제출 버튼을 눌렀을 때
+  const handleSubmit = () => {};
 
   return (
     <nav className={styles.navigatorWrapper}>
@@ -51,9 +64,21 @@ export default function Navigator({ data, collId, quizId }: Props) {
         </ContainedButton>
       </div>
       <div className={styles.decision}>
-        <OutlinedButton variant="red">
-          <Link href={`/details/collections/${collId}`}>나가기</Link>
-        </OutlinedButton>
+        {quizzes.length === quizLen && (
+          <ContainedButton variant="base" onClick={handleSubmit}>
+            제출
+          </ContainedButton>
+        )}
+        {quizzes.length !== quizLen && (
+          <OutlinedButton
+            variant="red"
+            onClick={() => {
+              window.location.replace(`/my/collections/${collId}`);
+            }}
+          >
+            나가기
+          </OutlinedButton>
+        )}
       </div>
     </nav>
   );
