@@ -6,7 +6,6 @@ import { DELETE_RECENT_ATTEMPT } from "@/graphql/mutation/delete-recent-attempt"
 import ContainedButton from "@/app/_component/button/ContainedButton";
 import OutlinedButton from "@/app/_component/button/OutlinedButton";
 import InfoModal from "@/app/_component/InfoModal";
-import { GET_LATEST_COLLECTION_ATTEMPT } from "@/graphql/query/get-latest-collection-attempt";
 import { useCookies } from "next-client-cookies";
 import { useClientFetch } from "@/hooks/useClientFetch";
 import {
@@ -14,6 +13,10 @@ import {
   IData,
 } from "@/graphql/query/get-latest-quizzes-attempt";
 import { useLatestQuizzesAttemptStore } from "@/store/useLatestQuizzesAttemptStore";
+import {
+  GET_QUIZZES_ONLY_ID,
+  IData as IQuizIdData,
+} from "@/graphql/query/get-quizzes-by-collection-id";
 
 type Props = {
   collId: string;
@@ -33,32 +36,33 @@ export default function Guess({ collId, userCollectionAttemptId }: Props) {
     DELETE_RECENT_ATTEMPT,
     {
       variables: { userCollectionAttemptId },
-      refetchQueries: [
-        {
-          query: GET_LATEST_COLLECTION_ATTEMPT,
-          variables: { collectionId: collId },
-          context: { headers },
-        },
-      ],
-      awaitRefetchQueries: true,
     },
     true
   );
 
   const { data: latestQuizzesAttemptData } = useClientFetch<IData>(
     GET_LATEST_QUIZZES_ATTEMPT,
-    { variables: { userCollectionAttemptId } },
+    { variables: { userCollectionAttemptId }, fetchPolicy: "no-cache" },
     true
   );
+
+  const { data } = useClientFetch<IQuizIdData>(
+    GET_QUIZZES_ONLY_ID,
+    {
+      variables: { collectionId: collId },
+    },
+    true
+  );
+
+  const firstQuizId = data?.getQuizzesWithAttemptByCollectionId[0]?.quiz.id;
 
   const handleClickContinue = async (selectContinue: boolean) => {
     if (!selectContinue) {
       await deleteRecent();
-      router.refresh();
+      window.location.assign(`/collections/${collId}/quizzes/${firstQuizId}`);
     } else {
       setQuizzes(latestQuizzesAttemptData?.getLatestQuizzesAttempt ?? []);
-      await deleteRecent();
-      router.refresh();
+      router.push(`/collections/${collId}/quizzes/${firstQuizId}`);
     }
   };
 

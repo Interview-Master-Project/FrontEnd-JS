@@ -13,6 +13,7 @@ async function checkAttempt(collId: string) {
         collectionId: collId,
       },
       requiresAuth: true,
+      fetchPolicy: "no-cache",
     });
 
     // string인 경우 => 완료됨 => 1번 퀴즈로 가 => true

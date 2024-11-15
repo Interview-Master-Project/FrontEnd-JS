@@ -12,6 +12,7 @@ async function startSolve(collId: string) {
     variables: {
       collectionId: collId,
     },
+
     refetchQueries: [
       {
         query: GET_LATEST_COLLECTION_ATTEMPT,
@@ -19,6 +20,7 @@ async function startSolve(collId: string) {
         context: {
           headers,
         },
+        fetchPolicy: "no-cache",
       },
     ],
     requiresAuth: true,
