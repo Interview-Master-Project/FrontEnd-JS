@@ -12,8 +12,8 @@ function makeClient() {
 
   const httpLink = new HttpLink({
     uri: isProduction
-        ? "https://interview-master-project.vercel.app/graphql"
-        : "http://localhost:3000/graphql",
+      ? "https://interviewmaster.co.kr/graphql"
+      : "http://localhost:3000/graphql",
   });
 
   return new ApolloClient({
