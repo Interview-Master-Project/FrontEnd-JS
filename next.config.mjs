@@ -9,6 +9,7 @@ const __dirname = path.dirname(__filename);
 const nextConfig = {
   async rewrites() {
     return [
+      // api 프록시 요청
       {
         source: "/graphql",
         destination: `${process.env.NEXT_PUBLIC_SERVER_URL_PORT}/graphql`,
