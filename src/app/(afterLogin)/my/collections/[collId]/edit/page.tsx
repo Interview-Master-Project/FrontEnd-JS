@@ -27,6 +27,7 @@ import { MdOutlinePublic as PublicIcon } from "react-icons/md";
 import { BsIncognito as PrivateIcon } from "react-icons/bs";
 import { useFormSubmit } from "@/hooks/useFormSubmit";
 import styles from "./page.module.scss";
+import { useApolloClient } from "@apollo/client";
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2 MB
 
@@ -119,9 +120,13 @@ export default function Page() {
   };
 
   const router = useRouter();
+  const client = useApolloClient();
   const { isLoading, error, handleSubmit } = useFormSubmit({
     endpoint: `/api/collections/${params.collId}`,
-    onSuccess: () => {
+    onSuccess: async () => {
+      await client.refetchQueries({
+        include: ["GetCollection"],
+      });
       router.push("/my");
       router.refresh();
     },
@@ -248,7 +253,11 @@ export default function Page() {
                 ({ id: value, name: label }) => ({ value, label })
               )}
               scrollOption
-              selectedValue={categoryData.getAllCategories.find(({ id }) => id === categoryId)?.name}
+              selectedValue={
+                categoryData.getAllCategories.find(
+                  ({ id }) => id === categoryId
+                )?.name
+              }
             />
           )}
         </div>

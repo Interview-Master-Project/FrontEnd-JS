@@ -28,7 +28,7 @@ export interface IData {
 }
 
 export const GET_COLLECTION = gql`
-  query MyQuery($collectionId: ID!) {
+  query GetCollection($collectionId: ID!) {
     getCollection(collectionId: $collectionId) {
       id
       name

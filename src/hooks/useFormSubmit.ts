@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios, { AxiosError } from "axios";
 import { useCookies } from "next-client-cookies";
+import { useApolloClient } from "@apollo/client";
 
 interface FormSubmitParams {
   endpoint: string;
@@ -51,7 +52,7 @@ export const useFormSubmit = ({
         Object.fromEntries(formData.entries())
       );
 
-      onSuccess?.();
+      await onSuccess?.();
     } catch (err) {
       const errorMessage =
         err instanceof AxiosError && err.response?.data?.message
