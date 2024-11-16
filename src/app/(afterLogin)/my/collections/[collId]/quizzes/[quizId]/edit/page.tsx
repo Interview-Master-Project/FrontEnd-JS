@@ -87,7 +87,7 @@ export default function Page() {
       });
 
       console.log("Mutation result: ", res.data);
-      window.location.replace(`/my/collections/${collectionId}`);
+      window.location.assign(`/my/collections/${collectionId}`);
     } catch (err) {
       console.error("Error: ", err);
     }

@@ -24,7 +24,7 @@ export default function CollectionDeleteModal() {
           headers: { Authorization: `Bearer ${token}` },
         },
       });
-      window.location.replace("/my");
+      window.location.assign("/my");
     } catch (error) {
       console.error("컬렉션 삭제 오류:", error);
       // 필요 시 에러 처리를 위한 추가 로직 작성

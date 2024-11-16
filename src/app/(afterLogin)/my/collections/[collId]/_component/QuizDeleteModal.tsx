@@ -25,7 +25,7 @@ export default function QuizDeleteModal() {
           headers: { Authorization: `Bearer ${token}` },
         },
       });
-      window.location.replace(`/my/collections/${collId}`);
+      window.location.assign(`/my/collections/${collId}`);
     } catch (error) {
       console.error("질문 삭제 오류:", error);
       // 필요 시 에러 처리를 위한 추가 로직 작성

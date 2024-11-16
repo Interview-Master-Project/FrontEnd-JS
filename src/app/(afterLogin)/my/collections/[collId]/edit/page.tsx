@@ -123,12 +123,8 @@ export default function Page() {
   const client = useApolloClient();
   const { isLoading, error, handleSubmit } = useFormSubmit({
     endpoint: `/api/collections/${params.collId}`,
-    onSuccess: async () => {
-      await client.refetchQueries({
-        include: ["GetCollection"],
-      });
-      router.push("/my");
-      router.refresh();
+    onSuccess: () => {
+      window.location.assign("/my");
     },
     onError: (error) => console.error(error),
   });

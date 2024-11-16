@@ -62,7 +62,7 @@ export default function Page() {
       });
       // router push 후 refresh
       console.log("Mutation result: ", res.data);
-      window.location.replace(`/my/collections/${collectionId}`);
+      window.location.assign(`/my/collections/${collectionId}`);
     } catch (err) {
       console.error("Error: ", err);
     }

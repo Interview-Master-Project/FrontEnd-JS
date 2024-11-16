@@ -92,8 +92,7 @@ export default function Page() {
   const { isLoading, error, handleSubmit } = useFormSubmit({
     endpoint: "/api/collections",
     onSuccess: () => {
-      router.push("/my");
-      router.refresh();
+      window.location.assign("/my");
     },
     onError: (error) => console.error(error),
   });

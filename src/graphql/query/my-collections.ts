@@ -33,7 +33,7 @@ export interface IData {
  * (Arguments) sort 정렬 조건
  */
 export const MY_COLLECTIONS = gql`
-  query MyQuery($sort: SortOrder, $offset: Int) {
+  query MyCollections($sort: SortOrder, $offset: Int) {
     myCollections(sort: $sort, paging: { offset: $offset, pageSize: 5 }) {
       collectionsWithAttempt {
         collection {
