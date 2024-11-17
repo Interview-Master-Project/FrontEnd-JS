@@ -4,6 +4,8 @@ export interface IData {
   me: {
     id: string;
     nickname: string;
+    imgUrl: string | null;
+    email: string;
     oAuthProvider: "KAKAO" | "NAVER";
   };
 }
@@ -14,6 +16,8 @@ export const ME = gql`
     me {
       id
       nickname
+      imgUrl
+      email
       oAuthProvider
     }
   }

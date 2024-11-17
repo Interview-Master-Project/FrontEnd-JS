@@ -1,9 +1,9 @@
 "use client";
 
 import axios from "axios";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/store/useUserStore";
-import { useCallback, useEffect, useState } from "react";
 
 type Props = {
   provider: string;

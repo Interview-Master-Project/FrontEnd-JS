@@ -1,13 +1,14 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { faker } from "@faker-js/faker";
+import { useState, useMemo, useEffect } from "react";
+import { createAvatar } from "@dicebear/core";
+import { thumbs } from "@dicebear/collection";
 import { useClientFetch } from "@/hooks/useClientFetch";
 import { ME, IData } from "@/graphql/query/me";
 import { Dropdown } from "@/app/_component/dropdown/Dropdown";
 import { useLogout } from "@/hooks/useLogout";
+import { useUserStore } from "@/store/useUserStore";
 import styles from "./profile.module.scss";
 
 export default function Profile() {
@@ -17,12 +18,19 @@ export default function Profile() {
   const { handleLogout } = useLogout();
 
   useEffect(() => {
-    setImage(faker.image.avatarGitHub());
+    if (data?.me.imgUrl) setImage(data?.me.imgUrl);
+  }, [data?.me.imgUrl]);
+
+  const { user: userInfo } = useUserStore();
+  const avatar = useMemo(() => {
+    return createAvatar(thumbs, {
+      seed: "4",
+    }).toDataUriSync();
   }, []);
 
   const user = {
     ...data,
-    image,
+    image: image ?? avatar,
   };
 
   const handleCloseDropdown = () => {
@@ -33,6 +41,10 @@ export default function Profile() {
     setIsOpen(false);
   };
 
+  if (loading) {
+    return <div>유저 정보 불러오는 중...</div>;
+  }
+
   return (
     <Dropdown onClose={handleOffDropdown}>
       <Dropdown.Active
@@ -41,9 +53,9 @@ export default function Profile() {
         boxHeight={80}
       >
         <div className={styles.container}>
-          {image && (
-            <Image
-              src={user.image as string}
+          {user.image && (
+            <img
+              src={user.image}
               alt={`${user.me?.nickname}의 이미지`}
               width={36}
               height={36}
