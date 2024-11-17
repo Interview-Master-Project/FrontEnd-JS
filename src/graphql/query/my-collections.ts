@@ -11,6 +11,7 @@ interface ICollection {
 
 interface ICollectionsWithAttempt {
   collection: ICollection;
+  isLiked: boolean;
 }
 
 export interface IPageInfo {
@@ -44,6 +45,7 @@ export const MY_COLLECTIONS = gql`
           description
           likes
         }
+        isLiked
       }
       pageInfo {
         currentPage

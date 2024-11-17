@@ -83,6 +83,7 @@ export default function Grid({ initialData, isLoggedIn }: Props) {
   // like/unlike mutation
   const [likeCollection] = useMutation(LIKE);
   const [unlikeCollection] = useMutation(UNLIKE);
+
   const handleLikes = async (collectionId: string, isLiked: boolean) => {
     if (!isLoggedIn) return; // 로그인 유저만 실행 가능
 

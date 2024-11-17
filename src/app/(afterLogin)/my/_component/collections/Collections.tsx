@@ -1,7 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import ContainedButton from "@/app/_component/button/ContainedButton";
+import { useClientFetch } from "@/hooks/useClientFetch";
 import { MY_COLLECTIONS, IData } from "@/graphql/query/my-collections";
-import { fetchQueryData } from "@/utils/fetchQueryData";
 import List from "./List";
 import Navigator from "./Navigator";
 import Sort from "./Sort";
@@ -14,16 +16,31 @@ type Props = {
   };
 };
 
-export default async function Collections({ searchParams }: Props) {
+export default function Collections({ searchParams }: Props) {
   const { sort, offset } = searchParams;
-  const { data, loading, error } = await fetchQueryData<IData>({
-    query: MY_COLLECTIONS,
-    variables: {
-      sort: sort ?? "LATEST",
-      offset: Number(offset) ?? 0,
+  const { data, loading, error } = useClientFetch<IData>(
+    MY_COLLECTIONS,
+    {
+      variables: {
+        sort: sort ?? "LATEST",
+        offset: Number(offset) ?? 0,
+      },
     },
-    requiresAuth: true,
-  });
+    true
+  );
+
+  if (loading)
+    return (
+      <div className={styles.collections}>
+        <span>로딩중...</span>
+      </div>
+    );
+  if (error)
+    return (
+      <div className={styles.collections}>
+        <span>데이터가 없습니다. 오류일 수도 있습니다.</span>
+      </div>
+    );
 
   return (
     <div className={styles.collections}>
@@ -37,9 +54,9 @@ export default async function Collections({ searchParams }: Props) {
             <ContainedButton>+ 새 컬렉션 추가</ContainedButton>
           </Link>
         </div>
-        <List data={data} />
+        <List data={data!} sort={sort} offset={offset} />
       </div>
-      <Navigator pageInfo={data.myCollections.pageInfo} />
+      <Navigator pageInfo={data?.myCollections.pageInfo!} />
     </div>
   );
 }
