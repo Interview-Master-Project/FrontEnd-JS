@@ -1,7 +1,6 @@
 import { useState } from "react";
 import axios, { AxiosError } from "axios";
 import { useCookies } from "next-client-cookies";
-import { useApolloClient } from "@apollo/client";
 
 interface FormSubmitParams {
   endpoint: string;

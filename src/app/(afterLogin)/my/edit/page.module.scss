@@ -52,6 +52,16 @@
   }
 }
 
+.groupSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__reverseBg {
+    background-color: white;
+  }
+}
+
 .formFooter {
   display: flex;
   gap: 10px;

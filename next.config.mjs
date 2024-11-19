@@ -15,6 +15,10 @@ const nextConfig = {
         destination: `${process.env.NEXT_PUBLIC_SERVER_URL_PORT}/graphql`,
       },
       {
+        source: "/api/users",
+        destination: `${process.env.NEXT_PUBLIC_SERVER_URL_PORT}/api/users`,
+      },
+      {
         source: "/api/auth/:provider*",
         destination: `${process.env.NEXT_PUBLIC_SERVER_URL_PORT}/api/auth/:provider*`,
       },
