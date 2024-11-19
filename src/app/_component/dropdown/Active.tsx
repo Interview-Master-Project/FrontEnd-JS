@@ -11,7 +11,7 @@ type Props = {
 
 export default function Active({
   children,
-  boxWidth: width,
+  boxWidth: minWidth,
   boxHeight: height,
   onClick,
   disabled,
@@ -22,7 +22,7 @@ export default function Active({
         [styles.container__disabled]: disabled,
       })}
       style={{
-        width, // 외부 주입 width
+        minWidth, // 외부 주입 width
         height, // 외부 주입 height
       }}
       onClick={onClick}
