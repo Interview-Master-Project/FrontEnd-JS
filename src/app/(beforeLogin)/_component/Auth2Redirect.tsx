@@ -1,30 +1,29 @@
 "use client";
 
 import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
+import { useLazyQuery } from "@apollo/client";
+import { ME, IData } from "@/graphql/query/me";
+import { useCookies } from "next-client-cookies";
 import { useRouter } from "next/navigation";
-import { useUserStore } from "@/store/useUserStore";
 
 type Props = {
   provider: string;
+  code: string;
+  state: string | null;
 };
 
-export default function Auth2Redirect({ provider }: Props) {
+export default function Auth2Redirect({ provider, code, state }: Props) {
   const router = useRouter();
-  const [code, setCode] = useState<string | null>(null);
-  const [state, setState] = useState<string | null>(null);
-  const { loginUser } = useUserStore();
 
-  useEffect(() => {
-    // 쿼리 파라미터 추출
-    if (typeof window !== "undefined") {
-      const url = new URL(window.location.href);
-      const codeParam = url.searchParams.get("code");
-      const stateParam = url.searchParams.get("state");
-      if (codeParam) setCode(codeParam);
-      if (stateParam) setState(stateParam);
-    }
-  }, []);
+  const cookies = useCookies();
+  const token = cookies.get("authToken");
+  const [me] = useLazyQuery<IData>(ME, {
+    context: {
+      headers: { Authorization: `Bearer ${token}` },
+    },
+    fetchPolicy: "network-only",
+  });
 
   const Login = useCallback(
     async (authorizationCode: string) => {
@@ -48,8 +47,8 @@ export default function Auth2Redirect({ provider }: Props) {
 
         const success = response.data;
         if (success) {
-          loginUser(success);
-          router.replace("/explore");
+          me();
+          router.push("/explore");
         } else {
           // 로그인 실패
           console.error("예상치 못한 에러로 인해 로그인이 실패했습니다.");
@@ -58,14 +57,12 @@ export default function Auth2Redirect({ provider }: Props) {
         console.error("로그인에 실패했습니다.", err);
       }
     },
-    [provider, router, loginUser, state]
+    [provider, state, me, router]
   );
 
   useEffect(() => {
-    if (code) {
-      Login(code);
-    }
-  }, [code, Login]);
+    Login(code);
+  }, [Login, code]);
 
   return null;
 }
