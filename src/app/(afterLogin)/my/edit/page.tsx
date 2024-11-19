@@ -1,10 +1,16 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { FormEventHandler, useMemo, useRef, useState } from "react";
+import { FormEventHandler, useMemo, useRef } from "react";
+import { redirect } from "next/navigation";
 import Link from "next/link";
 import { useClientFetch } from "@/hooks/useClientFetch";
 import { ME, IData } from "@/graphql/query/me";
+import { useFormSubmit } from "@/hooks/useFormSubmit";
 import { FormGroup } from "../../_component/formGroup/FormGroup";
+import { useUserEditStore } from "@/store/useUserEditStore";
+import { createAvatar } from "@dicebear/core";
+import { thumbs } from "@dicebear/collection";
 import {
   AiOutlineCheck as VMark,
   AiOutlineClose as XMark,
@@ -12,80 +18,77 @@ import {
 import ContainedButton from "@/app/_component/button/ContainedButton";
 import OutlinedButton from "@/app/_component/button/OutlinedButton";
 import styles from "./page.module.scss";
-import { useFormSubmit } from "@/hooks/useFormSubmit";
-import { createAvatar } from "@dicebear/core";
-import { thumbs } from "@dicebear/collection";
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024;
 
 export default function Page() {
+  const {
+    image,
+    nickname,
+    setSubmitImage,
+    setPreviewImage,
+    setDeleteImgOnly,
+    setSubmitNickname,
+    isValidNickname,
+  } = useUserEditStore();
+  const imageRef = useRef<HTMLInputElement>(null);
   const { data } = useClientFetch<IData>(
     ME,
     {
       onCompleted: (data) => {
-        setEnteredNickname(data.me.nickname);
-        setImage(data.me.imgUrl);
+        setPreviewImage(data?.me.imgUrl!, "init");
+        setSubmitNickname(data?.me.nickname, "init");
       },
+      fetchPolicy: "cache-only",
     },
     true
   );
-  const [image, setImage] = useState<string | File | null>(null);
-  const [viewerImage, setViewerImage] = useState<any>(null);
-  const imageRef = useRef<HTMLInputElement>(null);
-  const [enteredNickname, setEnteredNickname] = useState("");
-  const [isValidNickname, setIsValidNickname] = useState<boolean | null>(null);
-  const handleValidateNickname = () => {
-    if (enteredNickname.trim().length < 1) {
-      setIsValidNickname(false);
-    } else {
-      setIsValidNickname(true);
-    }
-  };
 
-  const handleChangeImage = (file: File | undefined) => {
+  // 아바타 이미지
+  const defaultAvatar = useMemo(() => {
+    if (!data?.me.id) return null;
+
+    return createAvatar(thumbs, {
+      seed: (+data?.me.id / 5 + 1).toString(),
+    }).toDataUriSync();
+  }, [data]);
+
+  const handlePreviewImage = (file: File | undefined) => {
     if (!file) return null;
 
     if (file.size > MAX_FILE_SIZE) {
       alert("파일 크기는 2MB를 초과할 수 없습니다.");
-      setImage(null);
-      setViewerImage(null);
       return;
     }
 
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      setViewerImage(reader.result as string);
+      setPreviewImage(reader.result as string);
     };
   };
 
   const { isLoading, error, handleSubmit } = useFormSubmit({
     endpoint: "/api/users",
-    onSuccess: () => {
-      window.location.assign("/my");
-    },
-    onError: (error) => console.error(error),
+    onSuccess: () => redirect("/my"),
+    onError: (error) =>
+      console.error(`유저 정보 수정에 실패했습니다: ${error}`),
   });
 
   const onSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     const formData = new FormData();
 
-    if (defaultImage) formData.append("deleteImageOnly", "true");
-    if (data?.me.nickname !== enteredNickname) {
-      formData.append("name", enteredNickname);
+    if (nickname.toBe) {
+      formData.append("name", nickname.toBe);
     }
-    if (image) formData.append("image", image);
+    if (image.toBe) formData.append("image", image.toBe);
+    if (image.deleteImgOnly)
+      formData.append("deleteImageOnly", image.deleteImgOnly.toString());
 
-    handleSubmit(formData);
+    console.log("formData 출력 test: ", formData);
+    // handleSubmit(formData);
   };
-
-  const [defaultImage, setDefaultImage] = useState(false);
-  const defaultImg = useMemo(() => {
-    return createAvatar(thumbs, {
-      seed: (+data?.me.id! / 5 + 1).toString(),
-    }).toDataUriSync();
-  }, [data?.me.id]);
 
   return (
     <form onSubmit={onSubmit} className={styles.wrapper}>
@@ -95,20 +98,15 @@ export default function Page() {
           id="imgUrl"
           name="imgUrl"
           accept=".jpg,.jpeg,.png"
-          ref={imageRef}
+          ref={imageRef} // 클릭 감지용
           onChange={(e) => {
-            setDefaultImage(false);
-            handleChangeImage(e.target.files?.[0]);
-            setImage(e.target.files?.[0]!);
+            handlePreviewImage(e.target.files?.[0]);
+            if (e.target.files?.[0]) setSubmitImage(e.target.files?.[0]);
           }}
           hidden
         />
         <img
-          src={
-            viewerImage ?? defaultImage
-              ? defaultImg
-              : (data?.me.imgUrl as string)
-          }
+          src={image.preview ?? image.init}
           alt="유저 이미지"
           style={{ width: 80, height: 80 }}
         />
@@ -117,18 +115,7 @@ export default function Page() {
             이미지는 <strong>.jpg .jpeg .png</strong> 확장자만 가능합니다.
           </span>
           <div className={styles.imageBtn}>
-            <ContainedButton
-              type="button"
-              variant="base"
-              onClick={() => {
-                setDefaultImage(true);
-                setViewerImage(null);
-                setImage(null);
-              }}
-            >
-              기본 이미지로 초기화
-            </ContainedButton>
-            {!image && (
+            {!image.toBe && (
               <ContainedButton
                 type="button"
                 variant="green"
@@ -137,13 +124,14 @@ export default function Page() {
                 이미지 첨부
               </ContainedButton>
             )}
-            {image && (
+            {image.toBe && (
               <OutlinedButton
                 type="button"
                 variant="red"
                 onClick={() => {
-                  setViewerImage(null);
-                  setImage(null);
+                  setDeleteImgOnly(true);
+                  setPreviewImage(defaultAvatar!);
+                  setSubmitImage(null);
                 }}
               >
                 초기화
@@ -157,13 +145,13 @@ export default function Page() {
           id="nickname"
           name="nickname"
           type="text"
-          value={enteredNickname}
-          onBlur={handleValidateNickname}
-          onChange={(e) => setEnteredNickname(e.target.value)}
+          value={nickname.toBe ?? nickname.init ?? ""}
+          onBlur={(e) => isValidNickname(e.target.value)}
+          onChange={(e) => setSubmitNickname(e.target.value)}
           required
         />
-        <FormGroup.Message validity={isValidNickname}>
-          {isValidNickname ? (
+        <FormGroup.Message validity={nickname.valid}>
+          {nickname.valid ? (
             <>
               <VMark />
               <p>사용 가능한 이름입니다.</p>
@@ -192,7 +180,6 @@ export default function Page() {
         <OutlinedButton variant="red" type="button">
           회원 탈퇴
         </OutlinedButton>
-        <p>해당 기능은 아직 준비중입니다...</p>
       </div>
     </form>
   );

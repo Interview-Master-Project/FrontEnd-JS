@@ -1,42 +1,45 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { useApolloClient } from "@apollo/client";
-import { createAvatar } from "@dicebear/core";
-import { thumbs } from "@dicebear/collection";
 import { useClientFetch } from "@/hooks/useClientFetch";
 import { ME, IData } from "@/graphql/query/me";
+import { createAvatar } from "@dicebear/core";
+import { thumbs } from "@dicebear/collection";
 import { Dropdown } from "@/app/_component/dropdown/Dropdown";
 import { useLogout } from "@/hooks/useLogout";
 import styles from "./profile.module.scss";
 
 export default function Profile() {
-  const { data, loading, error } = useClientFetch<IData>(ME, {}, true);
-
   const client = useApolloClient();
+  const { data, loading } = useClientFetch<IData>(ME, {
+    onCompleted: (data) => {
+      if (!data.me.imgUrl) {
+        client.cache.readQuery({ query: ME });
+
+        const avatar = createAvatar(thumbs, {
+          seed: ((+data.me.id / 5) + 1).toString(),
+        }).toDataUriSync();
+
+        client.cache.writeQuery<IData>({
+          query: ME,
+          data: {
+            me: {
+              ...data.me,
+              imgUrl: avatar,
+            },
+          },
+        });
+      }
+    }
+  }, true);
+
   const [isOpen, setIsOpen] = useState(false);
   const { handleLogout } = useLogout();
 
   if (loading) {
     return <div>유저 정보 불러오는 중...</div>;
-  }
-
-  if (data && !data?.me.imgUrl) {
-    const { me }: IData = client.cache.readQuery({ query: ME })!;
-    const avatar = createAvatar(thumbs, {
-      seed: (+data?.me.id! / 5 + 1).toString(),
-    }).toDataUriSync();
-
-    client.cache.writeQuery<IData>({
-      query: ME,
-      data: {
-        me: {
-          ...me,
-          imgUrl: avatar,
-        },
-      },
-    });
   }
 
   const handleCloseDropdown = () => {

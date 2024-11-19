@@ -28,12 +28,7 @@ export const useFormSubmit = ({
     setError(null);
 
     try {
-      // (테스트) 의도적 2초 지연
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      // 테스트
-      console.log("컬렉션 data", Object.fromEntries(formData.entries()));
-      // 실제 요청 시
+      // POST, PATCH 모두 지원
       await Promise.any([
         axios.post(endpoint, formData, {
           headers,
@@ -45,18 +40,12 @@ export const useFormSubmit = ({
         }),
       ]);
 
-      // 테스트
-      console.log(
-        "컬렉션 생성 Success",
-        Object.fromEntries(formData.entries())
-      );
-
-      await onSuccess?.();
+      onSuccess?.();
     } catch (err) {
       const errorMessage =
         err instanceof AxiosError && err.response?.data?.message
           ? err.response.data.message
-          : "컬렉션 제출 Failed";
+          : "Submit Failed";
       setError(errorMessage);
       onError?.(err);
     } finally {
