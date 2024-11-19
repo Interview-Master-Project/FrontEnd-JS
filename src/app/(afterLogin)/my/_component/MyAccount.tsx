@@ -1,33 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { ME, IData } from "@/graphql/query/me";
 import { useClientFetch } from "@/hooks/useClientFetch";
+import { ME, IData } from "@/graphql/query/me";
 import { MdModeEdit as EditIcon } from "react-icons/md";
-import { faker } from "@faker-js/faker";
 import { KakaoLogo, NaverLogo } from "../_lib/oAuthLogo";
 import { Dropdown } from "@/app/_component/dropdown/Dropdown";
 import { useLogout } from "@/hooks/useLogout";
 import styles from "./myAccount.module.scss";
 
 export default function MyAccount() {
-  const { data, loading, error } = useClientFetch<IData>(ME, {}, true);
-
+  const { data } = useClientFetch<IData>(ME, {}, true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [image, setImage] = useState<string | null>(null);
 
   const { handleLogout } = useLogout();
-
-  useEffect(() => {
-    setImage(faker.image.avatarGitHub());
-  }, []);
-
-  const user = {
-    ...data,
-    image,
-  };
 
   const handleCloseDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -59,23 +46,20 @@ export default function MyAccount() {
           </Dropdown.Menu>
         </Dropdown>
       </div>
-      {image && (
-        <Image
-          src={user.image as string}
-          alt={`${user.me?.nickname}의 프로필`}
-          width={144}
-          height={144}
-          priority
+      {data?.me.imgUrl && (
+        <img
+          src={data?.me.imgUrl as string}
+          alt={`${data.me?.nickname}의 프로필`}
         />
       )}
       <div className={styles.logoName}>
-        {user?.me?.oAuthProvider === "KAKAO" && (
+        {data?.me.oAuthProvider === "KAKAO" && (
           <KakaoLogo className={styles.logo} />
         )}
-        {user?.me?.oAuthProvider === "NAVER" && (
+        {data?.me.oAuthProvider === "NAVER" && (
           <NaverLogo className={styles.logo} />
         )}
-        <span>{user?.me?.nickname}</span>
+        <span>{data?.me.nickname}</span>
       </div>
     </div>
   );
