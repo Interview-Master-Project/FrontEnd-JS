@@ -37,7 +37,7 @@ export interface IData {
 
 // 퀴즈 검색 (only 로그인 시)
 export const SEARCH_QUIZZES = gql`
-  query MyQuery(
+  query SearchQuizzes(
     $keywords: [String]
     $offset: Int
     $sort: SortOrder

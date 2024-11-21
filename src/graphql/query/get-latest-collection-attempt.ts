@@ -8,7 +8,7 @@ export interface IData {
 }
 
 export const GET_LATEST_COLLECTION_ATTEMPT = gql`
-  query MyQuery($collectionId: ID!) {
+  query GetLatestCollectionAttempt($collectionId: ID!) {
     getLatestCollectionAttempt(collectionId: $collectionId) {
       id
       completedAt

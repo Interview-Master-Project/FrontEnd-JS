@@ -37,7 +37,7 @@ export interface IData {
 
 // 컬렉션 검색(로그인 유저용)
 export const SEARCH_COLLECTIONS_FOR_AUTH_USER = gql`
-  query MyQuery(
+  query SearchCollectionsForAuthUser(
     $keywords: [String]
     $offset: Int
     $sort: SortOrder

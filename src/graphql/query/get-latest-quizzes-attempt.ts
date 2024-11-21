@@ -10,7 +10,7 @@ export interface IData {
 }
 
 export const GET_LATEST_QUIZZES_ATTEMPT = gql`
-  query MyQuery($userCollectionAttemptId: ID!) {
+  query GetLatestQuizzesAttempt($userCollectionAttemptId: ID!) {
     getLatestQuizzesAttempt(userCollectionAttemptId: $userCollectionAttemptId) {
       quiz {
         id

@@ -11,7 +11,7 @@ export interface IData {
 
 // 카테고리 id와 카테고리명
 export const GET_ALL_CATEGORIES = gql`
-  query MyQuery {
+  query GetAllCategories {
     getAllCategories {
       id
       name
