@@ -27,7 +27,7 @@ export interface IData {
  * (Arguments) pageSize
  */
 export const MY_HISTORY = gql`
-  query MyQuery($offset: Int, $filter: Access) {
+  query MyHistory($offset: Int, $filter: Access) {
     myHistory(paging: { offset: $offset, pageSize: 5 }, filter: $filter) {
       collectionsWithAttempt {
         collection {

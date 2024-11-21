@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const UNLIKE = gql`
-  mutation MyMutation($collectionId: ID!) {
+  mutation Unlike($collectionId: ID!) {
     unlike(collectionId: $collectionId)
   }
 `;

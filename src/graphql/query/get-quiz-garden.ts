@@ -22,7 +22,7 @@ export interface IData {
  * (Arguments) endDate "YYYY-MM-DD"
  */
 export const GET_QUIZ_GARDEN = gql`
-  query MyQuery($startDate: String!, $endDate: String!) {
+  query GetQuizGarden($startDate: String!, $endDate: String!) {
     getQuizGarden(startDate: $startDate, endDate: $endDate) {
       date
       dayIndex

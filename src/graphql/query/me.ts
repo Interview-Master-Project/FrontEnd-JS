@@ -12,7 +12,7 @@ export interface IData {
 
 // 로그인 유저 정보
 export const ME = gql`
-  query MyQuery {
+  query Me {
     me {
       id
       nickname

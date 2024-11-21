@@ -40,7 +40,11 @@ export interface IData {
 
 // 컬렉션 검색(비로그인용)
 export const SEARCH_COLLECTIONS_FOR_GUEST = gql`
-  query MyQuery($categoryIds: [Int], $keywords: [String], $offset: Int) {
+  query SearchCollectionsForGuest(
+    $categoryIds: [Int]
+    $keywords: [String]
+    $offset: Int
+  ) {
     searchCollectionsForGuest(
       categoryIds: $categoryIds
       keywords: $keywords

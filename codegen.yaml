@@ -1,0 +1,8 @@
+overwrite: true
+schema: https://api.interviewmaster.co.kr/graphql
+documents: "./src/**/*.ts"
+generates:
+  ./src/__api__/types.ts:
+    plugins:
+      - typescript
+      - typescript-operations
