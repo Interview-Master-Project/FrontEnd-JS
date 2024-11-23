@@ -18,6 +18,12 @@ import ContainedButton from "@/app/_component/button/ContainedButton";
 import OutlinedButton from "@/app/_component/button/OutlinedButton";
 import styles from "./solveZone.module.scss";
 import { useClientFetch } from "@/hooks/useClientFetch";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 type Props = {
   collId: string;
@@ -72,6 +78,7 @@ export default function SolveZone({
         quizResults: {
           quizId: newCorrectElement.quiz.id,
           correct: newCorrectElement.isCorrect,
+          answeredAt: dayjs().tz("Asia/Seoul").format("YYYY-MM-DDTHH:mm:ssZ"),
         },
         userCollectionAttemptId,
       },
