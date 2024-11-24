@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuizFormStore } from "@/store/useQuizFormStore";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
@@ -14,13 +14,19 @@ import {
 } from "react-icons/ai";
 import ContainedButton from "@/app/_component/button/ContainedButton";
 import OutlinedButton from "@/app/_component/button/OutlinedButton";
-import styles from "./page.module.scss";
 import { useCookies } from "next-client-cookies";
+import styles from "./page.module.scss";
 
 export default function Page() {
   const { collId: collectionId } = useParams();
 
   const { question, changeQuestion, answer, changeAnswer } = useQuizFormStore();
+
+  useEffect(() => {
+    changeQuestion("");
+    changeAnswer("");
+  }, [changeAnswer, changeQuestion]);
+
   const [isValidQ, setIsValidQ] = useState<boolean | null>(null);
   const [isValidA, setIsValidA] = useState<boolean | null>(null);
   const handleBlurQ = () => {
@@ -60,9 +66,7 @@ export default function Page() {
           headers: { Authorization: `Bearer ${token}` },
         },
       });
-      // router push 후 refresh
-      console.log("Mutation result: ", res.data);
-      window.location.assign(`/my/collections/${collectionId}`);
+      router.replace(`/my/collections/${collectionId}`);
     } catch (err) {
       console.error("Error: ", err);
     }
@@ -128,7 +132,7 @@ export default function Page() {
           {loading ? "저장 중..." : "저장 및 추가"}
         </ContainedButton>
         <OutlinedButton variant="red" type="button">
-          <Link href="/my">취소</Link>
+          <Link href={`/my/collections/${collectionId}`}>취소</Link>
         </OutlinedButton>
       </div>
     </form>

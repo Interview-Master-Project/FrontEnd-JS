@@ -39,7 +39,7 @@ export default function Quiz({
         quizElement={quizElement}
       />
       <div className={`${styles.quizSection} ${styles.quizSection__info}`}>
-        <h6>{quizIdx.toString().padStart(2, "0")}</h6>
+        <h6>{(quizIdx + 1).toString().padStart(2, "0")}</h6>
         <p className={styles.quizQuestion}>{quizElement?.quiz?.question}</p>
       </div>
       <QuizProgress

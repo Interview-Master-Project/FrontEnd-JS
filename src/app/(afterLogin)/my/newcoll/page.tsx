@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { GET_ALL_CATEGORIES, IData } from "@/graphql/query/get-all-categories";
@@ -38,6 +38,20 @@ export default function Page() {
     categoryId,
     changeCategoryId,
   } = useCollectionFormStore();
+
+  useEffect(() => {
+    changeName("");
+    changeImage(null);
+    changeDescription("");
+    changeAccess("PUBLIC");
+    changeCategoryId(null);
+  }, [
+    changeAccess,
+    changeCategoryId,
+    changeDescription,
+    changeImage,
+    changeName,
+  ]);
 
   const [editName, setEditName] = useState(false);
   const [isValidName, setIsValidName] = useState<boolean | null>(null);
