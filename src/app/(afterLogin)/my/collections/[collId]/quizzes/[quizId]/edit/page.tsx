@@ -7,10 +7,8 @@ import { useParams } from "next/navigation";
 import { useQuizFormStore } from "@/store/useQuizFormStore";
 import { FormGroup } from "@/app/(afterLogin)/_component/formGroup/FormGroup";
 import { useClientFetch } from "@/hooks/useClientFetch";
-import {
-  GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID,
-  IData,
-} from "@/graphql/query/get-quizzes-by-collection-id";
+import { GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID } from "@/graphql/query/get-quizzes-by-collection-id";
+import { GetQuizzesWithAttemptByCollectionIdQuery } from "@/__api__/types";
 import { useMutation } from "@apollo/client";
 import { EDIT_QUIZ } from "@/graphql/mutation/edit-quiz";
 import {
@@ -26,18 +24,19 @@ import styles from "./page.module.scss";
 export default function Page() {
   const { collId: collectionId, quizId } = useParams();
   const { question, changeQuestion, answer, changeAnswer } = useQuizFormStore();
-  const { data: prevData } = useClientFetch<IData>(
-    GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID,
-    {
-      variables: {
-        collectionId,
+  const { data: prevData } =
+    useClientFetch<GetQuizzesWithAttemptByCollectionIdQuery>(
+      GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID,
+      {
+        variables: {
+          collectionId,
+        },
       },
-    },
-    true
-  );
+      true
+    );
 
   const targetQuiz = prevData?.getQuizzesWithAttemptByCollectionId.find(
-    ({ quiz }) => quiz.id === quizId
+    ({ quiz }) => quiz?.id === quizId
   )?.quiz;
 
   useEffect(() => {
