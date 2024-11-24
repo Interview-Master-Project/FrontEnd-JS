@@ -2,7 +2,7 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import { useLatestQuizzesAttemptStore } from "@/store/useLatestQuizzesAttemptStore";
-import { IData } from "@/graphql/query/get-quizzes-by-collection-id";
+import { GetQuizzesWithAttemptByCollectionIdQuery } from "@/__api__/types";
 import { useClientMutation } from "@/hooks/useClientMutation";
 import { FINISH_SOLVE_COLLECTION } from "@/graphql/mutation/finish-solve-collection";
 import { DELETE_RECENT_ATTEMPT } from "@/graphql/mutation/delete-recent-attempt";
@@ -11,7 +11,7 @@ import OutlinedButton from "@/app/_component/button/OutlinedButton";
 import styles from "./navigator.module.scss";
 
 type Props = {
-  data: IData;
+  data: GetQuizzesWithAttemptByCollectionIdQuery;
   collId: string;
   quizId: string;
   userCollectionAttemptId: string;
@@ -29,13 +29,14 @@ export default function Navigator({
 
   const quizLen = data.getQuizzesWithAttemptByCollectionId.length; // 퀴즈 개수
   const currQuizIdx = data.getQuizzesWithAttemptByCollectionId.findIndex(
-    ({ quiz }) => quiz.id === quizId
+    ({ quiz }) => quiz?.id === quizId
   ); // 현재 퀴즈 인덱스
 
   const handleClick = (moveIdx: number) => {
     // 다음 퀴즈 인덱스에 해당하는 퀴즈의 id 추출
     const navigateQuizId =
-      data.getQuizzesWithAttemptByCollectionId[currQuizIdx + moveIdx].quiz.id;
+      data?.getQuizzesWithAttemptByCollectionId[currQuizIdx + moveIdx]?.quiz
+        ?.id;
     // 추출한 id를 새 path로 지정
     const newPath = pathname.replace(/\/(\d+)$/, `/${navigateQuizId}`);
     router.push(newPath);
