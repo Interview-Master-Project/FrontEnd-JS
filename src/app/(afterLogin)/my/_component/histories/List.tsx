@@ -56,10 +56,10 @@ export default function List({ data }: { data: IData }) {
               <h3>{collection.name}</h3>
               <span>{dayjs(collection.updatedAt).fromNow()}</span>
             </div>
-            <div className={styles.likesLabel}>
+            {/* <div className={styles.likesLabel}>
               <OutlinedHeart />
               <span>{collection.likes}</span>
-            </div>
+            </div> */}
           </Link>
         </motion.div>
       ))}
