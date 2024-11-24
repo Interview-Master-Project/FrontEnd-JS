@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useSwitchStore } from "@/store/useSwitchStore";
-import { IData } from "@/graphql/query/get-quizzes-by-collection-id";
+import { GetQuizzesWithAttemptByCollectionIdQuery } from "@/__api__/types";
 import { motion } from "framer-motion";
 import { Tab } from "./Tab";
 import List from "./List";
@@ -13,7 +13,7 @@ import clsx from "clsx";
 import styles from "./sidebar.module.scss";
 
 type Props = {
-  data: IData;
+  data: GetQuizzesWithAttemptByCollectionIdQuery;
 };
 
 export type TabType = "목록" | "기록";
@@ -33,7 +33,7 @@ export default function Sidebar({ data }: Props) {
 
   const handleClickList = (moveIdx: number) => {
     const navigateQuizId =
-      data.getQuizzesWithAttemptByCollectionId[moveIdx].quiz.id;
+      data?.getQuizzesWithAttemptByCollectionId[moveIdx]?.quiz?.id;
 
     const newPath = pathname.replace(/\/(\d+)$/, `/${navigateQuizId}`);
     router.push(newPath);

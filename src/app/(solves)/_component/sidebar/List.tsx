@@ -1,6 +1,6 @@
 "use client";
 
-import { IQuizzes } from "@/graphql/query/get-quizzes-by-collection-id";
+import { GetQuizzesWithAttemptByCollectionIdQuery } from "@/__api__/types";
 import { useLatestQuizzesAttemptStore } from "@/store/useLatestQuizzesAttemptStore";
 import {
   AiOutlineCheck as VMark,
@@ -9,7 +9,7 @@ import {
 import styles from "./list.module.scss";
 
 type Props = {
-  quizzes: IQuizzes[];
+  quizzes: GetQuizzesWithAttemptByCollectionIdQuery["getQuizzesWithAttemptByCollectionId"];
   onClickList: (idx: number) => void;
 };
 
@@ -20,15 +20,15 @@ export default function List({ quizzes, onClickList }: Props) {
     <ol className={styles.listWrapper}>
       {quizzes.map(({ quiz }, idx) => {
         let isCorrect = solvedQuizzes.find(
-          (el) => el.quiz.id === quiz.id
+          (el) => el.quiz.id === quiz?.id
         )?.isCorrect;
 
         return (
-          <li key={quiz.id} onClick={() => onClickList(idx)}>
+          <li key={quiz?.id} onClick={() => onClickList(idx)}>
             <span className={styles.listIndex}>
               {(idx + 1).toString().padStart(2, "0")}
             </span>
-            <span className={styles.listQuestion}>{quiz.question}</span>
+            <span className={styles.listQuestion}>{quiz?.question}</span>
             <span>
               {isCorrect !== undefined &&
                 (isCorrect ? (

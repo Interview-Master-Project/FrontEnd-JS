@@ -1,15 +1,19 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { IData } from "@/graphql/query/get-quizzes-by-collection-id";
+import { GetQuizzesWithAttemptByCollectionIdQuery } from "@/__api__/types";
 import styles from "./history.module.scss";
 
-export default function History({ data }: { data: IData }) {
+export default function History({
+  data,
+}: {
+  data: GetQuizzesWithAttemptByCollectionIdQuery;
+}) {
   const { quizId } = useParams();
 
   // 현재 퀴즈의 인덱스
   const currQuizIdx = data.getQuizzesWithAttemptByCollectionId.findIndex(
-    (item) => item.quiz.id === quizId
+    (item) => item?.quiz?.id === quizId
   );
 
   const currHistory =
