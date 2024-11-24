@@ -2,9 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID,
-} from "@/graphql/query/get-quizzes-by-collection-id";
+import { GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID } from "@/graphql/query/get-quizzes-by-collection-id";
 import { GetQuizzesWithAttemptByCollectionIdQuery } from "@/__api__/types";
 import TextareaAutosize from "react-textarea-autosize";
 import {
@@ -16,11 +14,11 @@ import { useClientMutation } from "@/hooks/useClientMutation";
 import { SOLVE_QUIZZES } from "@/graphql/mutation/solve-quizzes";
 import ContainedButton from "@/app/_component/button/ContainedButton";
 import OutlinedButton from "@/app/_component/button/OutlinedButton";
-import styles from "./solveZone.module.scss";
 import { useClientFetch } from "@/hooks/useClientFetch";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+import styles from "./solveZone.module.scss";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -43,15 +41,16 @@ export default function SolveZone({
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const { data, refetch } = useClientFetch<GetQuizzesWithAttemptByCollectionIdQuery>(
-    GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID,
-    {
-      variables: {
-        collectionId: collId,
+  const { data, refetch } =
+    useClientFetch<GetQuizzesWithAttemptByCollectionIdQuery>(
+      GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID,
+      {
+        variables: {
+          collectionId: collId,
+        },
       },
-    },
-    true
-  );
+      true
+    );
 
   const handleOpen = () => setIsOpen(!isOpen);
 
@@ -115,7 +114,9 @@ export default function SolveZone({
                 transition={{ duration: 0.1 }}
                 style={{ overflow: "hidden" }}
               >
-                <p>{targetQuiz?.quiz?.answer}</p>
+                <p className={styles.answerParagraph}>
+                  {targetQuiz?.quiz?.answer}
+                </p>
               </motion.div>
             )}
           </div>

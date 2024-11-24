@@ -82,6 +82,10 @@
   }
 }
 
+.answerParagraph {
+  white-space: pre-wrap;
+}
+
 .solveNav {
   border-top: 1px solid var(--reverse-fg);
   height: 80px;
