@@ -47,6 +47,7 @@ export default function CollectionDetails({
         <CollectionInfo
           access={collectionData?.getCollection?.access}
           name={collectionData?.getCollection?.name}
+          description={collectionData?.getCollection?.description}
         />
       </div>
     </Container>
