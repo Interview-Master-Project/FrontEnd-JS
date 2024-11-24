@@ -29,8 +29,11 @@ export default function CollectionDetails({
 
   return (
     <Container title="컬렉션 정보">
-      <ContainedButton className={styles.startBtn}>
-        <Link href={`/collections/${collId}`}>문제 풀기</Link>
+      <ContainedButton
+        className={styles.startBtn}
+        onClick={() => router.replace(`/collections/${collId}`)}
+      >
+        문제 풀기
       </ContainedButton>
       <div className={styles.infoWrapper}>
         <InfoEditBtn isCreator={isCreator} collId={collId} />

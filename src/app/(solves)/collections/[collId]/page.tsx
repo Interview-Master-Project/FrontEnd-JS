@@ -1,9 +1,6 @@
 import { fetchQueryData } from "@/utils/fetchQueryData";
 import { GET_QUIZZES_ONLY_ID } from "@/graphql/query/get-quizzes-only-id";
-import {
-  GetQuizzesOnlyIdQuery,
-  GetQuizzesOnlyIdQueryVariables,
-} from "@/__api__/types";
+import { GetQuizzesOnlyIdQuery } from "@/__api__/types";
 import checkAttempt from "./_util/checkAttempt";
 import { quizRedirect } from "./_util/quizRedirect";
 import NoQuizzes from "./_component/NoQuizzes";

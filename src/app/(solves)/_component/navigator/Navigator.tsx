@@ -39,7 +39,7 @@ export default function Navigator({
         ?.id;
     // 추출한 id를 새 path로 지정
     const newPath = pathname.replace(/\/(\d+)$/, `/${navigateQuizId}`);
-    router.push(newPath);
+    router.replace(newPath);
   };
 
   const { mutate: finishMutate } = useClientMutation(
@@ -57,7 +57,7 @@ export default function Navigator({
     try {
       await finishMutate();
       alert("모든 풀이 결과를 제출 완료했어요!");
-      window.location.assign(`/details/collections/${collId}`);
+      router.replace(`/details/collections/${collId}`);
     } catch (err) {
       console.error("풀이 결과 제출에 오류가 발생했습니다.");
     }
@@ -77,11 +77,11 @@ export default function Navigator({
     const result = confirm("지금까지의 결과를 임시 저장할까요?");
     if (result) {
       // 저장
-      window.location.assign(`/details/collections/${collId}`);
+      router.replace(`/details/collections/${collId}`);
     } else {
       // 저장 안함
       await deleteMutate();
-      window.location.assign(`/details/collections/${collId}`);
+      router.replace(`/details/collections/${collId}`);
     }
   };
 

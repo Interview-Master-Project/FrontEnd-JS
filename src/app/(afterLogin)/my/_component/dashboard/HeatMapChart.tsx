@@ -90,7 +90,7 @@ export default function ApexChart() {
         shadeIntensity: 0.5, // 음영 강도 (0 ~ 1)
         colorScale: {
           ranges: [
-            { from: 0, to: 0, color: "#f1f1f1", name: "0" }, // 데이터 없음
+            { from: 0, to: 1, color: "#f1f1f1", name: "0" }, // 데이터 없음
             { from: 1, to: 10, color: "#cae5ff", name: "1-10" }, // 낮은 값의 색상
             { from: 11, to: 30, color: "#87dbff", name: "11-30" }, // 중간 값의 색상
             { from: 31, to: 100, color: "#309bff", name: "31-100" }, // 높은 값의 색상
@@ -103,8 +103,6 @@ export default function ApexChart() {
   useEffect(() => {
     setIsClient(true);
   }, []);
-
-  console.log(series);
 
   return (
     <div className={styles.chartContainer}>
