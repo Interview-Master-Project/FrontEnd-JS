@@ -6,17 +6,21 @@ import { DELETE_RECENT_ATTEMPT } from "@/graphql/mutation/delete-recent-attempt"
 import ContainedButton from "@/app/_component/button/ContainedButton";
 import OutlinedButton from "@/app/_component/button/OutlinedButton";
 import InfoModal from "@/app/_component/InfoModal";
-import { useCookies } from "next-client-cookies";
 import { useClientFetch } from "@/hooks/useClientFetch";
 import {
   GET_LATEST_QUIZZES_ATTEMPT,
   IData,
 } from "@/graphql/query/get-latest-quizzes-attempt";
 import { useLatestQuizzesAttemptStore } from "@/store/useLatestQuizzesAttemptStore";
+// import {
+//   GET_QUIZZES_ONLY_ID,
+//   IData as IQuizIdData,
+// } from "@/graphql/query/get-quizzes-by-collection-id";
+import { GET_QUIZZES_ONLY_ID } from "@/graphql/query/get-quizzes-only-id";
 import {
-  GET_QUIZZES_ONLY_ID,
-  IData as IQuizIdData,
-} from "@/graphql/query/get-quizzes-by-collection-id";
+  GetQuizzesOnlyIdQuery,
+  GetQuizzesOnlyIdQueryVariables as IQuizIdData,
+} from "@/__api__/types";
 
 type Props = {
   collId: string;
@@ -24,10 +28,6 @@ type Props = {
 };
 
 export default function Guess({ collId, userCollectionAttemptId }: Props) {
-  const cookies = useCookies();
-  const token = cookies.get("authToken");
-  const headers = token ? { Authorization: `Bearer ${token}` } : {};
-
   const router = useRouter();
   const { setQuizzes } = useLatestQuizzesAttemptStore();
 
@@ -46,7 +46,7 @@ export default function Guess({ collId, userCollectionAttemptId }: Props) {
     true
   );
 
-  const { data } = useClientFetch<IQuizIdData>(
+  const { data } = useClientFetch<GetQuizzesOnlyIdQuery>(
     GET_QUIZZES_ONLY_ID,
     {
       variables: { collectionId: collId },
@@ -54,7 +54,7 @@ export default function Guess({ collId, userCollectionAttemptId }: Props) {
     true
   );
 
-  const firstQuizId = data?.getQuizzesWithAttemptByCollectionId[0]?.quiz.id;
+  const firstQuizId = data?.getQuizzesWithAttemptByCollectionId[0]?.quiz?.id;
 
   const handleClickContinue = async (selectContinue: boolean) => {
     if (!selectContinue) {

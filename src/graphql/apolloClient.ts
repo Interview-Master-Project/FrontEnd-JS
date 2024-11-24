@@ -8,7 +8,7 @@ export const { getClient } = registerApolloClient(() => {
     cache: new InMemoryCache(),
     link: new HttpLink({
       uri: isProduction
-        ? "https://www.interviewmaster.co.kr/graphql"
+        ? `${process.env.NEXT_PUBLIC_SERVER_URL_PORT}/graphql`
         : "http://localhost:3000/graphql",
     }),
   });

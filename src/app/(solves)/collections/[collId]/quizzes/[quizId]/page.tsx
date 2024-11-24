@@ -1,8 +1,6 @@
 import { fetchQueryData } from "@/utils/fetchQueryData";
-import {
-  GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID,
-  IData,
-} from "@/graphql/query/get-quizzes-by-collection-id";
+import { GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID } from "@/graphql/query/get-quizzes-by-collection-id";
+import { GetQuizzesWithAttemptByCollectionIdQuery } from "@/__api__/types";
 import {
   GET_LATEST_COLLECTION_ATTEMPT,
   IData as IAttemptData,
@@ -21,13 +19,14 @@ type Props = {
 export default async function Page({ params }: Props) {
   const { collId, quizId } = params;
 
-  const { data } = await fetchQueryData<IData>({
-    query: GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID,
-    variables: {
-      collectionId: collId,
-    },
-    requiresAuth: true,
-  });
+  const { data } =
+    await fetchQueryData<GetQuizzesWithAttemptByCollectionIdQuery>({
+      query: GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID,
+      variables: {
+        collectionId: collId,
+      },
+      requiresAuth: true,
+    });
 
   const { data: attemptData } = await fetchQueryData<IAttemptData>({
     query: GET_LATEST_COLLECTION_ATTEMPT,
