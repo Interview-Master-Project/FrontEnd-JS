@@ -26,8 +26,8 @@ export default function ApexChart() {
     GET_QUIZ_GARDEN,
     {
       variables: {
-        endDate: dayjs().add(7, "day").format("YYYY-MM-DD"),
-        startDate: dayjs().subtract(132, "day").format("YYYY-MM-DD"),
+        endDate: dayjs().add(6, "day").format("YYYY-MM-DD"),
+        startDate: dayjs().subtract(133, "day").format("YYYY-MM-DD"),
       },
     },
     true
@@ -103,6 +103,8 @@ export default function ApexChart() {
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  console.log(series);
 
   return (
     <div className={styles.chartContainer}>
