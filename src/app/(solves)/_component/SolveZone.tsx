@@ -4,8 +4,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID,
-  IData,
 } from "@/graphql/query/get-quizzes-by-collection-id";
+import { GetQuizzesWithAttemptByCollectionIdQuery } from "@/__api__/types";
 import TextareaAutosize from "react-textarea-autosize";
 import {
   IoMdArrowDropdown as DownIcon,
@@ -43,7 +43,7 @@ export default function SolveZone({
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const { data, refetch } = useClientFetch<IData>(
+  const { data, refetch } = useClientFetch<GetQuizzesWithAttemptByCollectionIdQuery>(
     GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID,
     {
       variables: {
@@ -56,7 +56,7 @@ export default function SolveZone({
   const handleOpen = () => setIsOpen(!isOpen);
 
   const targetQuiz = data?.getQuizzesWithAttemptByCollectionId.find(
-    ({ quiz }) => quiz.id === quizId
+    ({ quiz }) => quiz?.id === quizId
   );
 
   // 맞은 개수, 틀린 개수
@@ -94,7 +94,7 @@ export default function SolveZone({
       <section>
         <div className={styles.solveHeader}>
           <div className={styles.questionMark}>Q.</div>
-          <h6>{targetQuiz?.quiz.question}</h6>
+          <h6>{targetQuiz?.quiz?.question}</h6>
         </div>
         <div className={styles.solveContent}>
           <TextareaAutosize />
@@ -115,7 +115,7 @@ export default function SolveZone({
                 transition={{ duration: 0.1 }}
                 style={{ overflow: "hidden" }}
               >
-                <p>{targetQuiz?.quiz.answer}</p>
+                <p>{targetQuiz?.quiz?.answer}</p>
               </motion.div>
             )}
           </div>
