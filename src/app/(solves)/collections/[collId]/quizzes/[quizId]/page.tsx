@@ -1,5 +1,5 @@
 import { fetchQueryData } from "@/utils/fetchQueryData";
-import { GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID } from "@/graphql/query/get-quizzes-by-collection-id";
+import { GET_QUIZZES_BY_COLLECTION_ID_FOR_HEADER } from "@/graphql/query/get-quizzes-by-collection-id-for-header";
 import { GetQuizzesWithAttemptByCollectionIdQuery } from "@/__api__/types";
 import {
   GET_LATEST_COLLECTION_ATTEMPT,
@@ -21,7 +21,7 @@ export default async function Page({ params }: Props) {
 
   const { data } =
     await fetchQueryData<GetQuizzesWithAttemptByCollectionIdQuery>({
-      query: GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID,
+      query: GET_QUIZZES_BY_COLLECTION_ID_FOR_HEADER,
       variables: {
         collectionId: collId,
       },
