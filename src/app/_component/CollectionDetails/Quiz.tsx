@@ -23,11 +23,6 @@ export default function Quiz({
   quizElement,
   quizIdx,
 }: Props) {
-  const { totalRate } = calculateCorrectRate({
-    totalAttempts: quizElement?.totalAttempts!,
-    totalCorrectAttempts: quizElement?.totalCorrectAttempts!,
-  });
-
   return (
     <motion.div
       className={styles.quizWrapper}
@@ -44,7 +39,8 @@ export default function Quiz({
       </div>
       <QuizProgress
         updatedAt={quizElement.quiz?.updatedAt!}
-        totalRate={totalRate}
+        totalAttempts={quizElement?.totalAttempts!}
+        totalCorrectAttempts={quizElement?.totalCorrectAttempts!}
       />
     </motion.div>
   );
