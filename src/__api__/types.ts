@@ -477,7 +477,7 @@ export type GetCollectionQueryVariables = Exact<{
 }>;
 
 
-export type GetCollectionQuery = { __typename?: 'Query', getCollection?: { __typename?: 'Collection', id?: string | null, name?: string | null, imgUrl?: string | null, access?: Access | null, description?: string | null, category?: { __typename?: 'Category', id?: string | null, name?: string | null } | null, quizzes?: Array<{ __typename?: 'Quiz', id?: string | null, access?: Access | null, question?: string | null, updatedAt?: string | null } | null> | null, creator?: { __typename?: 'User', id?: string | null } | null } | null };
+export type GetCollectionQuery = { __typename?: 'Query', getCollection?: { __typename?: 'Collection', id?: string | null, name?: string | null, imgUrl?: string | null, access?: Access | null, description?: string | null, creator?: { __typename?: 'User', id?: string | null } | null } | null };
 
 export type GetLatestCollectionAttemptQueryVariables = Exact<{
   collectionId: Scalars['ID']['input'];
@@ -501,33 +501,12 @@ export type GetQuizGardenQueryVariables = Exact<{
 
 export type GetQuizGardenQuery = { __typename?: 'Query', getQuizGarden: Array<{ __typename?: 'QuizGarden', date?: string | null, dayIndex?: number | null, quizzesSolved?: number | null, weekIndex?: number | null } | null> };
 
-export type GetQuizzesOnlyIdQueryVariables = Exact<{
-  collectionId: Scalars['ID']['input'];
-}>;
-
-
-export type GetQuizzesOnlyIdQuery = { __typename?: 'Query', getQuizzesWithAttemptByCollectionId: Array<{ __typename?: 'QuizWithAttempt', quiz?: { __typename?: 'Quiz', id?: string | null } | null }> };
-
 export type GetQuizzesWithAttemptByCollectionIdQueryVariables = Exact<{
   collectionId: Scalars['ID']['input'];
 }>;
 
 
-export type GetQuizzesWithAttemptByCollectionIdQuery = { __typename?: 'Query', getQuizzesWithAttemptByCollectionId: Array<{ __typename?: 'QuizWithAttempt', recentAnswerAt?: string | null, totalAttempts?: number | null, totalCorrectAttempts?: number | null, quiz?: { __typename?: 'Quiz', id?: string | null, question?: string | null, answer?: string | null, collection?: { __typename?: 'Collection', id?: string | null, name?: string | null, imgUrl?: string | null, access?: Access | null, category?: { __typename?: 'Category', id?: string | null, name?: string | null } | null } | null } | null }> };
-
-export type GetQuizBriefQueryVariables = Exact<{
-  collectionId: Scalars['ID']['input'];
-}>;
-
-
-export type GetQuizBriefQuery = { __typename?: 'Query', getQuizzesWithAttemptByCollectionId: Array<{ __typename?: 'QuizWithAttempt', recentAnswerAt?: string | null, totalAttempts?: number | null, totalCorrectAttempts?: number | null, quiz?: { __typename?: 'Quiz', id?: string | null, question?: string | null, access?: Access | null, updatedAt?: string | null } | null }> };
-
-export type GetQuizHeaderQueryVariables = Exact<{
-  collectionId: Scalars['ID']['input'];
-}>;
-
-
-export type GetQuizHeaderQuery = { __typename?: 'Query', getQuizzesWithAttemptByCollectionId: Array<{ __typename?: 'QuizWithAttempt', quiz?: { __typename?: 'Quiz', id?: string | null, question?: string | null, collection?: { __typename?: 'Collection', id?: string | null, name?: string | null, category?: { __typename?: 'Category', id?: string | null, name?: string | null } | null } | null } | null }> };
+export type GetQuizzesWithAttemptByCollectionIdQuery = { __typename?: 'Query', getQuizzesWithAttemptByCollectionId: Array<{ __typename?: 'QuizWithAttempt', recentAnswerAt?: string | null, totalAttempts?: number | null, totalCorrectAttempts?: number | null, quiz?: { __typename?: 'Quiz', id?: string | null, question?: string | null, answer?: string | null, updatedAt?: string | null } | null }> };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 

@@ -12,7 +12,7 @@ function makeClient() {
 
   const httpLink = new HttpLink({
     uri: isProduction
-      ? "https://www.interviewmaster.co.kr/graphql"
+      ? `${process.env.NEXT_PUBLIC_SERVER_URL_PORT}/graphql`
       : "http://localhost:3000/graphql",
   });
 

@@ -1,36 +1,29 @@
 "use client";
 
+import { useParams } from "next/navigation";
+import { useFetchMe } from "./_hooks/useFetchMe";
+import { useFetchCollection } from "@/hooks/CollectionDetails/useFetchCollection";
 import { redirect } from "next/navigation";
-import { useClientFetch } from "@/hooks/useClientFetch";
-import { ME, IData as IMEData } from "@/graphql/query/me";
-import { GET_COLLECTION, IData } from "@/graphql/query/get-collection";
-import CollectionDetails from "@/app/(afterLogin)/_component/isCreatorValidation/CollectionDetails";
+import CollectionDetails from "@/app/_component/CollectionDetails/CollectionDetails";
+import QuizDetails from "@/app/_component/CollectionDetails/QuizDetails";
 
-type Props = {
-  params: {
-    collId: string;
-  };
+type Params = {
+  collId: string;
 };
 
-export default function Page({ params }: Props) {
-  const { data: dataOfMe } = useClientFetch<IMEData>(ME, {}, true);
-  const { data } = useClientFetch<IData>(
-    GET_COLLECTION,
-    {
-      variables: {
-        collectionId: params.collId,
-      },
-    },
-    true
-  );
+export default function Page() {
+  const { collId } = useParams() as Params;
+  const { meData } = useFetchMe();
+  const { collectionData } = useFetchCollection(collId);
 
-  if (data?.getCollection.creator.id === dataOfMe?.me.id) {
-    redirect(`/my/collections/${params.collId}`);
+  if (collectionData?.getCollection?.creator?.id === meData?.me?.id) {
+    redirect(`/my/collections/${collId}`);
   }
 
   return (
     <>
-      <CollectionDetails isCreator={false} data={data} />
+      <CollectionDetails isCreator={false} collId={collId} />
+      <QuizDetails isCreator={false} collId={collId} />
     </>
   );
 }
