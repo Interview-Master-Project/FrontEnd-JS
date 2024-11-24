@@ -8,10 +8,8 @@ import {
   GET_ALL_CATEGORIES,
   IData as ICategoryData,
 } from "@/graphql/query/get-all-categories";
-import {
-  GET_COLLECTION,
-  IData as IPrevData,
-} from "@/graphql/query/get-collection";
+import { GET_COLLECTION } from "@/graphql/query/get-collection";
+import { GetCollectionQuery } from "@/__api__/types";
 import { useClientFetch } from "@/hooks/useClientFetch";
 import { useCollectionFormStore } from "@/store/useCollectionFormStore";
 import { FormGroup } from "@/app/(afterLogin)/_component/formGroup/FormGroup";
@@ -26,8 +24,8 @@ import TextareaAutosize from "react-textarea-autosize";
 import { MdOutlinePublic as PublicIcon } from "react-icons/md";
 import { BsIncognito as PrivateIcon } from "react-icons/bs";
 import { useFormSubmit } from "@/hooks/useFormSubmit";
-import styles from "./page.module.scss";
 import { useApolloClient } from "@apollo/client";
+import styles from "./page.module.scss";
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2 MB
 
@@ -38,7 +36,7 @@ export default function Page() {
     {},
     false
   );
-  const { data: prevData } = useClientFetch<IPrevData>(
+  const { data: prevData } = useClientFetch<GetCollectionQuery>(
     GET_COLLECTION,
     {
       variables: {
@@ -63,10 +61,10 @@ export default function Page() {
 
   useEffect(() => {
     if (prevData) {
-      changeName(prevData?.getCollection.name as string);
-      changeDescription(prevData?.getCollection.description as string);
-      changeAccess(prevData?.getCollection.access as typeof access);
-      changeCategoryId(prevData?.getCollection.category.id as string);
+      changeName(prevData?.getCollection?.name as string);
+      changeDescription(prevData?.getCollection?.description as string);
+      changeAccess(prevData?.getCollection?.access as typeof access);
+      changeCategoryId(prevData?.getCollection?.category?.name as string);
     }
   }, [prevData]);
 
@@ -133,16 +131,16 @@ export default function Page() {
     e.preventDefault();
 
     const formData = new FormData();
-    if (prevData?.getCollection.name !== name) {
+    if (prevData?.getCollection?.name !== name) {
       formData.append("newName", name);
     }
-    if (prevData?.getCollection.description !== description) {
+    if (prevData?.getCollection?.description !== description) {
       formData.append("newDescription", description);
     }
-    if (prevData?.getCollection.access !== access) {
+    if (prevData?.getCollection?.access !== access) {
       formData.append("newAccess", access);
     }
-    if (prevData?.getCollection.category.id !== categoryId) {
+    if (prevData?.getCollection?.category?.id !== categoryId) {
       formData.append(
         "categoryId",
         categoryId ?? (categoryData?.getAllCategories[0].id as string)
@@ -200,7 +198,7 @@ export default function Page() {
               hidden
             />
             <Image
-              src={viewerImage ?? (prevData?.getCollection.imgUrl as string)}
+              src={viewerImage ?? (prevData?.getCollection?.imgUrl as string)}
               alt="미리보기"
               width={80}
               height={80}

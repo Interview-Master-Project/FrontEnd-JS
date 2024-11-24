@@ -477,7 +477,7 @@ export type GetCollectionQueryVariables = Exact<{
 }>;
 
 
-export type GetCollectionQuery = { __typename?: 'Query', getCollection?: { __typename?: 'Collection', id?: string | null, name?: string | null, imgUrl?: string | null, access?: Access | null, description?: string | null, creator?: { __typename?: 'User', id?: string | null } | null } | null };
+export type GetCollectionQuery = { __typename?: 'Query', getCollection?: { __typename?: 'Collection', id?: string | null, name?: string | null, imgUrl?: string | null, access?: Access | null, description?: string | null, category?: { __typename?: 'Category', id?: string | null, name?: string | null } | null, creator?: { __typename?: 'User', id?: string | null } | null } | null };
 
 export type GetLatestCollectionAttemptQueryVariables = Exact<{
   collectionId: Scalars['ID']['input'];

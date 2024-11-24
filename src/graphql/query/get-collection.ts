@@ -8,6 +8,10 @@ export const GET_COLLECTION = gql`
       imgUrl
       access
       description
+      category {
+        id
+        name
+      }
       creator {
         id
       }
