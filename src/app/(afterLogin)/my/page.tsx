@@ -1,12 +1,8 @@
-import dynamic from "next/dynamic";
 import MyAccount from "./_component/MyAccount";
+import MyLog from "./_component/dashboard/MyLog";
 import Collections from "./_component/collections/Collections";
 import Histories from "./_component/histories/Histories";
 import styles from "./page.module.scss";
-
-const Chart = dynamic(() => import("./_component/dashboard/HeatMapChart"), {
-  ssr: false, // 서버 사이드 렌더링 비활성화
-});
 
 type Props = {
   searchParams: {
@@ -20,7 +16,7 @@ export default function Page({ searchParams }: Props) {
     <div className={styles.mypageWrapper}>
       <div className={styles.rowContentsWrapper}>
         <MyAccount />
-        <Chart />
+        <MyLog />
       </div>
       <div className={styles.rowContentsWrapper}>
         <Collections searchParams={searchParams} />
