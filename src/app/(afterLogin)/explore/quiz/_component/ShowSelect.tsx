@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useSortOffsetStore } from "@/store/useSortOffsetStore";
+import { SortOrder } from "@/__api__/types";
 import Selector from "@/app/_component/selector/Selector";
 import styles from "./showSelect.module.scss";
 
@@ -9,7 +10,7 @@ export default function ShowSelect() {
   const router = useRouter();
   const { offset, changeSort } = useSortOffsetStore();
 
-  const handleSort = (newSort: string) => {
+  const handleSort = (newSort: SortOrder) => {
     router.push(`/explore/quiz?sort=${newSort}&offset=${offset}`);
     changeSort(newSort);
   };
