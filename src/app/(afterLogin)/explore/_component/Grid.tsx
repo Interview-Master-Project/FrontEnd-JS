@@ -193,38 +193,35 @@ export default function Grid({ initialData, isLoggedIn }: Props) {
               return (
                 <List
                   key={collection.id}
-                  id={collection.id}
-                  className={styles.list}
+                  href={`/details/collections/${collection.id}`}
                 >
-                  <List.Likes likes={collection.likes} />
+                  <List.ImageFrame
+                    src={collection.imgUrl}
+                    alt={`id: ${collection.id}`}
+                  />
                   <List.Access access={collection.access} />
-                  <div className={styles.listImageWrapper}>
-                    <Image
-                      src={collection.imgUrl as string}
-                      alt={collection.id}
-                      fill
-                      style={{ objectFit: "cover" }}
-                      priority
+                  <List.Info>
+                    <List.Brief
+                      title={collection.name}
+                      category={collection.category.name}
                     />
-                  </div>
-                  <div className={styles.listContent}>
-                    <List.Title>{collection.name}</List.Title>
-                    <List.Description>
-                      {collection.description}
-                    </List.Description>
-                  </div>
-                  <Card.Info className={styles.listInfo}>
-                    <span>
-                      <strong>{quizCount}</strong> 문제
-                    </span>
-                    <span>
-                      최근정답률 <strong>{recentRate ?? "-"}</strong>%
-                    </span>
-                    <span>
-                      총합정답률 <strong>{totalRate ?? "-"}</strong>%
-                    </span>
-                    <span>{collection.category.name}</span>
-                  </Card.Info>
+                    <List.Details
+                      description={collection.description}
+                      recentCorrectRate={recentRate ? `${recentRate}%` : "-"}
+                      totalCorrectRate={totalRate ? `${totalRate}%` : "-"}
+                      quizCount={quizCount}
+                    >
+                      <List.Likes
+                        likes={collection.likes}
+                        isLiked={isLiked}
+                        onMutate={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          handleLikes(collection.id, isLiked);
+                        }}
+                      />
+                    </List.Details>
+                  </List.Info>
                 </List>
               );
             }
