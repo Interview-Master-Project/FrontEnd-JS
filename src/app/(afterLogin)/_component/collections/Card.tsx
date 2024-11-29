@@ -61,7 +61,7 @@ function InfoContainer({ children }: ComponentProps<"div">) {
   return (
     <motion.div
       initial={{ height: 90 }}
-      whileHover={{ height: 180 }}
+      whileHover={{ height: 200 }}
       transition={{ type: "tween", stiffness: 400, damping: 20 }}
       className={styles.infoContainer}
     >
@@ -89,14 +89,16 @@ function ContentsBriefWrapper({ title, category }: ContentsBriefProps) {
 interface ContentsDetailProps {
   description: string;
   quizCount: number;
-  correctRate: number | string;
+  totalCorrectRate: number | string;
+  recentCorrectRate: number | string;
   children: React.ReactNode;
 }
 
 function ContentsDetailsWrapper({
   description,
   quizCount,
-  correctRate,
+  totalCorrectRate,
+  recentCorrectRate,
   children,
 }: ContentsDetailProps) {
   return (
@@ -108,7 +110,10 @@ function ContentsDetailsWrapper({
         <strong>{quizCount}</strong> 문제
       </span>
       <span>
-        전체 정답률 <strong>{correctRate}</strong>
+        최근 정답률 <strong>{recentCorrectRate}</strong>
+      </span>
+      <span>
+        전체 정답률 <strong>{totalCorrectRate}</strong>
       </span>
       {children}
     </div>

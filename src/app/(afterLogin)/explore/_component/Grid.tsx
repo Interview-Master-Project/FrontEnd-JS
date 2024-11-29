@@ -172,7 +172,8 @@ export default function Grid({ initialData, isLoggedIn }: Props) {
                     />
                     <Card.Details
                       description={collection.description}
-                      correctRate={totalRate ? `${totalRate}%` : "-"}
+                      recentCorrectRate={recentRate ? `${recentRate}%` : "-"}
+                      totalCorrectRate={totalRate ? `${totalRate}%` : "-"}
                       quizCount={quizCount}
                     >
                       <Card.Likes
