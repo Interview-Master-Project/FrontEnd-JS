@@ -1,0 +1,28 @@
+@import "../../../../../styles/card";
+
+.chartWrapper {
+  @include card;
+  max-width: 700px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  align-items: unset !important;
+
+  position: relative;
+
+  & > h3 {
+    position: absolute;
+    top: -30px;
+    left: 0;
+    overflow: visible !important;
+  }
+}
+
+.chartInnerContent {
+  display: inline-block;
+  width: 1000px;
+}
+
+.chart {
+  height: inherit;
+}

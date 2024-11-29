@@ -316,9 +316,7 @@ export type Quiz = {
 export type QuizGarden = {
   __typename?: 'QuizGarden';
   date?: Maybe<Scalars['String']['output']>;
-  dayIndex?: Maybe<Scalars['Int']['output']>;
   quizzesSolved?: Maybe<Scalars['Int']['output']>;
-  weekIndex?: Maybe<Scalars['Int']['output']>;
 };
 
 export type QuizResultInput = {
@@ -494,12 +492,12 @@ export type GetLatestQuizzesAttemptQueryVariables = Exact<{
 export type GetLatestQuizzesAttemptQuery = { __typename?: 'Query', getLatestQuizzesAttempt: Array<{ __typename?: 'UserQuizAttempt', isCorrect: boolean, quiz: { __typename?: 'Quiz', id?: string | null } }> };
 
 export type GetQuizGardenQueryVariables = Exact<{
-  startDate: Scalars['String']['input'];
   endDate: Scalars['String']['input'];
+  startDate: Scalars['String']['input'];
 }>;
 
 
-export type GetQuizGardenQuery = { __typename?: 'Query', getQuizGarden: Array<{ __typename?: 'QuizGarden', date?: string | null, dayIndex?: number | null, quizzesSolved?: number | null, weekIndex?: number | null } | null> };
+export type GetQuizGardenQuery = { __typename?: 'Query', getQuizGarden: Array<{ __typename?: 'QuizGarden', date?: string | null, quizzesSolved?: number | null } | null> };
 
 export type GetQuizzesWithAttemptByCollectionIdForHeaderQueryVariables = Exact<{
   collectionId: Scalars['ID']['input'];
