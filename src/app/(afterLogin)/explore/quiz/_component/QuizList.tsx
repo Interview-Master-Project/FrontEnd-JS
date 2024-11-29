@@ -39,13 +39,6 @@ export default function QuizList({ initialData }: Props) {
 
   const quizzes = data?.searchQuizzes ?? initialData.searchQuizzes;
 
-  console.log("키워드", keywords);
-  console.log(
-    "카테고리",
-    categories.map((ct) => +ct)
-  );
-  console.log("정답률", maxCorrectRate);
-
   return (
     <div className={styles.listWrapper}>
       <div className={styles.lists}>

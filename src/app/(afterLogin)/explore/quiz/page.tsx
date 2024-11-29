@@ -13,7 +13,7 @@ export default async function Page({ searchParams }: Props) {
     variables: {
       keywords: [],
       offset: 0,
-      sort: searchParams.sort || "LATEST",
+      sort: searchParams.sort ?? "LATEST",
       categoryIds: [],
     },
     requiresAuth: true,

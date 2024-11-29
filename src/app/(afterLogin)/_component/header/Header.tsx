@@ -21,7 +21,7 @@ export default function Header() {
               { label: "퀴즈 검색", mode: "quiz" },
             ]}
           >
-            질문 리스트
+            검색
           </TabMenu>
           <TabMenu to="/my">마이페이지</TabMenu>
         </div>
