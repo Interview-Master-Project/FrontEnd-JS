@@ -5,12 +5,16 @@ import { useGetToken } from "@/hooks/useGetToken";
 
 export const useFetchMe = () => {
   const { headers } = useGetToken();
-  const { data: meData } = useQuery<MeQuery>(ME, {
+  const {
+    data: meData,
+    loading,
+    error,
+  } = useQuery<MeQuery>(ME, {
     fetchPolicy: "cache-only",
     context: {
       headers,
     },
   });
 
-  return { meData };
+  return { meData, loading, error };
 };

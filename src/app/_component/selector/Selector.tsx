@@ -2,17 +2,18 @@
 
 import { useState } from "react";
 import { FaChevronDown as DownIcon } from "react-icons/fa";
+import { SortOrder } from "@/__api__/types";
 import clsx from "clsx";
 import styles from "./selector.module.scss";
 
 type TOption = {
-  value: string;
+  value: any;
   label: string;
 };
 
 type Props = {
   width: number | string; // 외부에서 width 결정
-  onChange: (value: string) => void;
+  onChange: (value: SortOrder) => void;
   options: Array<TOption>;
   scrollOption?: boolean;
   selectedValue?: any;
@@ -30,7 +31,7 @@ export default function Selector({
   defaultValue,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState(options[defaultValue ?? 0]);
+  const [selected, setSelected] = useState(options[defaultValue ?? 2]);
 
   const handleSelect = (option: TOption) => {
     setSelected(option);
@@ -57,7 +58,7 @@ export default function Selector({
       onBlur={() => setIsOpen(false)}
     >
       <div className={styles.selected} onClick={handleOpen}>
-        <span>{selectedValue ?? selected.label}</span>
+        <span>{selectedValue ?? selected?.label}</span>
         <DownIcon />
       </div>
       {isOpen && (
@@ -78,7 +79,7 @@ export default function Selector({
         </div>
       )}
       <select
-        value={selected.value}
+        value={selected?.value}
         onChange={(e) =>
           handleSelect(
             options.find(({ value }) => value === e.target.value) || options[0]

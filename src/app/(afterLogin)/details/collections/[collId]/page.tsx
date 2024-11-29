@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useFetchMe } from "./_hooks/useFetchMe";
+import { useFetchMe } from "@/hooks/useFetchMe";
 import { useFetchCollection } from "@/hooks/CollectionDetails/useFetchCollection";
 import { redirect } from "next/navigation";
 import CollectionDetails from "@/app/_component/CollectionDetails/CollectionDetails";

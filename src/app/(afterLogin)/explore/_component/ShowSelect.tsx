@@ -2,7 +2,8 @@
 
 import { useSearchGridStore } from "@/store/useSearchGridStore";
 import { useSortOffsetStore } from "@/store/useSortOffsetStore";
-import { useUserStore } from "@/store/useUserStore";
+import { useFetchMe } from "@/hooks/useFetchMe";
+import { SortOrder } from "@/__api__/types";
 import { HiOutlineSquares2X2 as CardSwitchIcon } from "react-icons/hi2";
 import { HiMenu as ListSwitchIcon } from "react-icons/hi";
 import { useRouter } from "next/navigation";
@@ -13,10 +14,10 @@ export default function ShowSelect() {
   const { changeGrid } = useSearchGridStore();
   const { sort, offset, changeSort } = useSortOffsetStore();
 
-  const { user } = useUserStore();
+  const { meData: user } = useFetchMe();
 
   const router = useRouter();
-  const handleSort = (newSort: string) => {
+  const handleSort = (newSort: SortOrder) => {
     router.push(`/explore?sort=${newSort}&offset=${offset}`);
     changeSort(newSort);
   };
@@ -35,7 +36,7 @@ export default function ShowSelect() {
           { value: "LOWEST_ACCURACY", label: "정답률 낮은 순" },
           { value: "MOST_LIKED", label: "좋아요 많은 순" },
         ]}
-        defaultValue={!user ? 2 : 0}
+        defaultValue={0}
         disabled={!user}
       />
     </div>

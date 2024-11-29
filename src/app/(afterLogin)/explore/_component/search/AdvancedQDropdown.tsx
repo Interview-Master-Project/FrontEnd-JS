@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useSearchStore } from "@/store/useSearchStore";
-import { useUserStore } from "@/store/useUserStore";
+import { useFetchMe } from "@/hooks/useFetchMe";
 import { Dropdown } from "@/app/_component/dropdown/Dropdown";
 import Selector from "@/app/_component/selector/Selector";
 import { IoFilterOutline } from "react-icons/io5";
@@ -18,7 +18,7 @@ const maxCorrectSelector = Array.from({ length: 9 }).map((_, idx) => {
 export default function AdvancedQDropdown() {
   const { maxCorrectRate, changeMaxCorrectRate } = useSearchStore();
   const [isAdvancedQOpen, setIsAdvancedQOpen] = useState(false);
-  const { user } = useUserStore();
+  const { meData: user } = useFetchMe();
 
   const handleAdvancedQOffDropdown = () => {
     setIsAdvancedQOpen(false);
