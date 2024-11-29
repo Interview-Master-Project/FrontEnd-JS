@@ -31,7 +31,7 @@ export default function Selector({
   defaultValue,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState(options[defaultValue ?? 2]);
+  const [selected, setSelected] = useState(options[defaultValue ?? 0]);
 
   const handleSelect = (option: TOption) => {
     setSelected(option);

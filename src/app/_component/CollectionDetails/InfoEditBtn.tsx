@@ -24,12 +24,12 @@ export default function InfoEditBtn({ isCreator, collId }: IDetailsProps) {
             <BsThreeDots />
           </Dropdown.Active>
           <Dropdown.Menu isOpen={isOpen} containerWidth={100}>
-            <Dropdown.Item>
-              <Link href={`/my/collections/${collId}/edit`}>수정</Link>
-            </Dropdown.Item>
-            <Dropdown.Item variant="alert">
-              <Link href={`/my/collections/${collId}/delete`}>삭제</Link>
-            </Dropdown.Item>
+            <Link href={`/my/collections/${collId}/edit`}>
+              <Dropdown.Item>수정</Dropdown.Item>
+            </Link>
+            <Link href={`/my/collections/${collId}/delete`}>
+              <Dropdown.Item variant="alert">삭제</Dropdown.Item>
+            </Link>
           </Dropdown.Menu>
         </Dropdown>
       )}

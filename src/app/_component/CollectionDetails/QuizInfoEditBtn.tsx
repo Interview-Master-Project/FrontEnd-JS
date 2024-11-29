@@ -33,20 +33,16 @@ export default function QuizInfoEditBtn({
               <BsThreeDots />
             </Dropdown.Active>
             <Dropdown.Menu isOpen={isOpen} containerWidth={100}>
-              <Dropdown.Item>
-                <Link
-                  href={`/my/collections/${collId}/quizzes/${targetQuiz?.quiz?.id}/edit`}
-                >
-                  수정
-                </Link>
-              </Dropdown.Item>
-              <Dropdown.Item variant="alert">
-                <Link
-                  href={`/my/collections/${collId}/quizzes/${targetQuiz?.quiz?.id}/delete`}
-                >
-                  삭제
-                </Link>
-              </Dropdown.Item>
+              <Link
+                href={`/my/collections/${collId}/quizzes/${targetQuiz?.quiz?.id}/edit`}
+              >
+                <Dropdown.Item>수정</Dropdown.Item>
+              </Link>
+              <Link
+                href={`/my/collections/${collId}/quizzes/${targetQuiz?.quiz?.id}/delete`}
+              >
+                <Dropdown.Item variant="alert">삭제</Dropdown.Item>
+              </Link>
             </Dropdown.Menu>
           </Dropdown>
         </div>

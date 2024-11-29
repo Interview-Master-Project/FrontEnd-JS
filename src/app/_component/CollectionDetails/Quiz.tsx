@@ -2,9 +2,7 @@
 
 import { GetQuizzesWithAttemptByCollectionIdQuery } from "@/__api__/types";
 import { IDetailsProps } from "@/types/CollectionDetails/types";
-import { motion } from "framer-motion";
 import QuizInfoEditBtn from "./QuizInfoEditBtn";
-import { calculateCorrectRate } from "@/app/(afterLogin)/explore/_lib/calculateCorrectRate";
 import QuizProgress from "./QuizProgress";
 import styles from "./quiz.module.scss";
 
@@ -24,10 +22,7 @@ export default function Quiz({
   quizIdx,
 }: Props) {
   return (
-    <motion.div
-      className={styles.quizWrapper}
-      whileHover={{ backgroundColor: "rgba(30, 162, 181, 0.2)" }}
-    >
+    <div className={styles.quizWrapper}>
       <QuizInfoEditBtn
         isCreator={isCreator}
         collId={collId}
@@ -42,6 +37,6 @@ export default function Quiz({
         totalAttempts={quizElement?.totalAttempts!}
         totalCorrectAttempts={quizElement?.totalCorrectAttempts!}
       />
-    </motion.div>
+    </div>
   );
 }

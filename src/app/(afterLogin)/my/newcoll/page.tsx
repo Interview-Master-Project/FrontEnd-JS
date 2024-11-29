@@ -44,7 +44,7 @@ export default function Page() {
     changeImage(null);
     changeDescription("");
     changeAccess("PUBLIC");
-    changeCategoryId(null);
+    changeCategoryId("1");
   }, [
     changeAccess,
     changeCategoryId,
@@ -291,9 +291,11 @@ export default function Page() {
         <ContainedButton type="submit" disabled={isLoading}>
           {isLoading ? "저장 중..." : "저장 및 추가"}
         </ContainedButton>
-        <OutlinedButton variant="red" type="button">
-          <Link href="/my">취소</Link>
-        </OutlinedButton>
+        <Link href="/my">
+          <OutlinedButton variant="red" type="button">
+            취소
+          </OutlinedButton>
+        </Link>
       </div>
     </form>
   );

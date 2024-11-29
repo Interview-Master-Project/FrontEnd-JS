@@ -64,7 +64,7 @@ export default function Page() {
       changeName(prevData?.getCollection?.name as string);
       changeDescription(prevData?.getCollection?.description as string);
       changeAccess(prevData?.getCollection?.access as typeof access);
-      changeCategoryId(prevData?.getCollection?.category?.name as string);
+      changeCategoryId(prevData?.getCollection?.category?.id as string);
     }
   }, [prevData]);
 
