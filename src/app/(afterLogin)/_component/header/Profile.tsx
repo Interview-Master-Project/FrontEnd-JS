@@ -13,27 +13,31 @@ import styles from "./profile.module.scss";
 
 export default function Profile() {
   const client = useApolloClient();
-  const { data, loading } = useClientFetch<IData>(ME, {
-    onCompleted: (data) => {
-      if (!data.me.imgUrl) {
-        client.cache.readQuery({ query: ME });
+  const { data, loading } = useClientFetch<IData>(
+    ME,
+    {
+      onCompleted: (data) => {
+        if (!data.me.imgUrl) {
+          client.cache.readQuery({ query: ME });
 
-        const avatar = createAvatar(thumbs, {
-          seed: ((+data.me.id / 5) + 1).toString(),
-        }).toDataUriSync();
+          const avatar = createAvatar(thumbs, {
+            seed: (+data.me.id / 5 + 1).toString(),
+          }).toDataUriSync();
 
-        client.cache.writeQuery<IData>({
-          query: ME,
-          data: {
-            me: {
-              ...data.me,
-              imgUrl: avatar,
+          client.cache.writeQuery<IData>({
+            query: ME,
+            data: {
+              me: {
+                ...data.me,
+                imgUrl: avatar,
+              },
             },
-          },
-        });
-      }
-    }
-  }, true);
+          });
+        }
+      },
+    },
+    true
+  );
 
   const [isOpen, setIsOpen] = useState(false);
   const { handleLogout } = useLogout();
@@ -73,17 +77,17 @@ export default function Profile() {
       <Dropdown.Menu isOpen={isOpen} containerWidth={120} positionTop={60}>
         {data ? (
           <>
-            <Dropdown.Item>
-              <Link href="/my">마이페이지</Link>
-            </Dropdown.Item>
-            <Dropdown.Item variant="alert">
-              <div onClick={handleLogout}>로그아웃</div>
-            </Dropdown.Item>
+            <Link href="/my">
+              <Dropdown.Item>마이페이지</Dropdown.Item>
+            </Link>
+            <div onClick={handleLogout}>
+              <Dropdown.Item variant="alert">로그아웃</Dropdown.Item>
+            </div>
           </>
         ) : (
-          <Dropdown.Item>
-            <Link href="/login">로그인</Link>
-          </Dropdown.Item>
+          <Link href="/login">
+            <Dropdown.Item>로그인</Dropdown.Item>
+          </Link>
         )}
       </Dropdown.Menu>
     </Dropdown>
