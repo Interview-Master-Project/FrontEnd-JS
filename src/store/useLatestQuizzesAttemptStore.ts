@@ -1,25 +1,36 @@
 import { create } from "zustand";
-import { IQuizzesAttempts } from "@/graphql/query/get-latest-quizzes-attempt";
+import type { QuizResultInput } from "@/__api__/types";
 
-interface ILatestQuizzesAttempt {
-  quizzes: IQuizzesAttempts[] | [];
-  setQuizzes: (getData: IQuizzesAttempts[]) => void;
-  addQuizzes: (solved: IQuizzesAttempts) => void;
+interface State {
+  quizResults: QuizResultInput[] | [];
 }
 
-// quizzes의 상태는 배열
-// 예) [
-// { quiz: { id: "12" }, isCorrect: false },
-// { quiz: { id: "123" }, isCorrect: true },
-// ]
-export const useLatestQuizzesAttemptStore = create<ILatestQuizzesAttempt>(
-  (set) => ({
-    quizzes: [],
-    setQuizzes: (newData) => {
-      set(() => ({ quizzes: newData }));
+interface Actions {
+  add: (newQuizResult: QuizResultInput) => void;
+  delete: (quizId: string) => void;
+  reset: () => void;
+}
+
+// 상태 초기화
+const initializeState: State = {
+  quizResults: [],
+};
+
+export const useLatestQuizzesAttemptStore = create<State & Actions>()(
+  (set, get) => ({
+    ...initializeState,
+    add: (newQuizResult) => {
+      set({ quizResults: [...get().quizResults, newQuizResult] });
     },
-    addQuizzes: (solved) => {
-      set((state) => ({ quizzes: [...state.quizzes, solved] }));
+    delete: (quizId) => {
+      set({
+        quizResults: get().quizResults.filter(
+          (result) => result.quizId !== quizId
+        ),
+      });
+    },
+    reset: () => {
+      set(initializeState);
     },
   })
 );

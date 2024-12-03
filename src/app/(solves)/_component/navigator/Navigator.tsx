@@ -23,7 +23,7 @@ export default function Navigator({
   quizId,
   userCollectionAttemptId,
 }: Props) {
-  const { quizzes } = useLatestQuizzesAttemptStore();
+  const { quizResults: quizzes } = useLatestQuizzesAttemptStore();
   const router = useRouter();
   const pathname = usePathname();
 

@@ -12,7 +12,7 @@ type Props = {
 };
 
 export default function Header({ data, collId, quizId }: Props) {
-  const { quizzes } = useLatestQuizzesAttemptStore();
+  const { quizResults: quizzes } = useLatestQuizzesAttemptStore();
 
   const targetQuiz = data.getQuizzesWithAttemptByCollectionId.find(
     ({ quiz }) => quiz?.id === quizId

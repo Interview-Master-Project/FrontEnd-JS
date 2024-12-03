@@ -14,14 +14,14 @@ type Props = {
 };
 
 export default function List({ quizzes, onClickList }: Props) {
-  const { quizzes: solvedQuizzes } = useLatestQuizzesAttemptStore();
+  const { quizResults: solvedQuizzes } = useLatestQuizzesAttemptStore();
 
   return (
     <ol className={styles.listWrapper}>
       {quizzes.map(({ quiz }, idx) => {
         let isCorrect = solvedQuizzes.find(
-          (el) => el.quiz.id === quiz?.id
-        )?.isCorrect;
+          (el) => el.quizId === quiz?.id
+        )?.correct;
 
         return (
           <li key={quiz?.id} onClick={() => onClickList(idx)}>

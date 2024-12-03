@@ -15,6 +15,7 @@ type Props = {
 export default async function Page({ params }: Props) {
   const { collId: collectionId } = params;
 
+  // 컬렉션의 id 리스트 조회
   const { data } = await fetchQueryData<GetQuizzesOnlyIdQuery>({
     query: GET_QUIZZES_ONLY_ID,
     variables: {

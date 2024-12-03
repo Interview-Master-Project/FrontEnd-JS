@@ -489,7 +489,7 @@ export type GetLatestQuizzesAttemptQueryVariables = Exact<{
 }>;
 
 
-export type GetLatestQuizzesAttemptQuery = { __typename?: 'Query', getLatestQuizzesAttempt: Array<{ __typename?: 'UserQuizAttempt', isCorrect: boolean, quiz: { __typename?: 'Quiz', id?: string | null } }> };
+export type GetLatestQuizzesAttemptQuery = { __typename?: 'Query', getLatestQuizzesAttempt: Array<{ __typename?: 'UserQuizAttempt', isCorrect: boolean, answeredAt: string, quiz: { __typename?: 'Quiz', id?: string | null } }> };
 
 export type GetQuizGardenQueryVariables = Exact<{
   endDate: Scalars['String']['input'];

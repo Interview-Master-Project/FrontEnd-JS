@@ -7,19 +7,13 @@ import ContainedButton from "@/app/_component/button/ContainedButton";
 import OutlinedButton from "@/app/_component/button/OutlinedButton";
 import InfoModal from "@/app/_component/InfoModal";
 import { useClientFetch } from "@/hooks/useClientFetch";
-import {
-  GET_LATEST_QUIZZES_ATTEMPT,
-  IData,
-} from "@/graphql/query/get-latest-quizzes-attempt";
+import { GET_LATEST_QUIZZES_ATTEMPT } from "@/graphql/query/get-latest-quizzes-attempt";
 import { useLatestQuizzesAttemptStore } from "@/store/useLatestQuizzesAttemptStore";
-// import {
-//   GET_QUIZZES_ONLY_ID,
-//   IData as IQuizIdData,
-// } from "@/graphql/query/get-quizzes-by-collection-id";
 import { GET_QUIZZES_ONLY_ID } from "@/graphql/query/get-quizzes-only-id";
 import {
+  GetLatestQuizzesAttemptQuery,
   GetQuizzesOnlyIdQuery,
-  GetQuizzesOnlyIdQueryVariables as IQuizIdData,
+  QuizResultInput,
 } from "@/__api__/types";
 
 type Props = {
@@ -29,7 +23,7 @@ type Props = {
 
 export default function Guess({ collId, userCollectionAttemptId }: Props) {
   const router = useRouter();
-  const { setQuizzes } = useLatestQuizzesAttemptStore();
+  const { add, reset } = useLatestQuizzesAttemptStore();
 
   // 컴포넌트가 렌더링될 때 훅을 호출
   const { mutate: deleteRecent } = useClientMutation(
@@ -40,11 +34,12 @@ export default function Guess({ collId, userCollectionAttemptId }: Props) {
     true
   );
 
-  const { data: latestQuizzesAttemptData } = useClientFetch<IData>(
-    GET_LATEST_QUIZZES_ATTEMPT,
-    { variables: { userCollectionAttemptId }, fetchPolicy: "no-cache" },
-    true
-  );
+  const { data: latestQuizzesAttemptData } =
+    useClientFetch<GetLatestQuizzesAttemptQuery>(
+      GET_LATEST_QUIZZES_ATTEMPT,
+      { variables: { userCollectionAttemptId }, fetchPolicy: "no-cache" },
+      true
+    );
 
   const { data } = useClientFetch<GetQuizzesOnlyIdQuery>(
     GET_QUIZZES_ONLY_ID,
@@ -59,9 +54,18 @@ export default function Guess({ collId, userCollectionAttemptId }: Props) {
   const handleClickContinue = async (selectContinue: boolean) => {
     if (!selectContinue) {
       await deleteRecent();
+      reset();
       window.location.assign(`/collections/${collId}/quizzes/${firstQuizId}`);
     } else {
-      setQuizzes(latestQuizzesAttemptData?.getLatestQuizzesAttempt ?? []);
+      latestQuizzesAttemptData?.getLatestQuizzesAttempt.forEach(
+        ({ quiz, isCorrect, answeredAt }) => {
+          add({
+            quizId: quiz.id as string,
+            correct: isCorrect,
+            answeredAt,
+          });
+        }
+      );
       router.push(`/collections/${collId}/quizzes/${firstQuizId}`);
     }
   };

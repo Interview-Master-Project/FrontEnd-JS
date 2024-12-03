@@ -10,6 +10,7 @@ import {
   IoMdArrowDropup as UpIcon,
 } from "react-icons/io";
 import { useLatestQuizzesAttemptStore } from "@/store/useLatestQuizzesAttemptStore";
+import type { QuizResultInput } from "@/__api__/types";
 import { useClientMutation } from "@/hooks/useClientMutation";
 import { SOLVE_QUIZZES } from "@/graphql/mutation/solve-quizzes";
 import ContainedButton from "@/app/_component/button/ContainedButton";
@@ -34,9 +35,13 @@ export default function SolveZone({
   quizId,
   userCollectionAttemptId,
 }: Props) {
-  const { quizzes, addQuizzes } = useLatestQuizzesAttemptStore();
+  const { quizResults, add } = useLatestQuizzesAttemptStore();
+
+  // TEST
+  console.log(quizResults);
+
   const [clicked, setClicked] = useState(
-    quizzes.find(({ quiz }) => quiz.id === quizId)?.isCorrect !== undefined
+    quizResults.find((quiz) => quiz.quizId === quizId)?.correct !== undefined
   );
 
   const [isOpen, setIsOpen] = useState(false);
@@ -65,20 +70,24 @@ export default function SolveZone({
 
   const { mutate: solvedMutate } = useClientMutation(SOLVE_QUIZZES, {}, true);
 
-  const handleCorrectCnt = async (isCorrect: boolean) => {
-    const newCorrectElement = { quiz: { id: quizId }, isCorrect };
-    addQuizzes(newCorrectElement);
+  const handleCorrectCnt = async (correct: boolean) => {
+    const newQuizResults: QuizResultInput = {
+      quizId,
+      correct,
+      answeredAt: dayjs().tz("Asia/Seoul").format("YYYY-MM-DDTHH:mm:ssZ"),
+    };
+
+    // TEST
+    console.log(newQuizResults);
+
+    add(newQuizResults);
 
     setClicked(true);
 
     // mutation 실행
     await solvedMutate({
       variables: {
-        quizResults: {
-          quizId: newCorrectElement.quiz.id,
-          correct: newCorrectElement.isCorrect,
-          answeredAt: dayjs().tz("Asia/Seoul").format("YYYY-MM-DDTHH:mm:ssZ"),
-        },
+        quizResults: newQuizResults,
         userCollectionAttemptId,
       },
       onCompleted: () => {
