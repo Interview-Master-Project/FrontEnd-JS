@@ -33,7 +33,7 @@ export default function Quiz({
         <p className={styles.quizQuestion}>{quizElement?.quiz?.question}</p>
       </div>
       <QuizProgress
-        updatedAt={quizElement.quiz?.updatedAt!}
+        recentAnswerAt={quizElement.recentAnswerAt!}
         totalAttempts={quizElement?.totalAttempts!}
         totalCorrectAttempts={quizElement?.totalCorrectAttempts!}
       />

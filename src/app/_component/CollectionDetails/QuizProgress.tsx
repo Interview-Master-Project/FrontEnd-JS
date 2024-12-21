@@ -10,13 +10,13 @@ dayjs.extend(relativeTime);
 dayjs.locale("ko");
 
 type Props = {
-  updatedAt: string;
+  recentAnswerAt: string;
   totalAttempts: number;
   totalCorrectAttempts: number;
 };
 
 export default function QuizProgress({
-  updatedAt,
+  recentAnswerAt,
   totalAttempts,
   totalCorrectAttempts,
 }: Props) {
@@ -37,7 +37,9 @@ export default function QuizProgress({
       ) : (
         <span>풀이 기록이 없어요!</span>
       )}
-      <span>{`Updated ${dayjs(updatedAt).fromNow()}`}</span>
+      {recentAnswerAt && (
+        <span>{`Updated ${dayjs(recentAnswerAt).fromNow()}`}</span>
+      )}
     </div>
   );
 }
