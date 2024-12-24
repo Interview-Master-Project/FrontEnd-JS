@@ -38,12 +38,9 @@ export default function MyAccount() {
             <EditIcon />
           </Dropdown.Active>
           <Dropdown.Menu isOpen={isDropdownOpen} containerWidth={160}>
-            <Dropdown.Item>
-              <Link href="/my/edit">정보 수정</Link>
-            </Dropdown.Item>
-            <Dropdown.Item variant="alert">
-              <div onClick={handleLogout}>로그아웃</div>
-            </Dropdown.Item>
+            <div onClick={handleLogout}>
+              <Dropdown.Item variant="alert">로그아웃</Dropdown.Item>
+            </div>
           </Dropdown.Menu>
         </Dropdown>
       </div>

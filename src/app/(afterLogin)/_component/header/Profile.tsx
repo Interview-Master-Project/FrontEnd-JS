@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import Link from "next/link";
@@ -77,8 +78,8 @@ export default function Profile() {
       <Dropdown.Menu isOpen={isOpen} containerWidth={120} positionTop={60}>
         {data ? (
           <>
-            <Link href="/my">
-              <Dropdown.Item>마이페이지</Dropdown.Item>
+            <Link href="/my/edit">
+              <Dropdown.Item>내 정보 수정</Dropdown.Item>
             </Link>
             <div onClick={handleLogout}>
               <Dropdown.Item variant="alert">로그아웃</Dropdown.Item>

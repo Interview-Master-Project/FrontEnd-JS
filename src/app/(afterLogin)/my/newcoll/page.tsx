@@ -111,7 +111,7 @@ export default function Page() {
     onError: (error) => console.error(error),
   });
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const formData = new FormData();
@@ -122,7 +122,17 @@ export default function Page() {
       "categoryId",
       categoryId ?? (data?.getAllCategories[0].id as string)
     );
-    if (image) formData.append("image", image);
+    if (image) {
+      formData.append("image", image);
+    } else {
+      // 기본 이미지를 File 객체로 변환하여 추가
+      const response = await fetch("/default_image.png");
+      const blob = await response.blob();
+      const defaultImageFile = new File([blob], "default_image.png", {
+        type: "image/png",
+      });
+      formData.append("image", defaultImageFile);
+    }
 
     handleSubmit(formData);
   };
