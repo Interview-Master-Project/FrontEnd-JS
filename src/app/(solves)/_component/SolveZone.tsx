@@ -88,6 +88,11 @@ export default function SolveZone({
     });
   };
 
+  const handleReset = () => {
+    // click된 상태를 해제
+    // zustand 상태에서 해당 데이터 filter 후 삭제
+  };
+
   return (
     <main className={styles.solveZoneWrapper}>
       <section>
@@ -135,6 +140,13 @@ export default function SolveZone({
           >
             틀렸어요 {inCorrectCnt}
           </OutlinedButton>
+          <span
+            className={styles.resetBtn}
+            hidden={!clicked}
+            onClick={() => {}}
+          >
+            선택 초기화
+          </span>
         </div>
       </section>
     </main>

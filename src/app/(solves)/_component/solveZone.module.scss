@@ -93,4 +93,16 @@
   display: flex;
   justify-content: center;
   gap: 20px;
+
+  position: relative;
+}
+
+.resetBtn {
+  position: absolute;
+
+  top: 33%;
+  right: 15%;
+
+  color: var(--warning);
+  cursor: pointer;
 }
