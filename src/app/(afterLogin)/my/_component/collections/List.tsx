@@ -92,10 +92,10 @@ export default function List({ data, sort, offset }: Props) {
           <motion.div
             key={collection.id}
             whileHover={{ backgroundColor: "rgba(30, 162, 181, 0.2)" }}
-            whileTap={{
-              scale: 0.9,
-              backgroundColor: "rgba(25, 140, 160, 0.2)",
-            }}
+            // whileTap={{
+            //   scale: 0.9,
+            //   backgroundColor: "rgba(25, 140, 160, 0.2)",
+            // }}
           >
             <Link
               href={`/details/collections/${collection.id}`}
