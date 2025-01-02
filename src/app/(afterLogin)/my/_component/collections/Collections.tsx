@@ -4,16 +4,14 @@ import Link from "next/link";
 import ContainedButton from "@/app/_component/button/ContainedButton";
 import { useClientFetch } from "@/hooks/useClientFetch";
 import { MY_COLLECTIONS, IData } from "@/graphql/query/my-collections";
+import { MyCollectionsQueryVariables } from "@/__api__/types";
 import List from "./List";
 import Navigator from "./Navigator";
 import Sort from "./Sort";
 import styles from "./collections.module.scss";
 
 type Props = {
-  searchParams: {
-    sort?: "LATEST" | "LOWEST_ACCURACY";
-    offset?: string;
-  };
+  searchParams: MyCollectionsQueryVariables;
 };
 
 export default function Collections({ searchParams }: Props) {
@@ -56,7 +54,7 @@ export default function Collections({ searchParams }: Props) {
         </div>
         <List data={data!} sort={sort} offset={offset} />
       </div>
-      <Navigator pageInfo={data?.myCollections.pageInfo!} />
+      <Navigator sort={sort!} pageInfo={data?.myCollections.pageInfo!} />
     </div>
   );
 }

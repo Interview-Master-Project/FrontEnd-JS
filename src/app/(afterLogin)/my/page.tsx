@@ -1,14 +1,12 @@
 import MyAccount from "./_component/MyAccount";
 import MyLog from "./_component/dashboard/MyLog";
 import Collections from "./_component/collections/Collections";
+import { MyCollectionsQueryVariables } from "@/__api__/types";
 import Histories from "./_component/histories/Histories";
 import styles from "./page.module.scss";
 
 type Props = {
-  searchParams: {
-    sort?: "LATEST" | "LOWEST_ACCURACY";
-    offset?: string;
-  };
+  searchParams: MyCollectionsQueryVariables;
 };
 
 export default function Page({ searchParams }: Props) {
