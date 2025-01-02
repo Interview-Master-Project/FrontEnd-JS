@@ -2,26 +2,26 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { IData } from "@/graphql/query/my-history";
 import { motion } from "framer-motion";
 import clsx from "clsx";
 import { MdOutlinePublic as PublicIcon } from "react-icons/md";
 import { BsIncognito as PrivateIcon } from "react-icons/bs";
-import { FaRegHeart as OutlinedHeart } from "react-icons/fa";
+// import { FaRegHeart as OutlinedHeart } from "react-icons/fa";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
 import styles from "./list.module.scss";
+import { MyHistoryQuery } from "@/__api__/types";
 
 dayjs.extend(relativeTime);
 dayjs.locale("ko");
 
-export default function List({ data }: { data: IData }) {
+export default function List({ data }: { data: MyHistoryQuery }) {
   return (
     <>
-      {data?.myHistory.collectionsWithAttempt.map(({ collection }) => (
+      {data?.myHistory?.collectionsWithAttempt.map(({ collection }) => (
         <motion.div
-          key={collection.id}
+          key={collection?.id}
           whileHover={{ backgroundColor: "rgba(30, 162, 181, 0.2)" }}
           whileTap={{
             scale: 0.9,
@@ -29,32 +29,32 @@ export default function List({ data }: { data: IData }) {
           }}
         >
           <Link
-            href={`/details/collections/${collection.id}`}
+            href={`/details/collections/${collection?.id}`}
             className={styles.list}
           >
             <div
               className={clsx(styles.accessLabel, {
-                [styles.accessLabel_public]: collection.access === "PUBLIC",
-                [styles.accessLabel_private]: collection.access === "PRIVATE",
+                [styles.accessLabel_public]: collection?.access === "PUBLIC",
+                [styles.accessLabel_private]: collection?.access === "PRIVATE",
               })}
             >
-              {collection.access === "PUBLIC" ? (
+              {collection?.access === "PUBLIC" ? (
                 <PublicIcon />
               ) : (
                 <PrivateIcon />
               )}
             </div>
             <Image
-              src={collection.imgUrl as string}
-              alt={`${collection.name} 이미지`}
+              src={collection?.imgUrl as string}
+              alt={`${collection?.name} 이미지`}
               width={80}
               height={80}
               style={{ objectFit: "cover" }}
               priority
             />
             <div>
-              <h3>{collection.name}</h3>
-              <span>{dayjs(collection.updatedAt).fromNow()}</span>
+              <h3>{collection?.name}</h3>
+              <span>{dayjs(collection?.updatedAt).fromNow()}</span>
             </div>
             {/* <div className={styles.likesLabel}>
               <OutlinedHeart />

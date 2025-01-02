@@ -1,27 +1,5 @@
 import { gql } from "@apollo/client";
 
-interface ICollection {
-  id: string;
-  name: string;
-  imgUrl: string;
-  description: string;
-  updatedAt: string;
-  access: "PUBLIC" | "PRIVATE";
-  likes: number;
-}
-
-interface ICollectionsWithAttempt {
-  collection: ICollection;
-}
-
-interface IMyHistory {
-  collectionsWithAttempt: ICollectionsWithAttempt[];
-}
-
-export interface IData {
-  myHistory: IMyHistory;
-}
-
 /** 유저의 히스토리 목록
  * (Arguments) offset
  * (Arguments) pageSize
