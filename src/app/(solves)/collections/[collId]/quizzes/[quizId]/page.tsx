@@ -43,11 +43,7 @@ export default async function Page({ params }: Props) {
       <Sidebar data={data} />
       <ContentSection>
         <Header data={data} collId={collId} quizId={quizId} />
-        <SolveZone
-          collId={collId}
-          quizId={quizId}
-          userCollectionAttemptId={userCollectionAttemptId}
-        />
+        <SolveZone collId={collId} quizId={quizId} />
         <Navigator
           data={data}
           collId={collId}

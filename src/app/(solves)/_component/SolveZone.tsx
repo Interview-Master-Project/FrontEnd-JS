@@ -10,8 +10,6 @@ import {
   IoMdArrowDropup as UpIcon,
 } from "react-icons/io";
 import { useLatestQuizzesAttemptStore } from "@/store/useLatestQuizzesAttemptStore";
-// import { useClientMutation } from "@/hooks/useClientMutation";
-// import { SOLVE_QUIZZES } from "@/graphql/mutation/solve-quizzes";
 import ContainedButton from "@/app/_component/button/ContainedButton";
 import OutlinedButton from "@/app/_component/button/OutlinedButton";
 import { useClientFetch } from "@/hooks/useClientFetch";
@@ -27,14 +25,9 @@ dayjs.extend(timezone);
 type Props = {
   collId: string;
   quizId: string;
-  userCollectionAttemptId: string;
 };
 
-export default function SolveZone({
-  collId,
-  quizId,
-  userCollectionAttemptId,
-}: Props) {
+export default function SolveZone({ collId, quizId }: Props) {
   const { quizzes, addQuizzes, removeQuizzes } = useLatestQuizzesAttemptStore();
   const [clicked, setClicked] = useState(
     quizzes.find(({ quiz }) => quiz.id === quizId)?.isCorrect !== undefined
@@ -63,9 +56,6 @@ export default function SolveZone({
   const correctCnt = targetQuiz?.totalCorrectAttempts || 0;
   const inCorrectCnt =
     (targetQuiz?.totalAttempts || 0) - (targetQuiz?.totalCorrectAttempts || 0);
-
-  // const { mutate: solvedMutate } = useClientMutation(SOLVE_QUIZZES, {}, true);
-
   const { addLog, removeLog } = useSolveQuizLog();
 
   const handleCorrectCnt = (isCorrect: boolean) => {
@@ -79,22 +69,6 @@ export default function SolveZone({
       correct: newCorrectElement.isCorrect,
       answeredAt: dayjs().tz("Asia/Seoul").format("YYYY-MM-DDTHH:mm:ssZ"),
     });
-
-    // mutation 실행
-    // await solvedMutate({
-    //   variables: {
-    //     quizResults: {
-    //       quizId: newCorrectElement.quiz.id,
-    //       correct: newCorrectElement.isCorrect,
-    //       answeredAt: dayjs().tz("Asia/Seoul").format("YYYY-MM-DDTHH:mm:ssZ"),
-    //     },
-    //     userCollectionAttemptId,
-    //   },
-    //   onCompleted: () => {
-    //     // 쿼리 다시 가져오기
-    //     refetch();
-    //   },
-    // });
   };
 
   const handleReset = () => {

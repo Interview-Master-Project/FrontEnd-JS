@@ -6,9 +6,11 @@ import { GetQuizzesWithAttemptByCollectionIdQuery } from "@/__api__/types";
 import { useClientMutation } from "@/hooks/useClientMutation";
 import { FINISH_SOLVE_COLLECTION } from "@/graphql/mutation/finish-solve-collection";
 import { DELETE_RECENT_ATTEMPT } from "@/graphql/mutation/delete-recent-attempt";
+import { SOLVE_QUIZZES } from "@/graphql/mutation/solve-quizzes";
 import ContainedButton from "@/app/_component/button/ContainedButton";
 import OutlinedButton from "@/app/_component/button/OutlinedButton";
 import styles from "./navigator.module.scss";
+import { useSolveQuizLog } from "@/store/useSolveQuizLog";
 
 type Props = {
   data: GetQuizzesWithAttemptByCollectionIdQuery;
@@ -26,6 +28,9 @@ export default function Navigator({
   const { quizzes } = useLatestQuizzesAttemptStore();
   const router = useRouter();
   const pathname = usePathname();
+
+  const { mutate: solvedMutate } = useClientMutation(SOLVE_QUIZZES, {}, true);
+  const { quizLog, resetLog } = useSolveQuizLog();
 
   const quizLen = data.getQuizzesWithAttemptByCollectionId.length; // 퀴즈 개수
   const currQuizIdx = data.getQuizzesWithAttemptByCollectionId.findIndex(
@@ -55,7 +60,15 @@ export default function Navigator({
   // 문제를 모두 풀고 제출 버튼을 눌렀을 때
   const handleSubmit = async () => {
     try {
+      // 저장
+      await solvedMutate({
+        variables: {
+          quizResults: quizLog,
+          userCollectionAttemptId,
+        },
+      });
       await finishMutate();
+      resetLog(); // 상태 초기화
       alert("모든 풀이 결과를 제출 완료했어요!");
       router.replace(`/details/collections/${collId}`);
     } catch (err) {
@@ -77,12 +90,20 @@ export default function Navigator({
     const result = confirm("지금까지의 결과를 임시 저장할까요?");
     if (result) {
       // 저장
+      await solvedMutate({
+        variables: {
+          quizResults: quizLog,
+          userCollectionAttemptId,
+        },
+      });
       router.replace(`/details/collections/${collId}`);
     } else {
       // 저장 안함
       await deleteMutate();
       router.replace(`/details/collections/${collId}`);
     }
+
+    resetLog(); // 상태 초기화
   };
 
   return (
