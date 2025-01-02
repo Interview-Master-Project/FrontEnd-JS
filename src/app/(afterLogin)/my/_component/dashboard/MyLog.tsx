@@ -6,7 +6,7 @@ import { refineQuizGardenData } from "../../_lib/refineQuizGardenData";
 import styles from "./myLog.module.scss";
 
 const chartOptions = {
-  title: "내 로그",
+  // title: "내 로그",
   calendar: {
     yearLabel: {
       fontSize: 48,
@@ -33,7 +33,7 @@ export default function MyLog() {
           chartVersion="51" // warning 제거
           chartType="Calendar"
           width="100%"
-          height="300px"
+          height="350px"
           data={refineQuizGardenData(quizGardenData!)}
           options={chartOptions}
           className={styles.chart}

@@ -1,8 +1,10 @@
 @import "../../../../../styles/card";
 
 .chartWrapper {
-  @include card;
-  max-width: 700px;
+  // @include card;
+  // max-width: 700px;
+  background-color: var(--fg);
+  border-radius: 10px;
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
@@ -14,6 +16,6 @@
   width: 1000px;
 }
 
-.chart {
-  height: inherit;
-}
+// .chart {
+//   height: inherit;
+// }

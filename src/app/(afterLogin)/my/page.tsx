@@ -13,7 +13,7 @@ export default function Page({ searchParams }: Props) {
   return (
     <div className={styles.mypageWrapper}>
       <div className={styles.rowContentsWrapper}>
-        <MyAccount />
+        {/* <MyAccount /> */}
         <MyLog />
       </div>
       <div className={styles.rowContentsWrapper}>
