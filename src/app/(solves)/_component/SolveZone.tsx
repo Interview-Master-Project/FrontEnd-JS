@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useApolloClient } from "@apollo/client";
 import { GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID } from "@/graphql/query/get-quizzes-by-collection-id";
 import { GetQuizzesWithAttemptByCollectionIdQuery } from "@/__api__/types";
 import TextareaAutosize from "react-textarea-autosize";
@@ -13,11 +14,11 @@ import { useLatestQuizzesAttemptStore } from "@/store/useLatestQuizzesAttemptSto
 import ContainedButton from "@/app/_component/button/ContainedButton";
 import OutlinedButton from "@/app/_component/button/OutlinedButton";
 import { useClientFetch } from "@/hooks/useClientFetch";
+import { useSolveQuizLog } from "@/store/useSolveQuizLog";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import styles from "./solveZone.module.scss";
-import { useSolveQuizLog } from "@/store/useSolveQuizLog";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -28,6 +29,7 @@ type Props = {
 };
 
 export default function SolveZone({ collId, quizId }: Props) {
+  const client = useApolloClient();
   const { quizzes, addQuizzes, removeQuizzes } = useLatestQuizzesAttemptStore();
   const [clicked, setClicked] = useState(
     quizzes.find(({ quiz }) => quiz.id === quizId)?.isCorrect !== undefined
@@ -64,6 +66,41 @@ export default function SolveZone({ collId, quizId }: Props) {
 
     setClicked(true);
 
+    // 맞은 개수 / 틀린 개수 UI 업데이트
+    client.cache.updateQuery(
+      {
+        query: GET_QUIZZES_WITH_ATTEMPT_BY_COLLECTION_ID,
+        variables: { collectionId: collId },
+      },
+      (data) => {
+        if (!data) return data;
+
+        // 특정 quizId에 해당하는 데이터 수정
+        const updatedQuizzes = data.getQuizzesWithAttemptByCollectionId.map(
+          (quizAttempt: any) => {
+            if (quizAttempt.quiz.id === quizId) {
+              return {
+                ...quizAttempt,
+                totalAttempts: quizAttempt.totalAttempts + 1,
+                totalCorrectAttempts: isCorrect
+                  ? quizAttempt.totalCorrectAttempts + 1
+                  : quizAttempt.totalCorrectAttempts,
+                recentAnswerAt: dayjs()
+                  .tz("Asia/Seoul")
+                  .format("YYYY-MM-DDTHH:mm:ssZ"),
+              };
+            }
+            return quizAttempt;
+          }
+        );
+
+        return {
+          ...data,
+          getQuizzesWithAttemptByCollectionId: updatedQuizzes,
+        };
+      }
+    );
+
     addLog({
       quizId: newCorrectElement.quiz.id,
       correct: newCorrectElement.isCorrect,
@@ -74,6 +111,10 @@ export default function SolveZone({ collId, quizId }: Props) {
   const handleReset = () => {
     removeQuizzes(quizId);
     setClicked(false);
+
+    // 카운트에 대한 UI 업데이트
+    refetch();
+
     removeLog(quizId);
   };
 
