@@ -10,8 +10,8 @@ import {
   IoMdArrowDropup as UpIcon,
 } from "react-icons/io";
 import { useLatestQuizzesAttemptStore } from "@/store/useLatestQuizzesAttemptStore";
-import { useClientMutation } from "@/hooks/useClientMutation";
-import { SOLVE_QUIZZES } from "@/graphql/mutation/solve-quizzes";
+// import { useClientMutation } from "@/hooks/useClientMutation";
+// import { SOLVE_QUIZZES } from "@/graphql/mutation/solve-quizzes";
 import ContainedButton from "@/app/_component/button/ContainedButton";
 import OutlinedButton from "@/app/_component/button/OutlinedButton";
 import { useClientFetch } from "@/hooks/useClientFetch";
@@ -19,6 +19,7 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import styles from "./solveZone.module.scss";
+import { useSolveQuizLog } from "@/store/useSolveQuizLog";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -34,7 +35,7 @@ export default function SolveZone({
   quizId,
   userCollectionAttemptId,
 }: Props) {
-  const { quizzes, addQuizzes } = useLatestQuizzesAttemptStore();
+  const { quizzes, addQuizzes, removeQuizzes } = useLatestQuizzesAttemptStore();
   const [clicked, setClicked] = useState(
     quizzes.find(({ quiz }) => quiz.id === quizId)?.isCorrect !== undefined
   );
@@ -63,34 +64,43 @@ export default function SolveZone({
   const inCorrectCnt =
     (targetQuiz?.totalAttempts || 0) - (targetQuiz?.totalCorrectAttempts || 0);
 
-  const { mutate: solvedMutate } = useClientMutation(SOLVE_QUIZZES, {}, true);
+  // const { mutate: solvedMutate } = useClientMutation(SOLVE_QUIZZES, {}, true);
 
-  const handleCorrectCnt = async (isCorrect: boolean) => {
+  const { addLog, removeLog } = useSolveQuizLog();
+
+  const handleCorrectCnt = (isCorrect: boolean) => {
     const newCorrectElement = { quiz: { id: quizId }, isCorrect };
     addQuizzes(newCorrectElement);
 
     setClicked(true);
 
-    // mutation 실행
-    await solvedMutate({
-      variables: {
-        quizResults: {
-          quizId: newCorrectElement.quiz.id,
-          correct: newCorrectElement.isCorrect,
-          answeredAt: dayjs().tz("Asia/Seoul").format("YYYY-MM-DDTHH:mm:ssZ"),
-        },
-        userCollectionAttemptId,
-      },
-      onCompleted: () => {
-        // 쿼리 다시 가져오기
-        refetch();
-      },
+    addLog({
+      quizId: newCorrectElement.quiz.id,
+      correct: newCorrectElement.isCorrect,
+      answeredAt: dayjs().tz("Asia/Seoul").format("YYYY-MM-DDTHH:mm:ssZ"),
     });
+
+    // mutation 실행
+    // await solvedMutate({
+    //   variables: {
+    //     quizResults: {
+    //       quizId: newCorrectElement.quiz.id,
+    //       correct: newCorrectElement.isCorrect,
+    //       answeredAt: dayjs().tz("Asia/Seoul").format("YYYY-MM-DDTHH:mm:ssZ"),
+    //     },
+    //     userCollectionAttemptId,
+    //   },
+    //   onCompleted: () => {
+    //     // 쿼리 다시 가져오기
+    //     refetch();
+    //   },
+    // });
   };
 
   const handleReset = () => {
-    // click된 상태를 해제
-    // zustand 상태에서 해당 데이터 filter 후 삭제
+    removeQuizzes(quizId);
+    setClicked(false);
+    removeLog(quizId);
   };
 
   return (
@@ -143,7 +153,7 @@ export default function SolveZone({
           <span
             className={styles.resetBtn}
             hidden={!clicked}
-            onClick={() => {}}
+            onClick={handleReset}
           >
             선택 초기화
           </span>
